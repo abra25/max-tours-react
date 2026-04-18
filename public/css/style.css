@@ -15,6 +15,11 @@ body {
   line-height: 1.6;
 }
 
+.fab{
+  font-size: 1.6rem;
+  margin: 12px auto;
+}
+
 img {
   max-width: 100%;
   display: block;

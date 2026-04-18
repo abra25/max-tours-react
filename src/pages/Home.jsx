@@ -834,13 +834,13 @@ function Home() {
 
             <div className="social-links">
               <a
-                href="https://wa.me/255689840637"
+                href="https://wa.me/255617438758"
                 target="_blank"
                 rel="noreferrer"
                 className="social-link whatsapp-link"
                 aria-label="WhatsApp"
               >
-                <i data-lucide="message-circle"></i>
+                <i className="fab fa-whatsapp"></i>
               </a>
 
               <a
@@ -849,8 +849,8 @@ function Home() {
                 rel="noreferrer"
                 className="social-link facebook-link"
                 aria-label="Facebook"
-              >
-                <i data-lucide="thumbs-up"></i>
+  >
+                <i className="fab fa-facebook"></i>
               </a>
 
               <a
@@ -860,7 +860,7 @@ function Home() {
                 className="social-link instagram-link"
                 aria-label="Instagram"
               >
-                <i data-lucide="camera"></i>
+                <i className="fab fa-instagram"></i>
               </a>
 
               <a
@@ -870,9 +870,9 @@ function Home() {
                 className="social-link tiktok-link"
                 aria-label="TikTok"
               >
-                <i data-lucide="music-2"></i>
-              </a>
-            </div>
+              <i className="fab fa-tiktok"></i>
+  </a>
+</div>
           </div>
         </div>
       </section>

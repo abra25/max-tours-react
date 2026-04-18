@@ -509,6 +509,7 @@ tbody td {
 }
 
 .status-select {
+  width: 100%;
   min-width: 130px;
   border: 1px solid #ddcdbd;
   border-radius: 12px;
@@ -526,6 +527,17 @@ tbody td {
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.table-action-btn:hover {
+  filter: brightness(1.03);
 }
 
 .table-action-btn:disabled,
@@ -542,6 +554,11 @@ tbody td {
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
+  min-height: 42px;
+}
+
+.table-delete-btn:hover {
+  background: rgba(180, 35, 24, 0.16);
 }
 
 .booking-guest,
@@ -567,9 +584,15 @@ tbody td {
 .booking-actions-stack {
   display: grid;
   gap: 10px;
+  min-width: 170px;
 }
 
-.booking-row-actions,
+.booking-row-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
 .package-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;

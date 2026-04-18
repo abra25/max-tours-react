@@ -118,6 +118,27 @@ function Admin() {
     })
   }
 
+  const normalizePhoneForWhatsApp = (phone = '') => {
+    const digits = String(phone).replace(/\D/g, '')
+
+    if (!digits) return ''
+
+    if (digits.startsWith('255')) return digits
+    if (digits.startsWith('0')) return `255${digits.slice(1)}`
+    if (digits.startsWith('00')) return digits.slice(2)
+
+    return digits
+  }
+
+  const getBookingWhatsAppLink = (booking) => {
+    const phone = normalizePhoneForWhatsApp(booking?.phone)
+
+    if (!phone) return '#'
+
+    const text = `Hello ${booking?.full_name || ''}, this is Max Tour & Safari regarding your booking for ${booking?.package_name || 'your tour'}.`
+    return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`
+  }
+
   const slugify = (text = '') => {
     return String(text)
       .toLowerCase()
@@ -463,7 +484,7 @@ function Admin() {
         upsert: false,
       })
 
-    if (error) throw error
+      if (error) throw error
 
     const { data } = supabaseClient.storage
       .from('tour-images')
@@ -1125,6 +1146,18 @@ function Admin() {
                                 >
                                   Save
                                 </button>
+
+                                {normalizePhoneForWhatsApp(booking.phone) ? (
+                                  <a
+                                    href={getBookingWhatsAppLink(booking)}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="table-action-btn"
+                                  >
+                                    Start Chat
+                                  </a>
+                                ) : null}
+
                                 <button
                                   className="table-delete-btn"
                                   onClick={() => deleteBooking(booking.id)}
