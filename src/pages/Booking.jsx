@@ -50,7 +50,7 @@ function Booking() {
     email: '',
     phone: '',
     service_type: '',
-    package_name: '',
+    package_name: [],
     travel_date: '',
     pickup_location: '',
     adults: 1,
@@ -66,16 +66,9 @@ function Booking() {
     return [...items].sort((a, b) => a.title.localeCompare(b.title))
   }
 
-  const populatePackageOptions = (selectedType = '', selectedName = '') => {
+  const populatePackageOptions = (selectedType = '') => {
     if (!selectedType) {
       return [{ value: '', label: 'Select service type first' }]
-    }
-
-    if (selectedType === 'agent_application') {
-      return [
-        { value: '', label: 'Select application type' },
-        { value: 'Become an Agent Application', label: 'Become an Agent Application' },
-      ]
     }
 
     if (selectedType === 'general_inquiry') {
@@ -93,22 +86,15 @@ function Booking() {
       return [{ value: '', label: 'No items available for this type' }]
     }
 
-    return [
-      { value: '', label: 'Select a tour or package' },
-      ...filtered.map((item) => ({
-        value: item.title,
-        label: item.title,
-        packageId: item.id,
-        location: item.location || '',
-        selected: selectedName && selectedName === item.title,
-      })),
-    ]
+    return filtered.map((item) => ({
+      value: item.title,
+      label: item.title,
+      packageId: item.id,
+      location: item.location || '',
+    }))
   }
 
-  const packageOptions = populatePackageOptions(
-    formData.service_type,
-    formData.package_name
-  )
+  const packageOptions = populatePackageOptions(formData.service_type)
 
   const loadPackages = async () => {
     const typeFromUrl = searchParams.get('type') || ''
@@ -137,13 +123,13 @@ function Booking() {
       setFormData((prev) => ({
         ...prev,
         service_type: typeFromUrl,
-        package_name: packageFromUrl,
+        package_name: packageFromUrl ? [packageFromUrl] : [],
       }))
     }
   }
 
   const handleChange = (e) => {
-    const { id, value } = e.target
+    const { id, value, selectedOptions } = e.target
 
     const mapping = {
       fullName: 'full_name',
@@ -165,7 +151,17 @@ function Booking() {
       setFormData((prev) => ({
         ...prev,
         service_type: value,
-        package_name: '',
+        package_name: [],
+      }))
+      return
+    }
+
+    if (field === 'package_name') {
+      const values = Array.from(selectedOptions || []).map((option) => option.value).filter(Boolean)
+
+      setFormData((prev) => ({
+        ...prev,
+        package_name: values,
       }))
       return
     }
@@ -184,13 +180,17 @@ function Booking() {
 
     setFormStatus({ text: '', type: '' })
 
-    const selectedOption = packageOptions.find(
-      (option) => option.value === formData.package_name
+    const selectedOptions = packageOptions.filter((option) =>
+      formData.package_name.includes(option.value)
     )
 
     let packageId = null
-    if (packagesSource === 'supabase' && selectedOption?.packageId) {
-      packageId = Number(selectedOption.packageId)
+    if (
+      packagesSource === 'supabase' &&
+      selectedOptions.length === 1 &&
+      selectedOptions[0]?.packageId
+    ) {
+      packageId = Number(selectedOptions[0].packageId)
     }
 
     const payload = {
@@ -199,7 +199,7 @@ function Booking() {
       phone: formData.phone.trim(),
       service_type: formData.service_type,
       package_id: packageId,
-      package_name: formData.package_name,
+      package_name: formData.package_name.join(', '),
       travel_date: formData.travel_date || null,
       pickup_location: formData.pickup_location.trim() || null,
       adults: Number(formData.adults || 1),
@@ -212,7 +212,7 @@ function Booking() {
       !payload.email ||
       !payload.phone ||
       !payload.service_type ||
-      !payload.package_name
+      !formData.package_name.length
     ) {
       setFormStatus({
         text: 'Please complete the required fields before sending your booking request.',
@@ -240,7 +240,7 @@ function Booking() {
         email: '',
         phone: '',
         service_type: '',
-        package_name: '',
+        package_name: [],
         travel_date: '',
         pickup_location: '',
         adults: 1,
@@ -391,7 +391,6 @@ function Booking() {
                     <option value="holiday_package">Holiday Package</option>
                     <option value="visit_zanzibar">Visit Zanzibar</option>
                     <option value="visit_tanzania">Visit Tanzania</option>
-                    <option value="agent_application">Become an Agent</option>
                     <option value="general_inquiry">General Inquiry</option>
                   </select>
                 </div>
@@ -402,9 +401,11 @@ function Booking() {
                     id="packageName"
                     name="packageName"
                     required
+                    multiple
+                    size={Math.min(Math.max(packageOptions.length, 3), 8)}
                     value={formData.package_name}
                     onChange={handleChange}
-                    disabled={loadingPackages}
+                    disabled={loadingPackages || !formData.service_type}
                   >
                     {packageOptions.map((option, index) => (
                       <option key={`${option.value}-${index}`} value={option.value}>
@@ -412,6 +413,9 @@ function Booking() {
                       </option>
                     ))}
                   </select>
+                  <small className="field-help">
+                    Hold Ctrl (Windows) or Command (Mac) to select multiple tours/packages.
+                  </small>
                 </div>
 
                 <div className="form-group">
