@@ -71,7 +71,7 @@ function Gallery() {
           { image: img('c (153).jpeg'), alt: 'Stone Town view', caption: 'Stone Town View' },
           { image: img('c (175).jpeg'), alt: 'Spice tour', caption: 'Spice Tour' },
           { image: img('c (191).jpeg'), alt: 'Holiday experience', caption: 'Holiday Experience' },
-          { image: img('c (191) (1).jpeg'), alt: 'Holiday experience', caption: 'Holiday Moment' },
+          { image: img('c (192).jpeg'), alt: 'Island experience', caption: 'Prison Island' },
           { image: img('c (193).jpeg'), alt: 'Zanzibar overview', caption: 'Zanzibar Overview' },
           { image: img('c (204).jpeg'), alt: 'Spice farm experience', caption: 'Spice Farm' },
           { image: img('c (210).jpeg'), alt: 'Cooking and spice tour', caption: 'Cooking Tour' },
@@ -124,6 +124,7 @@ function Gallery() {
           { image: img('isl.jpeg'), alt: 'Island trip', caption: 'Island Trip' },
           { image: img('moment-1.jpg'), alt: 'Gallery moment', caption: 'Gallery Moment' },
           { image: img('why.jpeg'), alt: 'Why Zanzibar', caption: 'Why Zanzibar' },
+          { image: img('c (194).jpeg'), alt: 'Hourse Riding', caption: 'Beach riding' }
         ],
       },
     ],
