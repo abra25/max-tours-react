@@ -534,3 +534,47 @@ a {
 .footer-links a:hover {
   color: var(--primary);
 }
+
+.field-help {
+  display: block;
+  margin-top: 8px;
+  color: #6f6a64;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+#packageName[multiple] {
+  min-height: 180px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #fffdfb;
+  border: 1px solid #ddcdbd;
+  outline: none;
+  resize: vertical;
+}
+
+#packageName[multiple] option {
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+}
+
+#packageName[multiple] option:checked {
+  background: linear-gradient(135deg, #c68642, #8d5524);
+  color: #fff;
+}
+
+#packageName[multiple]:focus {
+  border-color: #c68642;
+  box-shadow: 0 0 0 4px rgba(198, 134, 66, 0.12);
+}
+
+@media (max-width: 640px) {
+  #packageName[multiple] {
+    min-height: 150px;
+  }
+
+  .field-help {
+    font-size: 0.8rem;
+  }
+}
