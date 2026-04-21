@@ -17,7 +17,8 @@ body {
 
 .fab{
   font-size: 1.6rem;
-  margin: 12px auto;
+  margin: 0px auto;
+  margin-bottom: 3px;
 }
 
 img {
