@@ -112,7 +112,7 @@ function VisitZanzibar() {
             </div>
 
             <div className="card">
-              <img src={img('c (177).jpeg')} alt="Safari Blue" />
+              <img src={img('c (93).jpeg')} alt="Safari Blue" />
               <h4>Safari Blue</h4>
               <p>Dhow cruise with snorkeling and seafood experience.</p>
             </div>
