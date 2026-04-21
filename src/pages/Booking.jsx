@@ -413,9 +413,25 @@ function Booking() {
                       </option>
                     ))}
                   </select>
+
                   <small className="field-help">
                     Hold Ctrl (Windows) or Command (Mac) to select multiple tours/packages.
                   </small>
+
+                  <div className="selected-packages">
+                    {formData.package_name.length > 0 && (
+                      <>
+                        <span className="selected-title">Selected Tours:</span>
+                        <div className="selected-list">
+                          {formData.package_name.map((pkg, index) => (
+                            <span key={index} className="selected-item">
+                              {pkg}
+                            </span>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
 
                 <div className="form-group">
