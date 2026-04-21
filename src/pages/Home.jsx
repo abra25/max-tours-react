@@ -378,34 +378,25 @@ function Home() {
           </div>
 
           <div className="about-text">
-            <h2>Chi Siamo — Benvenuti a Max Tour & Safari</h2>
+            <h2>Who We Are — Welcome to Max Tour & Safari</h2>
 
-            <p>
-              Benvenuti a <strong>Max Tour & Safari</strong>, dove ogni safari è una storia
-              unica che aspetta di essere scritta. Ti portiamo a scoprire la vera bellezza
-              delle attrazioni turistiche, delle culture locali e dei paesaggi mozzafiato
-              attraverso servizi professionali e safari personalizzati in base alle tue
-              esigenze.
-            </p>
+            <p>Welcome to <strong>Max Tour & Safari</strong>, where every safari is a unique story waiting to be written. We take you to discover the true beauty of tourist attractions, local cultures, and breathtaking landscapes through professional services and safaris customized to your needs.</p>
 
-            <p>
-              Con oltre 4 anni di esperienza nel settore turistico, offriamo esperienze
-              uniche, organizzate con attenzione, passione e professionalità.
-            </p>
+            <p>With over 4 years of experience in the tourism sector, we offer unique experiences, organized with care, passion, and professionalism.</p>
 
             <div className="about-feature-grid">
               <div className="about-feature-card">
-                <h3>I Nostri Servizi</h3>
+                <h3>Our Services</h3>
                 <ul className="about-feature-list">
-                  <li>Safari unici nella natura</li>
-                  <li>Tour storici e culturali</li>
-                  <li>Tour sull&apos;acqua</li>
-                  <li>Snorkeling, immersioni e crociere in barca</li>
-                  <li>Tour delle spezie</li>
-                  <li>Village Tour</li>
-                  <li>Sunset Experience</li>
-                  <li>Airport Transfers</li>
-                  <li>House Rentals</li>
+                  <li>Unique nature safaris</li>
+                  <li>Historical and cultural tours</li>
+                  <li>Water tours</li>
+                  <li>Snorkeling, diving, and boat cruises</li>
+                  <li>Spice tours</li>
+                  <li>Village tours</li>
+                  <li>Sunset experiences</li>
+                  <li>Airport transfers</li>
+                  <li>House rentals</li>
                 </ul>
               </div>
 
