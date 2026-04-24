@@ -261,7 +261,7 @@ function Booking() {
   }
 
   return (
-    <>
+    <div className="booking-page">
       <header className="site-header">
         <div className="wrapper nav-wrap">
           <Link to="/" className="brand">
@@ -575,7 +575,7 @@ function Booking() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
 

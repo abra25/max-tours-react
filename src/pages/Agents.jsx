@@ -125,7 +125,7 @@ function Agents() {
   }
 
   return (
-    <>
+    <div className="agents-page">
       <header className="site-header">
         <div className="wrapper nav-wrap">
           <Link to="/" className="brand">
@@ -375,7 +375,7 @@ function Agents() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
 

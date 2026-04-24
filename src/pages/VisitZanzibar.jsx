@@ -8,7 +8,7 @@ function VisitZanzibar() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <>
+    <div className="visit-zanzibar-page">
       <header className="site-header">
         <div className="wrapper nav-wrap">
           <Link to="/" className="brand">
@@ -167,7 +167,7 @@ function VisitZanzibar() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
 

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabaseClient } from '../lib/supabase'
+
 function Home() {
   const base = import.meta.env.BASE_URL
   const img = (file) => `${base}img/${file}`
@@ -162,8 +163,8 @@ function Home() {
 
   useEffect(() => {
     attractions.forEach((item) => {
-      const img = new Image()
-      img.src = item.image
+      const preloadImg = new Image()
+      preloadImg.src = item.image
     })
   }, [attractions])
 
@@ -307,7 +308,7 @@ function Home() {
   }
 
   return (
-    <>
+    <div className="home-page">
       <header className="site-header">
         <div className="wrapper nav-wrap">
           <a href="#home" className="brand">
@@ -840,7 +841,7 @@ function Home() {
                 rel="noreferrer"
                 className="social-link facebook-link"
                 aria-label="Facebook"
-  >
+              >
                 <i className="fab fa-facebook"></i>
               </a>
 
@@ -861,9 +862,9 @@ function Home() {
                 className="social-link tiktok-link"
                 aria-label="TikTok"
               >
-              <i className="fab fa-tiktok"></i>
-  </a>
-</div>
+                <i className="fab fa-tiktok"></i>
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -904,7 +905,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

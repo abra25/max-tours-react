@@ -21,10 +21,8 @@ function Faqs() {
 
           <nav className="main-nav">
             <Link to="/">Home</Link>
-            <Link to="/daily-tours">Day Tours</Link>
-            <Link to="/holiday-packages">Holiday Tours</Link>
-            <Link to="/agents">Agents</Link>
             <Link to="/terms">Terms</Link>
+            <Link to="/privacy">Privacy</Link>
           </nav>
         </div>
       </header>

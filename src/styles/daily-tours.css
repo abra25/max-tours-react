@@ -1,10 +1,18 @@
-* {
+.daily-tours-page * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-:root {
+.daily-tours-page {
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(198, 134, 66, 0.08), transparent 22%),
+    linear-gradient(180deg, #fff 0%, #fcfaf8 100%);
+  line-height: 1.6;
+}
+
+.daily-tours-page {
   --primary: #8d5524;
   --primary-dark: #6f3f16;
   --accent: #c68642;
@@ -21,58 +29,45 @@
   --radius: 22px;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  color: var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(198, 134, 66, 0.08), transparent 22%),
-    linear-gradient(180deg, #fff 0%, #fcfaf8 100%);
-  line-height: 1.6;
-}
-
 body.modal-open {
   overflow: hidden;
 }
 
-img {
+.daily-tours-page img {
   display: block;
   max-width: 100%;
 }
 
-button,
-a,
-input {
+.daily-tours-page button,
+.daily-tours-page a,
+.daily-tours-page input {
   font: inherit;
 }
 
-a {
+.daily-tours-page a {
   text-decoration: none;
 }
 
-button {
+.daily-tours-page button {
   cursor: pointer;
 }
 
-.wrapper {
+.daily-tours-page .wrapper {
   width: min(1200px, 92%);
   margin: 0 auto;
 }
 
 /* Header */
-.site-header {
-  background: rgba(141, 85, 36, 0.96);
+.daily-tours-page .site-header {
+  background: linear-gradient(90deg, #8d5524 0%, #c68642 100%);
   position: sticky;
   top: 0;
+  border: none;
   z-index: 999;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(10px);
 }
 
-.nav-wrap {
+.daily-tours-page .nav-wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,7 +76,7 @@ button {
   position: relative;
 }
 
-.brand {
+.daily-tours-page .brand {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -91,7 +86,7 @@ button {
   min-width: 0;
 }
 
-.brand img {
+.daily-tours-page .brand img {
   width: 46px;
   height: 46px;
   object-fit: cover;
@@ -100,17 +95,17 @@ button {
   border: 2px solid rgba(255, 255, 255, 0.25);
 }
 
-.brand span {
+.daily-tours-page .brand span {
   white-space: nowrap;
 }
 
-.main-nav {
+.daily-tours-page .main-nav {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.main-nav a {
+.daily-tours-page .main-nav a {
   color: #fff;
   padding: 10px 14px;
   border-radius: 999px;
@@ -118,17 +113,17 @@ button {
   transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
-.main-nav a:hover {
+.daily-tours-page .main-nav a:hover {
   background: rgba(255, 255, 255, 0.12);
   transform: translateY(-1px);
 }
 
-.main-nav a.active {
+.daily-tours-page .main-nav a.active {
   background: rgba(255, 215, 0, 0.18);
   color: #ffd86b;
 }
 
-.menu-toggle {
+.daily-tours-page .menu-toggle {
   display: none;
   border: none;
   background: rgba(255, 255, 255, 0.12);
@@ -136,29 +131,31 @@ button {
   width: 46px;
   height: 46px;
   border-radius: 12px;
+  position: absolute;
+  right: 0;
   font-size: 1.45rem;
   transition: background 0.25s ease, transform 0.25s ease;
 }
 
-.menu-toggle:hover {
+.daily-tours-page .menu-toggle:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
-.menu-toggle:active {
+.daily-tours-page .menu-toggle:active {
   transform: scale(0.96);
 }
 
 /* Hero */
-.page-hero {
+.daily-tours-page .page-hero {
   position: relative;
   min-height: 68vh;
-  background: url("../img/daily-t-hero.png") center/cover no-repeat;
+  background: url("./img/daily-t-hero.png") center/cover no-repeat;
   display: flex;
   align-items: center;
   overflow: hidden;
 }
 
-.page-hero::before {
+.daily-tours-page .page-hero::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -167,13 +164,14 @@ button {
     radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.08), transparent 20%);
 }
 
-.page-hero-overlay {
+.daily-tours-page .page-hero-overlay {
   position: absolute;
+  color: #fff;
   inset: 0;
   background: linear-gradient(rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.52));
 }
 
-.page-hero-content {
+.daily-tours-page .page-hero-content {
   position: relative;
   z-index: 2;
   color: #fff;
@@ -181,11 +179,12 @@ button {
   text-align: center;
 }
 
-.eyebrow {
+.daily-tours-page .eyebrow {
   display: inline-flex;
   align-items: center;
   margin-bottom: 14px;
   padding: 8px 14px;
+  color: #fff;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.14);
   font-size: 0.92rem;
@@ -193,26 +192,26 @@ button {
   backdrop-filter: blur(8px);
 }
 
-.page-hero-content h1 {
+.daily-tours-page .page-hero-content h1 {
   font-size: clamp(2.4rem, 5vw, 4.3rem);
   line-height: 1.05;
   margin-bottom: 10px;
 }
 
-.page-hero-content h2 {
+.daily-tours-page .page-hero-content h2 {
   font-size: clamp(1.1rem, 2vw, 1.7rem);
-  color: #ffe0b8;
+  color: #f8f6f3;
   margin-bottom: 16px;
   font-weight: 600;
 }
 
-.page-hero-content p {
+.daily-tours-page .page-hero-content p {
   font-size: 1.04rem;
   max-width: 760px;
   margin: 0 auto;
 }
 
-.hero-pills {
+.daily-tours-page .hero-pills {
   margin-top: 24px;
   display: flex;
   justify-content: center;
@@ -220,7 +219,7 @@ button {
   gap: 12px;
 }
 
-.hero-pills span {
+.daily-tours-page .hero-pills span {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -232,26 +231,26 @@ button {
   font-weight: 600;
 }
 
-.hero-pills i {
+.daily-tours-page .hero-pills i {
   width: 17px;
   height: 17px;
 }
 
 /* Section */
-.section {
+.daily-tours-page .section {
   padding: 80px 0;
 }
 
-.tours-section {
+.daily-tours-page .tours-section {
   background: var(--soft-bg);
 }
 
-.section-head {
+.daily-tours-page .section-head {
   text-align: center;
   margin-bottom: 28px;
 }
 
-.section-tag {
+.daily-tours-page .section-tag {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -266,20 +265,20 @@ button {
   margin-bottom: 14px;
 }
 
-.section-head h2 {
+.daily-tours-page .section-head h2 {
   color: var(--primary);
   font-size: 2rem;
   margin-bottom: 10px;
 }
 
-.section-head p {
+.daily-tours-page .section-head p {
   color: var(--muted);
   max-width: 700px;
   margin: 0 auto;
 }
 
 /* Toolbar */
-.tour-toolbar {
+.daily-tours-page .tour-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -288,13 +287,13 @@ button {
   margin-bottom: 32px;
 }
 
-.tour-filters {
+.daily-tours-page .tour-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
 }
 
-.filter-btn {
+.daily-tours-page .filter-btn {
   border: 1px solid rgba(141, 85, 36, 0.14);
   background: rgba(255, 255, 255, 0.92);
   color: var(--primary);
@@ -305,14 +304,14 @@ button {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
 }
 
-.filter-btn:hover,
-.filter-btn.active {
+.daily-tours-page .filter-btn:hover,
+.daily-tours-page .filter-btn.active {
   background: var(--primary);
   color: #fff;
   transform: translateY(-2px);
 }
 
-.tour-search {
+.daily-tours-page .tour-search {
   min-width: min(100%, 320px);
   display: flex;
   align-items: center;
@@ -324,14 +323,14 @@ button {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
 }
 
-.tour-search i {
+.daily-tours-page .tour-search i {
   width: 18px;
   height: 18px;
   color: var(--primary);
   flex-shrink: 0;
 }
 
-.tour-search input {
+.daily-tours-page .tour-search input {
   width: 100%;
   border: none;
   outline: none;
@@ -341,13 +340,13 @@ button {
 }
 
 /* Cards */
-.tour-grid {
+.daily-tours-page .tour-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 26px;
 }
 
-.tour-card {
+.daily-tours-page .tour-card {
   background: var(--card);
   border-radius: 22px;
   overflow: hidden;
@@ -359,40 +358,40 @@ button {
   isolation: isolate;
 }
 
-.tour-card:hover {
+.daily-tours-page .tour-card:hover {
   transform: translateY(-10px);
   box-shadow: var(--shadow-lg);
 }
 
-.tour-card.hidden {
+.daily-tours-page .tour-card.hidden {
   display: none;
 }
 
-.tour-card-image {
+.daily-tours-page .tour-card-image {
   position: relative;
   height: 250px;
   overflow: hidden;
 }
 
-.tour-card-image::after {
+.daily-tours-page .tour-card-image::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.38), transparent 52%);
 }
 
-.tour-card-image img {
+.daily-tours-page .tour-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.55s ease;
 }
 
-.tour-card:hover .tour-card-image img {
+.daily-tours-page .tour-card:hover .tour-card-image img {
   transform: scale(1.08);
 }
 
-.tour-badge {
+.daily-tours-page .tour-badge {
   position: absolute;
   top: 14px;
   left: 14px;
@@ -405,7 +404,7 @@ button {
   z-index: 2;
 }
 
-.tour-rating {
+.daily-tours-page .tour-rating {
   position: absolute;
   right: 14px;
   bottom: 14px;
@@ -420,35 +419,35 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.24);
 }
 
-.rating-stars {
+.daily-tours-page .rating-stars {
   display: inline-flex;
   align-items: center;
   gap: 3px;
 }
 
-.rating-star {
+.daily-tours-page .rating-star {
   width: 10px;
   height: 10px;
   display: inline-block;
 }
 
-.rating-star svg {
+.daily-tours-page .rating-star svg {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.rating-star.filled svg {
+.daily-tours-page .rating-star.filled svg {
   fill: var(--gold);
   stroke: var(--gold);
 }
 
-.rating-star.empty svg {
+.daily-tours-page .rating-star.empty svg {
   fill: var(--gold-soft);
   stroke: rgba(255, 245, 210, 0.65);
 }
 
-.tour-card-body {
+.daily-tours-page .tour-card-body {
   padding: 18px;
   display: flex;
   flex-direction: column;
@@ -456,17 +455,17 @@ button {
   flex: 1;
 }
 
-.tour-card-body h3 {
+.daily-tours-page .tour-card-body h3 {
   font-size: 1.18rem;
   color: var(--primary);
   line-height: 1.3;
 }
 
-.tour-desc {
+.daily-tours-page .tour-desc {
   color: #555;
 }
 
-.tour-meta {
+.daily-tours-page .tour-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -474,7 +473,7 @@ button {
   flex-wrap: wrap;
 }
 
-.tour-duration {
+.daily-tours-page .tour-duration {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -483,13 +482,13 @@ button {
   font-weight: 700;
 }
 
-.tour-duration i {
+.daily-tours-page .tour-duration i {
   width: 16px;
   height: 16px;
   color: var(--accent);
 }
 
-.tour-link {
+.daily-tours-page .tour-link {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -498,12 +497,12 @@ button {
   font-weight: 700;
 }
 
-.tour-link i {
+.daily-tours-page .tour-link i {
   width: 16px;
   height: 16px;
 }
 
-.card-actions {
+.daily-tours-page .card-actions {
   margin-top: auto;
   display: flex;
   gap: 10px;
@@ -511,7 +510,7 @@ button {
 }
 
 /* Buttons */
-.btn {
+.daily-tours-page .btn {
   border: none;
   border-radius: 12px;
   padding: 12px 18px;
@@ -522,37 +521,37 @@ button {
   transition: 0.28s;
 }
 
-.btn-primary {
+.daily-tours-page .btn-primary {
   background: linear-gradient(135deg, #cf8f4d, #8d5524);
   color: #fff;
   box-shadow: 0 10px 24px rgba(141, 85, 36, 0.18);
 }
 
-.btn-primary:hover {
+.daily-tours-page .btn-primary:hover {
   transform: translateY(-2px);
 }
 
-.btn-outline {
+.daily-tours-page .btn-outline {
   background: transparent;
   color: var(--primary);
   border: 1px solid #d5b08b;
 }
 
-.btn-outline:hover {
+.daily-tours-page .btn-outline:hover {
   background: #f3e3d3;
 }
 
-.btn-light {
+.daily-tours-page .btn-light {
   background: #efe4d8;
   color: #5f3c20;
 }
 
-.btn-light:hover {
+.daily-tours-page .btn-light:hover {
   background: #e2d2c2;
 }
 
 /* Note */
-.tour-note {
+.daily-tours-page .tour-note {
   margin-top: 42px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 247, 239, 0.98));
   border: 1px solid rgba(198, 134, 66, 0.16);
@@ -564,7 +563,7 @@ button {
   gap: 16px;
 }
 
-.tour-note-icon {
+.daily-tours-page .tour-note-icon {
   width: 52px;
   height: 52px;
   border-radius: 16px;
@@ -575,33 +574,37 @@ button {
   flex-shrink: 0;
 }
 
-.tour-note-icon i {
+.daily-tours-page .tour-note-icon i {
   width: 24px;
   height: 24px;
 }
 
-.tour-note h3 {
+.daily-tours-page .tour-note h3 {
   color: var(--primary);
   margin-bottom: 8px;
 }
 
 /* Footer */
-.site-footer {
+.daily-tours-page .site-footer {
   background: #1f1f1f;
   color: #fff;
   padding: 28px 0;
 }
 
-.footer-inner {
+.daily-tours-page .site-footer p{
+  color: #fff;
+}
+
+.daily-tours-page .footer-inner {
   text-align: center;
 }
 
-.footer-inner p + p {
+.daily-tours-page .footer-inner p + p {
   margin-top: 6px;
 }
 
 /* Modal */
-.modal {
+.daily-tours-page .modal {
   position: fixed;
   inset: 0;
   background: rgba(7, 7, 7, 0.7);
@@ -613,11 +616,11 @@ button {
   backdrop-filter: blur(4px);
 }
 
-.modal.active {
+.daily-tours-page .modal.active {
   display: flex;
 }
 
-.modal-box {
+.daily-tours-page .modal-box {
   width: min(1020px, 100%);
   max-height: 92vh;
   overflow-y: auto;
@@ -630,7 +633,7 @@ button {
   box-shadow: 0 24px 56px rgba(0, 0, 0, 0.24);
 }
 
-.modal-close {
+.daily-tours-page .modal-close {
   position: absolute;
   right: 14px;
   top: 10px;
@@ -641,30 +644,30 @@ button {
   z-index: 3;
 }
 
-.modal-media {
+.daily-tours-page .modal-media {
   min-height: 100%;
   background: #f3e3d3;
 }
 
-.modal-media img {
+.daily-tours-page .modal-media img {
   width: 100%;
   height: 100%;
   min-height: 360px;
   object-fit: cover;
 }
 
-.modal-body {
+.daily-tours-page .modal-body {
   padding: 28px 24px 24px;
 }
 
-.modal-badge-row {
+.daily-tours-page .modal-badge-row {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 16px;
 }
 
-.modal-tour-chip {
+.daily-tours-page .modal-tour-chip {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -676,19 +679,19 @@ button {
   font-weight: 700;
 }
 
-.modal-tour-chip i {
+.daily-tours-page .modal-tour-chip i {
   width: 16px;
   height: 16px;
 }
 
-.modal-top h3 {
+.daily-tours-page .modal-top h3 {
   color: var(--primary);
   font-size: 1.9rem;
   margin-bottom: 10px;
   line-height: 1.15;
 }
 
-.modal-meta {
+.daily-tours-page .modal-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -696,38 +699,38 @@ button {
   margin-bottom: 12px;
 }
 
-.modal-meta-item {
+.daily-tours-page .modal-meta-item {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-weight: 600;
 }
 
-.modal-meta-item i {
+.daily-tours-page .modal-meta-item i {
   width: 17px;
   height: 17px;
   color: var(--accent);
 }
 
-.modal-stars {
+.daily-tours-page .modal-stars {
   display: inline-flex;
   align-items: center;
   gap: 3px;
 }
 
-.modal-overview {
+.daily-tours-page .modal-overview {
   color: #444;
   margin-bottom: 20px;
 }
 
-.modal-tabs {
+.daily-tours-page .modal-tabs {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 18px;
 }
 
-.tab-btn {
+.daily-tours-page .tab-btn {
   border: none;
   background: #f3ebe3;
   color: #7a4b22;
@@ -737,59 +740,59 @@ button {
   transition: 0.25s;
 }
 
-.tab-btn.active {
+.daily-tours-page .tab-btn.active {
   background: var(--accent);
   color: #fff;
 }
 
-.tab-panel {
+.daily-tours-page .tab-panel {
   display: none;
 }
 
-.tab-panel.active {
+.daily-tours-page .tab-panel.active {
   display: block;
 }
 
-#modalDetails h6,
-#modalItinerary h6,
-#modalInclusions h6 {
+.daily-tours-page #modalDetails h6,
+.daily-tours-page #modalItinerary h6,
+.daily-tours-page #modalInclusions h6 {
   color: var(--primary);
   margin: 14px 0 8px;
   font-size: 1rem;
 }
 
-#modalDetails p,
-#modalItinerary p,
-#modalInclusions p {
+.daily-tours-page #modalDetails p,
+.daily-tours-page #modalItinerary p,
+.daily-tours-page #modalInclusions p {
   margin-bottom: 12px;
   color: #444;
 }
 
-#modalDetails ul,
-#modalInclusions ul {
+.daily-tours-page #modalDetails ul,
+.daily-tours-page #modalInclusions ul {
   padding-left: 18px;
   margin-bottom: 12px;
 }
 
-#modalItinerary .itinerary-item {
+.daily-tours-page #modalItinerary .itinerary-item {
   padding: 14px 0;
   border-bottom: 1px solid #eee0d2;
 }
 
-#modalItinerary .itinerary-item:last-child {
+.daily-tours-page #modalItinerary .itinerary-item:last-child {
   border-bottom: none;
 }
 
-#modalItinerary strong {
+.daily-tours-page #modalItinerary strong {
   color: var(--primary);
 }
 
-.duration-row {
+.daily-tours-page .duration-row {
   margin-bottom: 14px;
   color: #444;
 }
 
-.modal-actions {
+.daily-tours-page .modal-actions {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
@@ -797,7 +800,7 @@ button {
 }
 
 /* Empty state */
-.empty-state {
+.daily-tours-page .empty-state {
   grid-column: 1 / -1;
   background: #fff;
   border-radius: 22px;
@@ -807,7 +810,7 @@ button {
   color: var(--muted);
 }
 
-.empty-state i {
+.daily-tours-page .empty-state i {
   width: 28px;
   height: 28px;
   color: var(--accent);
@@ -815,67 +818,72 @@ button {
 }
 
 /* Lucide icons */
-i[data-lucide] {
+.daily-tours-page i[data-lucide] {
   width: 19px;
   height: 19px;
   stroke-width: 1.8;
 }
 
-.hero-pills i {
+.daily-tours-page .hero-pills i {
   color: #ffd86b;
   fill: #ffd86b;
 }
 
-.tour-duration i {
+.daily-tours-page .tour-duration i {
   color: #c68642;
 }
 
-.tour-link i {
+.daily-tours-page .tour-link i {
   color: #8d5524;
 }
 
-.modal-meta-item > i {
+.daily-tours-page .modal-meta-item > i {
   color: #c68642;
 }
 
-.modal-tour-chip i,
-.tour-note-icon i {
+.daily-tours-page .modal-tour-chip i,
+.daily-tours-page .tour-note-icon i {
   color: #8d5524;
   fill: currentColor;
 }
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .tour-grid {
+  .daily-tours-page .tour-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .modal-box {
+  .daily-tours-page .modal-box {
     grid-template-columns: 1fr;
   }
 
-  .modal-media img {
+  .daily-tours-page .modal-media img {
     max-height: 360px;
   }
 }
 
 @media (max-width: 992px) {
-  .brand span {
+  .daily-tours-page .brand span {
     font-size: 0.98rem;
   }
 
-  .main-nav a {
+  .daily-tours-page .main-nav a {
     padding: 9px 11px;
     font-size: 0.9rem;
   }
 }
 
 @media (max-width: 768px) {
-  .nav-wrap {
+  .daily-tours-page .nav-wrap {
     min-height: 76px;
   }
 
-  .menu-toggle {
+  .daily-tours-page .brand{
+    position: absolute;
+    left: 0;
+  }
+
+  .daily-tours-page .menu-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -883,7 +891,7 @@ i[data-lucide] {
     flex-shrink: 0;
   }
 
-  .main-nav {
+  .daily-tours-page .main-nav {
     display: none;
     position: absolute;
     top: calc(100% + 10px);
@@ -898,11 +906,11 @@ i[data-lucide] {
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
   }
 
-  .main-nav.active {
+  .daily-tours-page .main-nav.active {
     display: flex;
   }
 
-  .main-nav a {
+  .daily-tours-page .main-nav a {
     display: block;
     width: 100%;
     padding: 13px 14px;
@@ -910,74 +918,73 @@ i[data-lucide] {
     background: rgba(255, 255, 255, 0.06);
   }
 
-  .main-nav a.active {
+  .daily-tours-page .main-nav a.active {
     background: rgba(255, 215, 0, 0.16);
     color: #ffe082;
   }
 
-  .tour-grid {
+  .daily-tours-page .tour-grid {
     grid-template-columns: 1fr;
   }
 
-  .section {
+  .daily-tours-page .section {
     padding: 64px 0;
   }
 
-  .page-hero {
+  .daily-tours-page .page-hero {
     min-height: 60vh;
   }
 
-  .tour-toolbar {
+  .daily-tours-page .tour-toolbar {
     align-items: stretch;
   }
 
-  .tour-search {
+  .daily-tours-page .tour-search {
     min-width: 100%;
   }
 
-  .tour-note {
+  .daily-tours-page .tour-note {
     flex-direction: column;
   }
 
-  .modal-body {
+  .daily-tours-page .modal-body {
     padding: 22px 16px 18px;
   }
 
-  .modal-top h3 {
+  .daily-tours-page .modal-top h3 {
     font-size: 1.5rem;
   }
 }
 
 @media (max-width: 520px) {
-  .hero-pills {
+  .daily-tours-page .hero-pills {
     gap: 10px;
   }
 
-  .hero-pills span {
+  .daily-tours-page .hero-pills span {
     width: 100%;
     justify-content: center;
   }
 
-  .filter-btn {
+  .daily-tours-page .filter-btn {
     width: 100%;
     justify-content: center;
   }
 
-  .tour-filters {
+  .daily-tours-page .tour-filters {
     width: 100%;
   }
 
-  .card-actions {
+  .daily-tours-page .card-actions {
     flex-direction: column;
   }
 
-  .card-actions .btn {
+  .daily-tours-page .card-actions .btn {
     width: 100%;
   }
 }
 
-
-.footer-simple {
+.daily-tours-page .footer-simple {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -985,18 +992,40 @@ i[data-lucide] {
   flex-wrap: wrap;
 }
 
-.footer-links {
+.daily-tours-page .footer-links {
   display: flex;
   gap: 18px;
 }
 
-.footer-links a {
+.daily-tours-page .footer-links a {
   text-decoration: none;
   font-weight: 600;
   color: #5b4738;
   transition: 0.2s;
 }
 
-.footer-links a:hover {
+.daily-tours-page .footer-links a:hover {
   color: var(--primary);
+}
+
+.daily-tours-page {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.daily-tours-page .site-header {
+  margin-bottom: 0 !important;
+}
+
+.daily-tours-page .site-header + .hero,
+.daily-tours-page .site-header + .page-hero,
+.daily-tours-page .site-header + .booking-hero {
+  margin-top: 0 !important;
+}
+
+.daily-tours-page .hero,
+.daily-tours-page .page-hero,
+.daily-tours-page .booking-hero {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }

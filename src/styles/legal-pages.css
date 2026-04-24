@@ -29,7 +29,8 @@ body {
 }
 
 .site-header {
-  background: #fff;
+  background: #8d5524;
+  color: var(--bg);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -49,7 +50,7 @@ body {
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  color: #2f241b;
+  color: #ffffff;
   font-weight: 800;
 }
 
@@ -68,12 +69,12 @@ body {
 
 .main-nav a {
   text-decoration: none;
-  color: #4d3a2c;
+  color: #ffffff;
   font-weight: 600;
 }
 
 .main-nav a:hover {
-  color: var(--primary);
+  color: #c68642;
 }
 
 .page-hero {
@@ -302,6 +303,7 @@ body {
 
 @media (max-width: 640px) {
   .nav-wrap {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 14px 0;

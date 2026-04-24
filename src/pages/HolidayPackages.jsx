@@ -42,15 +42,6 @@ function HolidayPackages() {
     }
   }, [modalOpen])
 
-  const escapeHtml = (value = '') => {
-    return String(value)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;')
-  }
-
   const splitLines = (text = '') => {
     if (!text || typeof text !== 'string') return []
     return text
@@ -198,7 +189,7 @@ function HolidayPackages() {
   }
 
   return (
-    <>
+    <div className="holiday-packages-page">
       <header className="site-header">
         <div className="wrapper nav-wrap">
           <Link to="/" className="brand">
@@ -497,7 +488,7 @@ function HolidayPackages() {
           ) : null}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

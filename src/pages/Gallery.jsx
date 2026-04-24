@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+
 function Gallery() {
   const base = import.meta.env.BASE_URL
   const img = (file) => `${base}img/${file}`
@@ -201,7 +202,7 @@ function Gallery() {
   }, [lightboxOpen, visibleItems.length])
 
   return (
-    <>
+    <div className="gallery-page">
       <header className="site-header">
         <div className="wrapper nav-wrap">
           <Link to="/" className="brand">
@@ -396,7 +397,7 @@ function Gallery() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
 

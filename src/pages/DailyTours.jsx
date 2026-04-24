@@ -181,7 +181,7 @@ function DailyTours() {
   }
 
   return (
-    <>
+    <div className="daily-tours-page">
       <header className="site-header">
         <div className="wrapper nav-wrap">
           <Link to="/" className="brand">
@@ -551,7 +551,7 @@ function DailyTours() {
           ) : null}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
