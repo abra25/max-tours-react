@@ -807,6 +807,11 @@ html {
 
 
 @media (max-width: 768px) {
+.home-page .fab{
+    margin: 0 4px 4px 0;
+    font-size: 1.5rem;
+  
+  }
   .home-page .nav-wrap {
     justify-content: space-between;
     min-height: 76px;
@@ -816,6 +821,7 @@ html {
   .home-page .brand{
     position: absolute;
     left: 0;
+    top: 17px;
   }
 
   .home-page .menu-toggle {

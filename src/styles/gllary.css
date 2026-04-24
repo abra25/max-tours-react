@@ -123,6 +123,7 @@ body.lightbox-open {
 .gallery-page .menu-toggle {
   display: none;
   position: absolute;
+  top: 17px;
   right: 0;
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
@@ -146,7 +147,7 @@ body.lightbox-open {
   min-height: 56vh;
   background:
     linear-gradient(to bottom, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.52)),
-    url("./img/moment.jpg") center/cover no-repeat;
+    url("../img/moment.jpg") center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
@@ -544,6 +545,11 @@ body.lightbox-open {
   .gallery-page .gallery-item img {
     height: 255px;
   }
+  .gallery-page .brand {
+    top: 14px;
+    position: absolute;
+    left: 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -552,6 +558,7 @@ body.lightbox-open {
   }
 
   .gallery-page .brand {
+    top: 17px;
     position: absolute;
     left: 0;
   }

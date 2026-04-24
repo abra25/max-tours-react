@@ -133,6 +133,7 @@ body.modal-open {
   border-radius: 12px;
   position: absolute;
   right: 0;
+  top: 17px;
   font-size: 1.45rem;
   transition: background 0.25s ease, transform 0.25s ease;
 }
@@ -881,6 +882,7 @@ body.modal-open {
   .daily-tours-page .brand{
     position: absolute;
     left: 0;
+    top: 17px;
   }
 
   .daily-tours-page .menu-toggle {

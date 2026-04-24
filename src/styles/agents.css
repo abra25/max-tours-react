@@ -96,6 +96,7 @@
   height: 46px;
   position: absolute;
   right: 0;
+  top: 17px;
   border-radius: 12px;
   font-size: 1.45rem;
   cursor: pointer;
@@ -293,6 +294,7 @@
   .agents-page .brand{
     position: absolute;
     left: 0;
+    top: 17px;
   }
 
   .agents-page .menu-toggle {
