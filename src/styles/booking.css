@@ -117,7 +117,7 @@
   align-items: center;
   background:
     linear-gradient(rgba(25, 15, 8, 0.48), rgba(25, 15, 8, 0.48)),
-    url("./img/booking-hero.jpg") center/cover no-repeat;
+    url("/public/img/booking-hero.jpg") center/cover no-repeat;
   overflow: hidden;
 }
 
@@ -409,6 +409,10 @@
   color: #fff;
   padding: 24px 0;
   text-align: center;
+}
+
+.booking-page .site-footer p{
+  color: #fff;
 }
 
 .booking-page .footer-simple {

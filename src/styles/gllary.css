@@ -147,7 +147,7 @@ body.lightbox-open {
   min-height: 56vh;
   background:
     linear-gradient(to bottom, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.52)),
-    url("../img/moment.jpg") center/cover no-repeat;
+    url("/public/img/moment.jpg") center/cover no-repeat;
   position: relative;
   display: flex;
   align-items: center;
@@ -487,6 +487,10 @@ body.lightbox-open {
   color: white;
   text-align: center;
   padding: 28px 20px;
+}
+
+.gallery-page .footer p{
+  color: #fff;
 }
 
 .gallery-page .footer-simple {
