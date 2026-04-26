@@ -799,3 +799,12 @@ body.lightbox-open {
     height: 21px;
   }
 }
+
+.gallery-back-to-top {
+  background: linear-gradient(135deg, #f6963c, #d94906) !important;
+  color: #ffffff !important;
+}
+
+.gallery-back-to-top svg {
+  stroke: #ffffff !important;
+}

@@ -11,22 +11,23 @@ function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const [showBackTop, setShowBackTop] = useState(false)
+
   useEffect(() => {
-  const handleScroll = () => {
-    setShowBackTop(window.scrollY > 350)
-  }
+    const handleScroll = () => {
+      setShowBackTop(window.scrollY > 350)
+    }
 
-  window.addEventListener('scroll', handleScroll)
-  handleScroll()
+    window.addEventListener('scroll', handleScroll)
+    handleScroll()
 
-  return () => window.removeEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  })
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
   }
 
   const galleryData = useMemo(
@@ -208,10 +209,10 @@ function Gallery() {
   }
 
   useEffect(() => {
-  if (window.lucide) {
-    window.lucide.createIcons()
-  }
-  }, [])
+    if (window.lucide) {
+      window.lucide.createIcons()
+    }
+  }, [showBackTop, lightboxOpen, currentIndex, activeFilter])
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -288,54 +289,26 @@ function Gallery() {
             </div>
 
             <div className="gallery-filters" id="galleryFilters">
-              <button
-                className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`}
-                data-filter="all"
-                onClick={() => handleFilterChange('all')}
-              >
+              <button className={`filter-btn ${activeFilter === 'all' ? 'active' : ''}`} onClick={() => handleFilterChange('all')}>
                 All
               </button>
-
-              <button
-                className={`filter-btn ${activeFilter === 'beach' ? 'active' : ''}`}
-                data-filter="beach"
-                onClick={() => handleFilterChange('beach')}
-              >
+              <button className={`filter-btn ${activeFilter === 'beach' ? 'active' : ''}`} onClick={() => handleFilterChange('beach')}>
                 Beaches & Ocean
               </button>
-
-              <button
-                className={`filter-btn ${activeFilter === 'zanzibar' ? 'active' : ''}`}
-                data-filter="zanzibar"
-                onClick={() => handleFilterChange('zanzibar')}
-              >
+              <button className={`filter-btn ${activeFilter === 'zanzibar' ? 'active' : ''}`} onClick={() => handleFilterChange('zanzibar')}>
                 Zanzibar Experiences
               </button>
-
-              <button
-                className={`filter-btn ${activeFilter === 'wildlife' ? 'active' : ''}`}
-                data-filter="wildlife"
-                onClick={() => handleFilterChange('wildlife')}
-              >
+              <button className={`filter-btn ${activeFilter === 'wildlife' ? 'active' : ''}`} onClick={() => handleFilterChange('wildlife')}>
                 Wildlife & Safari
               </button>
-
-              <button
-                className={`filter-btn ${activeFilter === 'story' ? 'active' : ''}`}
-                data-filter="story"
-                onClick={() => handleFilterChange('story')}
-              >
+              <button className={`filter-btn ${activeFilter === 'story' ? 'active' : ''}`} onClick={() => handleFilterChange('story')}>
                 Brand & Story
               </button>
             </div>
           </div>
 
           {visibleCategories.map((category) => (
-            <section
-              className="gallery-category"
-              data-category={category.key}
-              key={category.key}
-            >
+            <section className="gallery-category" data-category={category.key} key={category.key}>
               <div className="category-head">
                 <div>
                   <span className="category-kicker">Category</span>
@@ -372,21 +345,11 @@ function Gallery() {
           }
         }}
       >
-        <button
-          className="lightbox-close"
-          id="closeLightbox"
-          aria-label="Close lightbox"
-          onClick={closeLightbox}
-        >
+        <button className="lightbox-close" id="closeLightbox" aria-label="Close lightbox" onClick={closeLightbox}>
           &times;
         </button>
 
-        <button
-          className="lightbox-nav prev"
-          id="prevLightbox"
-          aria-label="Previous image"
-          onClick={showPrev}
-        >
+        <button className="lightbox-nav prev" id="prevLightbox" aria-label="Previous image" onClick={showPrev}>
           &#10094;
         </button>
 
@@ -401,12 +364,7 @@ function Gallery() {
           ) : null}
         </div>
 
-        <button
-          className="lightbox-nav next"
-          id="nextLightbox"
-          aria-label="Next image"
-          onClick={showNext}
-        >
+        <button className="lightbox-nav next" id="nextLightbox" aria-label="Next image" onClick={showNext}>
           &#10095;
         </button>
       </div>
@@ -423,12 +381,16 @@ function Gallery() {
         </div>
       </footer>
 
-            {/* back top */}
+      {/* back top */}
       <button
         type="button"
-        className={`back-to-top ${showBackTop ? 'show' : ''}`}
+        className={`back-to-top gallery-back-to-top ${showBackTop ? 'show' : ''}`}
         onClick={scrollToTop}
         aria-label="Back to top"
+        style={{
+          background: 'linear-gradient(135deg, #f6b73c, #d97706)',
+          color: '#ffffff',
+        }}
       >
         <i data-lucide="arrow-up"></i>
       </button>
