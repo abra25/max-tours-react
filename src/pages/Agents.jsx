@@ -43,6 +43,12 @@ function Agents() {
   }
 
   useEffect(() => {
+  if (window.lucide) {
+    window.lucide.createIcons()
+  }
+  }, [])
+
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
         setMenuOpen(false)

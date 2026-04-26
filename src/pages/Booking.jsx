@@ -85,6 +85,12 @@ function Booking() {
   }, [])
 
   useEffect(() => {
+  if (window.lucide) {
+    window.lucide.createIcons()
+  }
+  }, [])
+
+  useEffect(() => {
     if (!formStatus.text) return
 
     const timer = setTimeout(() => {

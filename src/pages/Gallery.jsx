@@ -208,6 +208,12 @@ function Gallery() {
   }
 
   useEffect(() => {
+  if (window.lucide) {
+    window.lucide.createIcons()
+  }
+  }, [])
+
+  useEffect(() => {
     const handleKeyDown = (event) => {
       if (!lightboxOpen) return
 

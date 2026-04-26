@@ -13,6 +13,12 @@ function VisitZanzibar() {
     setShowBackTop(window.scrollY > 350)
   }
 
+  useEffect(() => {
+  if (window.lucide) {
+    window.lucide.createIcons()
+  }
+  }, [])
+
   window.addEventListener('scroll', handleScroll)
   handleScroll()
 
