@@ -16,6 +16,25 @@ function DailyTours() {
   const [loading, setLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
 
+  const [showBackTop, setShowBackTop] = useState(false)
+  useEffect(() => {
+  const handleScroll = () => {
+    setShowBackTop(window.scrollY > 350)
+  }
+
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+
+  return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+  }
+
   useEffect(() => {
     loadDayTours()
   }, [])
@@ -551,6 +570,15 @@ function DailyTours() {
           ) : null}
         </div>
       </div>
+            {/* back top */}
+      <button
+        type="button"
+        className={`back-to-top ${showBackTop ? 'show' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Back to top"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
     </div>
   )
 }

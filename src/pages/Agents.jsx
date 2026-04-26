@@ -23,6 +23,25 @@ function Agents() {
 
   const formWrapRef = useRef(null)
 
+  const [showBackTop, setShowBackTop] = useState(false)
+  useEffect(() => {
+  const handleScroll = () => {
+    setShowBackTop(window.scrollY > 350)
+  }
+
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+
+  return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+  }
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
@@ -33,6 +52,16 @@ function Agents() {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  useEffect(() => {
+    if (!message.text) return
+
+    const timer = setTimeout(() => {
+      setMessage({ text: '', type: '' })
+    }, 5000)
+
+    return () => clearTimeout(timer)
+  }, [message.text])
 
   const openAgentForm = () => {
     setFormOpen(true)
@@ -375,6 +404,16 @@ function Agents() {
           </div>
         </div>
       </footer>
+
+      {/* back top */}
+      <button
+        type="button"
+        className={`back-to-top ${showBackTop ? 'show' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Back to top"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
     </div>
   )
 }

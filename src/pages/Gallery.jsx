@@ -10,6 +10,25 @@ function Gallery() {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
 
+  const [showBackTop, setShowBackTop] = useState(false)
+  useEffect(() => {
+  const handleScroll = () => {
+    setShowBackTop(window.scrollY > 350)
+  }
+
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+
+  return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+  }
+
   const galleryData = useMemo(
     () => [
       {
@@ -397,6 +416,16 @@ function Gallery() {
           </div>
         </div>
       </footer>
+
+            {/* back top */}
+      <button
+        type="button"
+        className={`back-to-top ${showBackTop ? 'show' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Back to top"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
     </div>
   )
 }

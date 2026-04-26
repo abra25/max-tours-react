@@ -6,6 +6,9 @@ function Booking() {
   const base = import.meta.env.BASE_URL
   const img = (file) => `${base}img/${file}`
 
+  // BADILISHA EMAIL HAPA BAADAYE UWEKE YA CLIENT
+  const notificationEmail = 'abramkuja24@gmail.com'
+
   const [searchParams] = useSearchParams()
 
   const localPackages = useMemo(
@@ -58,9 +61,38 @@ function Booking() {
     message: '',
   })
 
+  const [showBackTop, setShowBackTop] = useState(false)
+  useEffect(() => {
+  const handleScroll = () => {
+    setShowBackTop(window.scrollY > 350)
+  }
+
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+
+  return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+  }
+
   useEffect(() => {
     loadPackages()
   }, [])
+
+  useEffect(() => {
+    if (!formStatus.text) return
+
+    const timer = setTimeout(() => {
+      setFormStatus({ text: '', type: '' })
+    }, 4000)
+
+    return () => clearTimeout(timer)
+  }, [formStatus.text])
 
   const sortPackagesByTitle = (items) => {
     return [...items].sort((a, b) => a.title.localeCompare(b.title))
@@ -175,6 +207,28 @@ function Booking() {
     }))
   }
 
+  const sendEmailNotification = async (payload) => {
+    const emailData = new FormData()
+
+    emailData.append('_subject', 'New Booking Request - Max Tour & Safari')
+    emailData.append('_template', 'table')
+    emailData.append('Full Name', payload.full_name)
+    emailData.append('Phone', payload.phone)
+    emailData.append('Package', payload.package_name)
+    emailData.append('Message', payload.message || 'No message provided')
+
+    const response = await fetch(`https://formsubmit.co/ajax/${notificationEmail}`, {
+      method: 'POST',
+      body: emailData,
+    })
+
+    if (!response.ok) {
+      throw new Error('Email notification failed')
+    }
+
+    return response.json()
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -230,6 +284,8 @@ function Booking() {
 
       if (error) throw error
 
+      await sendEmailNotification(payload)
+
       setFormStatus({
         text: 'Your booking request has been sent successfully. Our team will contact you soon.',
         type: 'success',
@@ -248,7 +304,7 @@ function Booking() {
         message: '',
       })
     } catch (error) {
-      console.error('Booking insert failed:', error)
+      console.error('Booking insert or email notification failed:', error)
       setFormStatus({
         text: error.message
           ? `Booking failed: ${error.message}`
@@ -575,6 +631,16 @@ function Booking() {
           </div>
         </div>
       </footer>
+
+            {/* back top */}
+      <button
+        type="button"
+        className={`back-to-top ${showBackTop ? 'show' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Back to top"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
     </div>
   )
 }

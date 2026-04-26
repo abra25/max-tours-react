@@ -59,6 +59,25 @@ function Admin() {
 
   const [packageForm, setPackageForm] = useState(initialPackageForm)
 
+  const [showBackTop, setShowBackTop] = useState(false)
+  useEffect(() => {
+  const handleScroll = () => {
+    setShowBackTop(window.scrollY > 350)
+  }
+
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+
+  return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+  }
+
   useEffect(() => {
     if (localStorage.getItem('max_admin_logged_in') !== 'true') {
       navigate('/admin-login')
@@ -1819,6 +1838,15 @@ function Admin() {
           </div>
         </section>
       </main>
+      {/* back top */}
+      <button
+        type="button"
+        className={`back-to-top ${showBackTop ? 'show' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Back to top"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
     </div>
   )
 }

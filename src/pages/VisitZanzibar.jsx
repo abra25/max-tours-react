@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState ,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 
 function VisitZanzibar() {
@@ -6,6 +6,25 @@ function VisitZanzibar() {
   const img = (file) => `${base}img/${file}`
 
   const [menuOpen, setMenuOpen] = useState(false)
+  const [showBackTop, setShowBackTop] = useState(false)
+
+  useEffect(() => {
+  const handleScroll = () => {
+    setShowBackTop(window.scrollY > 350)
+  }
+
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+
+  return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+  }
 
   return (
     <div className="visit-zanzibar-page">
@@ -167,6 +186,15 @@ function VisitZanzibar() {
           </div>
         </div>
       </footer>
+            {/* back top */}
+      <button
+        type="button"
+        className={`back-to-top ${showBackTop ? 'show' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Back to top"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
     </div>
   )
 }

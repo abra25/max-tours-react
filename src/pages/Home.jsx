@@ -102,6 +102,25 @@ function Home() {
     text: '',
   })
 
+  const [showBackTop, setShowBackTop] = useState(false)
+  useEffect(() => {
+  const handleScroll = () => {
+    setShowBackTop(window.scrollY > 350)
+  }
+
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+
+  return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+  }
+
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
@@ -186,6 +205,16 @@ function Home() {
       window.lucide.createIcons()
     }
   }, [modalOpen, menuOpen, heroIndex, attractionIndex, testimonialIndex, contactFeedback])
+
+  useEffect(() => {
+    if (!contactFeedback.text) return
+
+    const timer = setTimeout(() => {
+      setContactFeedback({ text: '', type: '' })
+    }, 4000)
+
+    return () => clearTimeout(timer)
+  }, [contactFeedback.text])
 
   useEffect(() => {
     if (!modalOpen) return
@@ -905,6 +934,15 @@ function Home() {
           </div>
         </div>
       </div>
+            {/* back top */}
+      <button
+        type="button"
+        className={`back-to-top ${showBackTop ? 'show' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Back to top"
+      >
+        <i data-lucide="arrow-up"></i>
+      </button>
     </div>
   )
 }
