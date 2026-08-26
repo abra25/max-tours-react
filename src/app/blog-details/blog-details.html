@@ -1,0 +1,312 @@
+@if (blog) {
+
+  <div class="details-page">
+
+    <!-- HERO -->
+    <section
+      class="details-hero"
+      [style.backgroundImage]="'url(' + blog.heroImage + ')'"
+    >
+
+      <div class="details-overlay"></div>
+
+      <div class="details-hero-content">
+
+        <span class="details-category">
+          {{ blog.category }}
+        </span>
+
+        <h1>
+          {{ blog.title }}
+        </h1>
+
+        <p>
+          {{ blog.excerpt }}
+        </p>
+
+        <div class="details-meta">
+
+          <span>
+            <i class="fa-regular fa-user"></i>
+            {{ blog.author }}
+          </span>
+
+          <span>
+            <i class="fa-regular fa-calendar"></i>
+            {{ blog.date }}
+          </span>
+
+          <span>
+            <i class="fa-regular fa-clock"></i>
+            {{ blog.readTime }}
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTENT -->
+    <section class="details-section">
+
+      <div class="details-layout">
+
+        <!-- MAIN ARTICLE -->
+        <article class="article-content">
+
+          <div class="article-intro">
+
+            <span class="intro-mark">
+              JOURNAL
+            </span>
+
+            <h2>
+              {{ blog.title }}
+            </h2>
+
+          </div>
+
+
+          @for (section of blog.sections; track section.heading) {
+
+            <div class="article-block">
+
+              <h2>
+                {{ section.heading }}
+              </h2>
+
+              <p>
+                {{ section.text }}
+              </p>
+
+              @if (section.image) {
+
+                <figure class="article-image">
+
+                  <img
+                    [src]="section.image"
+                    [alt]="section.heading"
+                  >
+
+                </figure>
+
+              }
+
+            </div>
+
+          }
+
+
+          <!-- HIGHLIGHTS -->
+          <div class="experience-box">
+
+            <div class="experience-icon">
+              <i class="fa-solid" [class]="blog.icon"></i>
+            </div>
+
+            <div>
+
+              <span>
+                TRAVEL HIGHLIGHTS
+              </span>
+
+              <h3>
+                What You Can Experience
+              </h3>
+
+              <ul>
+
+                @for (item of blog.highlights; track item) {
+
+                  <li>
+                    <i class="fa-solid fa-check"></i>
+                    {{ item }}
+                  </li>
+
+                }
+
+              </ul>
+
+            </div>
+
+          </div>
+
+
+          <!-- CTA -->
+          <div class="article-cta">
+
+            <span>
+              READY TO EXPLORE?
+            </span>
+
+            <h2>
+              Turn This Inspiration Into Your Next Adventure.
+            </h2>
+
+            <p>
+              Let Max Tour & Safari help you discover Zanzibar
+              through carefully planned tours and authentic experiences.
+            </p>
+
+            <a
+              routerLink="/booking"
+              class="booking-button"
+            >
+              Plan My Trip
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+          </div>
+
+        </article>
+
+
+        <!-- SIDEBAR -->
+        <aside class="details-sidebar">
+
+          <div class="sidebar-card">
+
+            <span>
+              IN THIS JOURNAL
+            </span>
+
+            <h3>
+              Travel Highlights
+            </h3>
+
+            <ul>
+
+              @for (item of blog.highlights; track item) {
+
+                <li>
+                  <i class="fa-solid fa-location-dot"></i>
+                  {{ item }}
+                </li>
+
+              }
+
+            </ul>
+
+          </div>
+
+
+          <div class="sidebar-card planning-card">
+
+            <div class="planning-icon">
+              <i class="fa-solid fa-compass"></i>
+            </div>
+
+            <h3>
+              Planning A Zanzibar Trip?
+            </h3>
+
+            <p>
+              Explore our tours and let us help you
+              create your perfect Zanzibar experience.
+            </p>
+
+            <a
+              routerLink="/tours"
+              class="sidebar-button"
+            >
+              Explore Tours
+            </a>
+
+          </div>
+
+        </aside>
+
+      </div>
+
+    </section>
+
+
+    <!-- RELATED -->
+    <section class="related-section">
+
+      <div class="related-container">
+
+        <div class="related-heading">
+
+          <div>
+
+            <span>
+              KEEP EXPLORING
+            </span>
+
+            <h2>
+              More From Our Journal
+            </h2>
+
+          </div>
+
+          <a routerLink="/blog">
+            View All
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+
+        </div>
+
+
+        <div class="related-grid">
+
+          @for (post of relatedBlogs; track post.slug) {
+
+            <article class="related-card">
+
+              <img
+                [src]="post.heroImage"
+                [alt]="post.title"
+              >
+
+              <div>
+
+                <span>
+                  {{ post.category }}
+                </span>
+
+                <h3>
+                  {{ post.title }}
+                </h3>
+
+                <a
+                  [routerLink]="['/blog-details', post.slug]"
+                >
+                  Read More
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+}
+@else {
+
+  <section class="not-found">
+
+    <h1>Journal Not Found</h1>
+
+    <p>
+      Sorry, we could not find the journal you are looking for.
+    </p>
+
+    <a routerLink="/blog">
+      Back To Journal
+    </a>
+
+  </section>
+
+}

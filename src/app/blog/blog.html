@@ -1,0 +1,149 @@
+<div class="blog-page">
+
+  <!-- HERO -->
+  <section class="journal-hero">
+
+    <div class="journal-hero-image"></div>
+
+    <div class="journal-overlay"></div>
+
+    <div class="journal-hero-content">
+
+      <span class="eyebrow">
+        MAX TOUR & SAFARI JOURNAL
+      </span>
+
+      <h1>
+        Stories, Inspiration<br>
+        & Zanzibar Travel Ideas
+      </h1>
+
+      <p>
+        Discover the places, culture, adventures and experiences
+        that make Zanzibar unforgettable.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- INTRO -->
+  <section class="journal-intro">
+
+    <div class="section-container">
+
+      <span class="section-label">
+        OUR JOURNAL
+      </span>
+
+      <h2>
+        Discover Zanzibar Beyond The Beach
+      </h2>
+
+      <p>
+        Get inspired before your journey with useful travel stories,
+        local insights and ideas for unforgettable Zanzibar experiences.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- BLOG GRID -->
+  <section class="journal-grid-section">
+
+    <div class="section-container">
+
+      <div class="journal-grid">
+
+        @for (blog of blogs; track blog.slug) {
+
+          <article class="journal-card">
+
+            <div class="journal-image">
+
+              <img
+                [src]="blog.heroImage"
+                [alt]="blog.title"
+              >
+
+              <span class="journal-category">
+                {{ blog.category }}
+              </span>
+
+            </div>
+
+            <div class="journal-card-body">
+
+              <div class="journal-meta">
+
+                <span>
+                  <i class="fa-regular fa-calendar"></i>
+                  {{ blog.date }}
+                </span>
+
+                <span>
+                  {{ blog.readTime }}
+                </span>
+
+              </div>
+
+              <h3>
+                {{ blog.title }}
+              </h3>
+
+              <p>
+                {{ blog.excerpt }}
+              </p>
+
+              <a
+                [routerLink]="['/blog-details', blog.slug]"
+                class="read-more"
+              >
+                Read More
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- NEWSLETTER / CTA -->
+  <section class="journal-cta">
+
+    <div class="cta-content">
+
+      <span class="section-label">
+        PLAN YOUR ESCAPE
+      </span>
+
+      <h2>
+        Your Zanzibar Story Starts Here
+      </h2>
+
+      <p>
+        Read, explore and when you are ready,
+        let us help you turn inspiration into an unforgettable journey.
+      </p>
+
+      <a routerLink="/booking" class="cta-button">
+        Plan My Trip
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+
+    </div>
+
+  </section>
+
+</div>

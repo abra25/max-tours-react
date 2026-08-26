@@ -1,0 +1,1638 @@
+<div class="home-page">
+
+  <!-- =====================================================
+       HEADER / NAVBAR
+       ===================================================== -->
+
+  <header
+    class="site-header"
+    [class.scrolled]="isScrolled"
+    [class.menu-open]="isMenuOpen"
+  >
+
+    <div class="nav-container">
+
+      <!-- LOGO -->
+      <a
+        routerLink="/"
+        class="brand"
+        aria-label="Max Tours & Safari home"
+        (click)="closeMenu()"
+      >
+        <img
+          src="/img/logo.png"
+          alt="Max Tours & Safari"
+          class="brand-logo"
+        />
+
+        <span class="brand-name">
+          <strong>MAX TOURS</strong>
+          <small>&amp; SAFARI</small>
+        </span>
+      </a>
+
+      <!-- DESKTOP NAVIGATION -->
+      <nav class="desktop-nav">
+
+        <a
+            routerLink="/"
+            routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }"
+        >
+        Home
+       </a>
+
+        <a
+            href="#about"
+            (click)="scrollToSection('about', $event)"
+        >
+        About Us
+        </a>
+
+        <a
+    href="#destinations"
+    (click)="scrollToSection('destinations', $event)"
+  >
+    Destinations
+  </a>
+
+      <a
+    href="#tours"
+    (click)="scrollToSection('tours', $event)"
+  >
+    Tours
+  </a>
+
+  
+
+  <a
+    href="#blog"
+    (click)="scrollToSection('journal', $event)"
+  >
+    Journal
+  </a>
+
+        <a
+            routerLink="/booking"
+            class="nav-book"
+        >
+            Book a Tour
+            <span>↗</span>
+        </a>
+
+    </nav>
+
+      <!-- MOBILE TOGGLE -->
+      <button
+        type="button"
+        class="menu-toggle"
+        [class.open]="isMenuOpen"
+        (click)="toggleMenu()"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isMenuOpen"
+      >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+
+    </div>
+
+
+    <!-- MOBILE NAVIGATION -->
+    <div
+      class="mobile-nav"
+      [class.open]="isMenuOpen"
+    >
+
+      <div class="mobile-nav-inner">
+
+  <a
+    routerLink="/"
+    fragment="home"
+    (click)="closeMenu()"
+  >
+    <span>01</span>
+    Home
+  </a>
+
+  <a
+    href="#about"
+    (click)="scrollToSection('destinations', $event)"
+    (click)="closeMenu()"
+  >
+    <span>02</span>
+    About Us
+  </a>
+
+  <a
+    href="#destinations"
+    (click)="scrollToSection('destinations', $event)"
+    (click)="closeMenu()"
+  >
+    <span>03</span>
+    Destinations
+  </a>
+
+  <a
+    href="#tours"
+    (click)="scrollToSection('destinations', $event)"
+    (click)="closeMenu()"
+  >
+    <span>04</span>
+    Tours
+  </a>
+
+  <a
+    href="#blog"
+    (click)="scrollToSection('destinations', $event)"
+    (click)="closeMenu()"
+  >
+    <span>05</span>
+    Journal
+  </a>
+
+  <a
+    routerLink="/booking"
+    class="mobile-book"
+    (click)="closeMenu()"
+  >
+    Book a Tour
+    <span>↗</span>
+  </a>
+
+</div>
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
+
+  <main>
+
+    <section
+      id="hero"
+      class="hero"
+      (mouseenter)="pauseHero()"
+      (mouseleave)="resumeHero()"
+    >
+
+      <!-- SLIDES -->
+      <div class="hero-slides">
+
+        <div
+          *ngFor="let slide of heroSlides; let i = index"
+          class="hero-slide"
+          [class.active]="currentSlide === i"
+          [attr.aria-hidden]="currentSlide !== i"
+        >
+
+          <div
+            class="hero-image"
+            [style.background-image]="'url(' + slide.image + ')'"
+          ></div>
+
+          <div class="hero-overlay"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- HERO CONTENT -->
+      <div class="hero-content-wrap">
+
+        <div class="hero-content">
+
+          <div class="hero-eyebrow">
+
+            <span class="eyebrow-line"></span>
+
+            <span>
+              {{ heroSlides[currentSlide].eyebrow }}
+            </span>
+
+          </div>
+
+
+          <h1>
+
+            <span>
+              {{ heroSlides[currentSlide].title }}
+            </span>
+
+            <em>
+              {{ heroSlides[currentSlide].accent }}
+            </em>
+
+          </h1>
+
+
+          <p>
+            {{ heroSlides[currentSlide].description }}
+          </p>
+
+
+          <div class="hero-actions">
+
+            <a
+              routerLink="/tours"
+              class="btn btn-primary"
+            >
+              {{ heroSlides[currentSlide].primaryText }}
+              <span>↗</span>
+            </a>
+
+            <a
+              routerLink="/booking"
+              class="btn btn-outline"
+            >
+              {{ heroSlides[currentSlide].secondaryText }}
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           HERO BOTTOM
+           ================================================= -->
+
+      <div class="hero-bottom">
+
+        <!-- LOCATION -->
+        <div class="hero-location">
+
+          <span class="location-icon">
+            ●
+          </span>
+
+          <div>
+            <small>YOUR NEXT ESCAPE</small>
+            <strong>Zanzibar, Tanzania</strong>
+          </div>
+
+        </div>
+
+
+        <!-- SLIDE CONTROLS -->
+        <div class="hero-controls">
+
+          <button
+            type="button"
+            class="hero-arrow"
+            (click)="previousSlide()"
+            aria-label="Previous slide"
+          >
+            ←
+          </button>
+
+
+          <div class="slide-progress">
+
+            <button
+              *ngFor="let slide of heroSlides; let i = index"
+              type="button"
+              class="progress-item"
+              [class.active]="currentSlide === i"
+              (click)="goToSlide(i)"
+              [attr.aria-label]="'Go to slide ' + (i + 1)"
+            >
+              <span></span>
+            </button>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="hero-arrow"
+            (click)="nextSlide()"
+            aria-label="Next slide"
+          >
+            →
+          </button>
+
+        </div>
+
+
+        <!-- COUNTER -->
+        <div class="hero-counter">
+
+          <strong>
+            {{ (currentSlide + 1).toString().padStart(2, '0') }}
+          </strong>
+
+          <span>/</span>
+
+          <span>
+            {{ heroSlides.length.toString().padStart(2, '0') }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- DECORATIVE SCROLL -->
+      <div class="scroll-hint">
+
+        <span class="scroll-line"></span>
+
+        <span>
+          SCROLL TO EXPLORE
+        </span>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<!-- =========================================================
+     MAX TOURS & SAFARI
+     CTA / TRUST STRIP
+     ========================================================= -->
+
+<section class="cta-strip">
+
+  <div class="cta-strip-inner">
+
+    <div
+      class="cta-feature"
+      *ngFor="let feature of ctaFeatures; let i = index"
+      [class.last]="i === ctaFeatures.length - 1"
+    >
+
+      <!-- ICON -->
+      <div class="cta-icon">
+        <i [class]="feature.icon"></i>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="cta-feature-content">
+
+        <h3>
+          {{ feature.title }}
+        </h3>
+
+        <p>
+          {{ feature.description }}
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     ABOUT US
+     ========================================================= -->
+
+<section class="about-section" id="about">
+
+  <div class="about-container">
+
+    <!-- =====================================================
+         IMAGE SIDE
+         ===================================================== -->
+
+    <div class="about-visual">
+
+      <div class="about-image-wrap">
+
+        <img
+          src="/img/about-us.png"
+          alt="Max Tours & Safari Zanzibar experience"
+          class="about-image"
+        />
+
+        <!-- Image overlay -->
+        <div class="about-image-overlay"></div>
+
+        <!-- Floating badge -->
+        <div class="about-experience-badge">
+
+          <div class="about-badge-icon">
+            <i class="fa-solid fa-compass"></i>
+          </div>
+
+          <div>
+            <strong>Explore</strong>
+            <span>With locals</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Decorative element -->
+      <div class="about-visual-decoration">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CONTENT SIDE
+         ===================================================== -->
+
+    <div class="about-content">
+
+      <!-- Eyebrow -->
+      <div class="section-eyebrow">
+
+        <span class="section-eyebrow-line"></span>
+
+        WHO WE ARE
+
+      </div>
+
+
+      <!-- Heading -->
+      <h2>
+        We don't just
+        <span>show you places.</span>
+        We help you feel them.
+      </h2>
+
+
+      <!-- Intro -->
+      <p class="about-lead">
+
+        Welcome to <strong>Max Tours & Safari</strong> — your local
+        gateway to unforgettable experiences across Zanzibar and
+        Tanzania.
+
+      </p>
+
+
+      <p class="about-description">
+
+        From turquoise island waters and historic streets to wild
+        landscapes and authentic cultural encounters, we design
+        journeys that connect you with the places you visit.
+
+        With more than <strong>4 years of experience</strong>,
+        our local knowledge, personal service and passion for
+        travel make every journey feel effortless.
+
+      </p>
+
+
+      <!-- ===================================================
+           STATS
+           =================================================== -->
+
+      <div class="about-stats">
+
+        <div
+          class="about-stat"
+          *ngFor="let stat of aboutStats"
+        >
+
+          <strong>
+            {{ stat.value }}
+          </strong>
+
+          <span>
+            {{ stat.label }}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- ===================================================
+           SERVICES
+           =================================================== -->
+
+      <div class="about-services-header">
+
+        <div>
+          <span>WHAT WE DO</span>
+          <h3>Travel your way.</h3>
+        </div>
+
+        <a href="/tours" class="about-services-link">
+          Explore all
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+      </div>
+
+
+      <div class="about-services">
+
+        <article
+          class="about-service"
+          *ngFor="let service of aboutServices"
+        >
+
+          <div class="about-service-icon">
+            <i [class]="service.icon"></i>
+          </div>
+
+          <div class="about-service-content">
+
+            <h4>
+              {{ service.title }}
+            </h4>
+
+            <p>
+              {{ service.description }}
+            </p>
+
+          </div>
+
+          <span class="about-service-arrow">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </span>
+
+        </article>
+
+      </div>
+
+
+      <!-- ===================================================
+           LANGUAGES
+           =================================================== -->
+
+      <div class="about-languages">
+
+        <div class="languages-label">
+
+          <i class="fa-solid fa-comments"></i>
+
+          <span>We speak</span>
+
+        </div>
+
+        <div class="language-list">
+
+          <span
+            *ngFor="let language of aboutLanguages"
+            class="language-chip"
+          >
+            {{ language }}
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section
+  class="destinations-section"
+  id="destinations"
+>
+
+  <div class="destinations-container">
+
+    <!-- HEADER -->
+    <div class="destinations-header">
+
+      <div class="destinations-heading">
+
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-line"></span>
+          PLACES WORTH DISCOVERING
+        </div>
+
+        <h2>
+          Journey beyond
+          <span>the ordinary.</span>
+        </h2>
+
+      </div>
+
+      <div class="destinations-intro">
+
+        <p>
+          From the wild plains of Tanzania to the turquoise
+          waters of Zanzibar, discover places that turn
+          every journey into a story worth remembering.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- DESTINATION GRID -->
+    <div class="destinations-grid">
+
+      @for (destination of destinations; track destination.title) {
+
+        <article
+          class="destination-card"
+        >
+
+          <!-- IMAGE -->
+          <div class="destination-image">
+
+            <img
+              [src]="destination.image"
+              [alt]="destination.title"
+            />
+
+            <div class="destination-image-overlay"></div>
+
+
+            <!-- CATEGORY -->
+            <div class="destination-region">
+              <i
+                class="fa-solid"
+                [class]="destination.icon"
+              ></i>
+
+              {{ destination.region }}
+            </div>
+
+
+            <!-- ARROW -->
+            <div class="destination-arrow">
+              <i class="fa-solid fa-arrow-up-right"></i>
+            </div>
+
+          </div>
+
+
+          <!-- CONTENT -->
+          <div class="destination-content">
+
+            <h3>
+              {{ destination.title }}
+            </h3>
+
+            <p>
+              {{ destination.description }}
+            </p>
+
+            <a
+              routerLink="/destinations"
+              class="destination-link"
+            >
+              Explore destination
+
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+          </div>
+
+        </article>
+
+      }
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <div class="destinations-footer">
+
+      <div class="destinations-footer-line"></div>
+
+      <a
+        routerLink="/destinations"
+        class="view-all-destinations"
+      >
+        <span>View All Destinations</span>
+
+        <span class="view-all-icon">
+          <i class="fa-solid fa-arrow-right"></i>
+        </span>
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     MAX TOURS & SAFARI
+     TOURS & SAFARIS SECTION
+========================================================= -->
+
+<section class="tours-section" id="tours">
+
+  <!-- Decorative background -->
+  <div class="tours-bg-shape tours-bg-shape-one"></div>
+  <div class="tours-bg-shape tours-bg-shape-two"></div>
+
+  <div class="tours-container">
+
+    <!-- =====================================================
+         SECTION HEADER
+    ====================================================== -->
+
+    <div class="tours-header">
+
+      <div class="tours-heading">
+
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-line"></span>
+
+          <span>CURATED EXPERIENCES</span>
+        </div>
+
+        <h2>
+          Journeys worth taking.
+          <span>Experiences worth remembering.</span>
+        </h2>
+
+      </div>
+
+      <div class="tours-intro">
+        <p>
+          From unforgettable Tanzania safaris to tropical Zanzibar escapes,
+          discover experiences carefully designed to make every moment count.
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOUR GRID
+    ====================================================== -->
+
+    <div class="tours-grid">
+
+      <article
+        class="tour-card"
+        *ngFor="let tour of homeTours; let i = index"
+        [style.--tour-index]="i"
+      >
+
+        <!-- =================================================
+             IMAGE
+        ================================================== -->
+
+        <div class="tour-image-wrap">
+
+          <img
+            class="tour-image"
+            [src]="tour.image"
+            [alt]="tour.title"
+            loading="lazy"
+          />
+
+          <div class="tour-image-overlay"></div>
+
+
+          <!-- Category -->
+          <div class="tour-category">
+            <i class="fas" [ngClass]="tour.icon"></i>
+            <span>{{ tour.category }}</span>
+          </div>
+
+
+          <!-- Location -->
+          <div class="tour-location">
+            <i class="fas fa-location-dot"></i>
+            <span>{{ tour.location }}</span>
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CARD CONTENT
+        ================================================== -->
+
+        <div class="tour-content">
+
+          <div class="tour-meta">
+
+            <span class="tour-duration">
+              <i class="far fa-clock"></i>
+              {{ tour.duration }}
+            </span>
+
+            <span class="tour-feature">
+              <i class="fas fa-star"></i>
+              Featured
+            </span>
+
+          </div>
+
+
+          <h3 class="tour-title">
+            {{ tour.title }}
+          </h3>
+
+
+          <p class="tour-description">
+            {{ tour.description }}
+          </p>
+
+
+          <!-- =================================================
+               CARD FOOTER
+          ================================================== -->
+
+          <div class="tour-footer">
+
+            <div class="tour-price">
+
+              <span class="price-label">
+                From
+              </span>
+
+              <strong>
+                {{ tour.price }}
+              </strong>
+
+              <span class="price-person">
+                / person
+              </span>
+
+            </div>
+
+
+            <a
+              routerLink="/tours"
+              class="tour-explore"
+              [attr.aria-label]="'Explore ' + tour.title"
+            >
+
+              <span>Explore More</span>
+
+              <span class="tour-arrow">
+                <i class="fas fa-arrow-right"></i>
+              </span>
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- =====================================================
+         SEE ALL TOURS
+    ====================================================== -->
+
+    <div class="tours-bottom">
+
+      <div class="tours-bottom-line"></div>
+
+      <a
+        routerLink="/tours"
+        class="view-all-tours"
+      >
+
+        <span>See All Tours</span>
+
+        <span class="view-all-icon">
+          <i class="fas fa-arrow-right"></i>
+        </span>
+
+      </a>
+
+      <div class="tours-bottom-line"></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================================================
+     MAX EXPERIENCE SECTION
+     ========================================================= -->
+
+<section class="experience-strip" id="experience">
+
+  <div class="experience-container">
+
+    <!-- IMAGE -->
+    <div class="experience-visual">
+
+      <img
+        src="/img/experience.jpeg"
+        alt="Authentic Tanzania safari experience"
+        class="experience-image"
+      />
+
+      <div class="experience-image-overlay"></div>
+
+      <div class="experience-floating">
+        <span class="experience-floating-icon">
+          <i class="fas fa-compass"></i>
+        </span>
+
+        <div>
+          <strong>Travel with purpose.</strong>
+          <span>Experience Africa differently.</span>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- CONTENT -->
+    <div class="experience-content">
+
+      <span class="experience-eyebrow">
+        <span></span>
+        THE MAX EXPERIENCE
+      </span>
+
+      <h2>
+        More than a trip.
+        <em>A story to remember.</em>
+      </h2>
+
+      <p class="experience-intro">
+        From the first welcome to your final sunset, we create journeys
+        that connect you with the people, places and moments that make
+        Tanzania unforgettable.
+      </p>
+
+
+      <!-- EXPERIENCE FEATURES -->
+      <div class="experience-features">
+
+        <div class="experience-feature">
+
+          <div class="experience-feature-icon">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+
+          <div>
+            <h3>Local Knowledge</h3>
+            <p>
+              Discover authentic places through people who know them best.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="experience-feature">
+
+          <div class="experience-feature-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+
+          <div>
+            <h3>Personal Touch</h3>
+            <p>
+              Every journey is carefully shaped around your travel style.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="experience-feature">
+
+          <div class="experience-feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+
+          <div>
+            <h3>Travel With Confidence</h3>
+            <p>
+              Professional support from planning to the moment you return.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="experience-feature">
+
+          <div class="experience-feature-icon">
+            <i class="fas fa-star"></i>
+          </div>
+
+          <div>
+            <h3>Memorable Moments</h3>
+            <p>
+              We focus on experiences you'll still be talking about years later.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="home-journal" id="blog">
+
+  <div class="journal-heading">
+
+    <div>
+
+      <span class="journal-label">
+        FROM OUR JOURNAL
+      </span>
+
+      <h2>
+        Stories To Inspire<br>
+        Your Zanzibar Journey
+      </h2>
+
+    </div>
+
+    <p>
+      Travel inspiration, local stories and ideas
+      to help you discover Zanzibar differently.
+    </p>
+
+  </div>
+
+
+  <div class="home-journal-grid">
+
+    @for (blog of homeBlogs; track blog.slug) {
+
+      <article class="home-journal-card">
+
+        <div class="home-journal-image">
+
+          <img
+            [src]="blog.heroImage"
+            [alt]="blog.title"
+          >
+
+          <span>
+            {{ blog.category }}
+          </span>
+
+        </div>
+
+
+        <div class="home-journal-body">
+
+          <div class="home-journal-meta">
+
+            <span>
+              {{ blog.date }}
+            </span>
+
+            <span>
+              {{ blog.readTime }}
+            </span>
+
+          </div>
+
+          <h3>
+            {{ blog.title }}
+          </h3>
+
+          <p>
+            {{ blog.excerpt }}
+          </p>
+
+          <a
+            [routerLink]="['/blog-details', blog.slug]"
+            class="home-read-more"
+          >
+            Read More
+
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+
+        </div>
+
+      </article>
+
+    }
+
+  </div>
+
+
+  <!-- VIEW ALL -->
+  <div class="journal-view-all">
+
+    <a routerLink="/blog">
+
+      Explore All Journals
+
+      <i class="fa-solid fa-arrow-right"></i>
+
+    </a>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     CONTACT SECTION
+========================= -->
+<section class="contact-section" id="contact">
+  <div class="contact-glow contact-glow-one"></div>
+  <div class="contact-glow contact-glow-two"></div>
+
+  <div class="wrapper">
+
+    <!-- SECTION HEADER -->
+    <div class="contact-heading">
+      <span class="section-eyebrow">
+        <i class="fa-solid fa-paper-plane"></i>
+        Let's Connect
+      </span>
+
+      <h2>
+        Let’s Plan Your
+        <span>Perfect Journey</span>
+      </h2>
+
+      <p>
+        Have a question, need help choosing a tour, or planning your next
+        adventure? Our team is ready to help you create an unforgettable
+        Tanzania and Zanzibar experience.
+      </p>
+    </div>
+
+    <div class="contact-wrapper">
+
+      <!-- =========================
+           LEFT SIDE
+      ========================= -->
+      <div class="contact-intro">
+
+        <div class="contact-intro-top">
+          <div class="contact-icon-main">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+
+          <div>
+            <span>We're here for you</span>
+            <h3>Get in Touch</h3>
+          </div>
+        </div>
+
+        <p class="contact-description">
+          Whether you're dreaming of Zanzibar's turquoise waters, a Tanzania
+          safari, or a customized African adventure, talk to us and let us
+          help you plan it perfectly.
+        </p>
+
+        <!-- CONTACT DETAILS -->
+        <div class="contact-details">
+
+          <a href="tel:+255689840637" class="contact-detail">
+            <div class="contact-detail-icon">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+
+            <div>
+              <small>Call us</small>
+              <strong>+255 689 840 637</strong>
+            </div>
+
+            <i class="fa-solid fa-arrow-up-right-from-square detail-arrow"></i>
+          </a>
+
+          <a
+            href="mailto:maxtourandsafari@gmail.com"
+            class="contact-detail"
+          >
+            <div class="contact-detail-icon">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+
+            <div>
+              <small>Email us</small>
+              <strong>maxtourandsafari@gmail.com</strong>
+            </div>
+
+            <i class="fa-solid fa-arrow-up-right-from-square detail-arrow"></i>
+          </a>
+
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Zanzibar%2C%20Tanzania"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-detail"
+          >
+            <div class="contact-detail-icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+
+            <div>
+              <small>Our location</small>
+              <strong>Zanzibar, Tanzania</strong>
+            </div>
+
+            <i class="fa-solid fa-arrow-up-right-from-square detail-arrow"></i>
+          </a>
+
+        </div>
+
+        <!-- SOCIALS -->
+        <div class="contact-social-area">
+
+          <span>Follow our journey</span>
+
+          <div class="contact-socials">
+
+            <a
+              href="https://wa.me/255617438758"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              class="contact-social whatsapp"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+
+            <a
+              href="https://www.facebook.com/profile.php?id=61561055606916"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              class="contact-social facebook"
+            >
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+
+            <a
+              href="https://www.instagram.com/zakayo3838?igsh=eDNiMmRlbWF5MHlu"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              class="contact-social instagram"
+            >
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a
+              href="https://tiktok.com/@max.tours.safari"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
+              class="contact-social tiktok"
+            >
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- MINI LOCATION CARD -->
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=Zanzibar%2C%20Tanzania"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="location-card"
+        >
+          <div class="location-map-pattern">
+            <div class="map-line map-line-one"></div>
+            <div class="map-line map-line-two"></div>
+            <div class="map-line map-line-three"></div>
+
+            <div class="map-pin">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+          </div>
+
+          <div class="location-content">
+            <small>Based in</small>
+            <strong>Zanzibar, Tanzania</strong>
+            <span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              Open in Google Maps
+            </span>
+          </div>
+        </a>
+
+      </div>
+
+
+      <!-- =========================
+           RIGHT SIDE FORM
+      ========================= -->
+      <div class="contact-form-card">
+
+        <div class="form-card-header">
+          <div>
+            <span>Send us a message</span>
+            <h3>How can we help?</h3>
+          </div>
+
+          <div class="form-header-icon">
+            <i class="fa-regular fa-message"></i>
+          </div>
+        </div>
+
+        <form
+          class="modern-contact-form"
+          (ngSubmit)="sendContactMessage()"
+          #contactForm="ngForm"
+        >
+
+          <div class="form-row">
+
+            <div class="form-field">
+              <label for="contactName">
+                Your Name
+              </label>
+
+              <div class="input-wrapper">
+                <i class="fa-regular fa-user"></i>
+
+                <input
+                  id="contactName"
+                  type="text"
+                  name="name"
+                  [(ngModel)]="contactFormData.name"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="contactEmail">
+                Email Address
+              </label>
+
+              <div class="input-wrapper">
+                <i class="fa-regular fa-envelope"></i>
+
+                <input
+                  id="contactEmail"
+                  type="email"
+                  name="email"
+                  [(ngModel)]="contactFormData.email"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="form-field">
+            <label for="contactSubject">
+              Subject
+            </label>
+
+            <div class="input-wrapper">
+              <i class="fa-regular fa-bookmark"></i>
+
+              <input
+                id="contactSubject"
+                type="text"
+                name="subject"
+                [(ngModel)]="contactFormData.subject"
+                placeholder="How can we help you?"
+                required
+              />
+            </div>
+          </div>
+
+
+          <div class="form-field">
+            <label for="contactMessage">
+              Your Message
+            </label>
+
+            <div class="input-wrapper textarea-wrapper">
+              <i class="fa-regular fa-comment-dots"></i>
+
+              <textarea
+                id="contactMessage"
+                name="message"
+                rows="6"
+                [(ngModel)]="contactFormData.message"
+                placeholder="Tell us about your trip, questions or plans..."
+                required
+              ></textarea>
+            </div>
+          </div>
+
+
+          <!-- STATUS -->
+          @if (contactStatus.message) {
+            <div
+              class="contact-status"
+              [class.success]="contactStatus.type === 'success'"
+              [class.error]="contactStatus.type === 'error'"
+            >
+              <i
+                class="fa-solid"
+                [class.fa-circle-check]="contactStatus.type === 'success'"
+                [class.fa-circle-exclamation]="contactStatus.type === 'error'"
+              ></i>
+
+              <span>{{ contactStatus.message }}</span>
+            </div>
+          }
+
+
+          <button
+            type="submit"
+            class="contact-submit"
+            [disabled]="sendingMessage"
+          >
+
+            @if (!sendingMessage) {
+              <span>Send Message</span>
+              <i class="fa-solid fa-paper-plane"></i>
+            }
+
+            @if (sendingMessage) {
+              <span>Sending...</span>
+              <i class="fa-solid fa-spinner fa-spin"></i>
+            }
+
+          </button>
+
+
+          <div class="form-security-note">
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <span>
+              Your message is sent securely to our travel team.
+            </span>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-main wrapper">
+
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <a href="#home" class="footer-logo">
+        <img src="/img/logo.png" alt="Max Tour & Safari Logo">
+        <span>Max Tour & Safari</span>
+      </a>
+
+      <p>
+        Discover Zanzibar & Tanzania through authentic tours,
+        unforgettable adventures and local experiences.
+      </p>
+
+      <div class="footer-socials">
+        <a
+          href="https://wa.me/255617438758"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="WhatsApp"
+        >
+          <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <a
+          href="https://www.facebook.com/profile.php?id=61561055606916"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Facebook"
+        >
+          <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a
+          href="https://www.instagram.com/zakayo3838"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+
+        <a
+          href="https://tiktok.com/@max.tours.safari"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="TikTok"
+        >
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-column">
+      <h3>Explore</h3>
+
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#tours">Tours & Safaris</a>
+      <a href="#blogs">Travel Journal</a>
+    </div>
+
+    <!-- TRAVEL -->
+    <div class="footer-column">
+      <h3>Travel With Us</h3>
+
+      <a href="#contact">Contact Us</a>
+      <a href="/booking">Book Your Trip</a>
+      <a href="/agents">Travel Agents</a>
+      <a href="/gallery">Our Gallery</a>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="footer-column footer-contact">
+      <h3>Get In Touch</h3>
+
+      <p>
+        <i class="fas fa-map-marker-alt"></i>
+        Zanzibar, Tanzania
+      </p>
+
+      <a href="tel:+255689840637">
+        <i class="fas fa-phone"></i>
+        +255 617 438 758
+      </a>
+
+      <a href="mailto:maxtourandsafari@gmail.com">
+        <i class="fas fa-envelope"></i>
+        maxtourandsafari@gmail.com
+      </a>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <div class="wrapper footer-bottom-inner">
+
+      <p >
+  © <span >{{ currentYear }}</span>
+  <strong style="padding-left: 3px;">Max Tour & Safari</strong>.
+  All rights reserved.
+</p>
+
+      <div class="footer-legal">
+        <a href="/privacy">Privacy</a>
+        <span>•</span>
+        <a href="/terms">Terms</a>
+        <span>•</span>
+        <a href="/faqs">FAQs</a>
+      </div>
+
+      <p class="developer-credit">
+        Developed by
+        <a
+          href="https://abra25.github.io/solidy/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          MrSolidy
+        </a>
+      </p>
+
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button
+  type="button"
+  class="back-to-top"
+  [class.show]="showBackTop"
+  (click)="scrollToTop()"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <i class="fas fa-arrow-up"></i>
+</button>
