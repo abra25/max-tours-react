@@ -1,6 +1,6 @@
 [build]
   command = "npm run build"
-  publish = "dist/Max Tour & Safari/browser"
+  publish = "dist/max-tour"
 
 [build.environment]
   NODE_VERSION = "22"
