@@ -497,7 +497,7 @@ homeTours: HomeTour[] = [
   },
 
   {
-    image: '/img/safari-2.jpeg',
+    image: '/img/safari-3.jpeg',
     category: 'MULTI-DESTINATION',
     location: 'Tanzania & Zanzibar',
     title: '11 Days Tanzania & Zanzibar',
@@ -509,7 +509,7 @@ homeTours: HomeTour[] = [
   },
 
   {
-    image: '/img/holiday-1.jpeg',
+    image: '/img/holiday-1.png',
     category: 'ZANZIBAR HOLIDAY',
     location: 'Zanzibar',
     title: '6 Days Zanzibar Holidays',
@@ -533,7 +533,7 @@ homeTours: HomeTour[] = [
   },
 
   {
-    image: '/img/nakupenda_bech.jpeg',
+    image: '/img/nakupenda_bech-2.jpeg',
     category: 'BEACH ESCAPE',
     location: 'Zanzibar',
     title: 'Prison Island & Nakupenda Beach',
@@ -545,7 +545,7 @@ homeTours: HomeTour[] = [
   },
 
   {
-    image: '/img/spice-1.jpeg',
+    image: '/img/spice-5.png',
     category: 'CULTURE & FOOD',
     location: 'Zanzibar',
     title: 'Spice Tour with Cooking Class',

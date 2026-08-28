@@ -143,9 +143,9 @@ export class Tours implements OnInit {
       description:
         'Combine a visit to Prison Island with the stunning Nakupenda sandbank for a perfect day in paradise.',
       icon: 'fa-island-tropical',
-      image: '/img/nakupenda_bech.jpeg',
+      image: '/img/nakupenda_beach.jpeg',
       gallery: [
-        '/img/nakupenda_bech.jpeg',
+        '/img/nakupenda_beach.jpeg',
         '/img/c (224).jpeg',
         '/img/Blue Safari Trip Zanzibar.jpeg'
       ]
@@ -163,9 +163,9 @@ export class Tours implements OnInit {
       description:
         'Discover Zanzibar’s famous spices and learn how local dishes are prepared in an authentic cooking experience.',
       icon: 'fa-utensils',
-      image: '/img/spice-1.jpeg',
+      image: '/img/spice-5.png',
       gallery: [
-        '/img/spice-1.jpeg',
+        '/img/spice-5.png',
         '/img/c (153).jpeg',
         '/img/c (105).jpeg'
       ]
@@ -183,7 +183,7 @@ export class Tours implements OnInit {
       description:
         'Visit historic Prison Island, discover its giant tortoises and enjoy beautiful views across the Indian Ocean.',
       icon: 'fa-island-tropical',
-      image: '/img/1 (1).jpeg',
+      image: '/img/prison-2.jpeg',
       gallery: [
         '/img/1 (1).jpeg',
         '/img/c (302).jpeg',
@@ -203,7 +203,7 @@ export class Tours implements OnInit {
       description:
         'Sail into a beautiful Zanzibar sunset aboard a traditional dhow while enjoying the calm Indian Ocean.',
       icon: 'fa-sailboat',
-      image: '/img/g3.jpeg',
+      image: '/img/sunset-1.jpeg',
       gallery: [
         '/img/g3.jpeg',
         '/img/g7.jpeg',
@@ -223,11 +223,11 @@ export class Tours implements OnInit {
       description:
         'Meet local communities and discover everyday island life, traditions, crafts and authentic Swahili culture.',
       icon: 'fa-people-group',
-      image: '/img/c (260).jpeg',
+      image: '/img/village-2.jpeg',
       gallery: [
-        '/img/c (260).jpeg',
-        '/img/c (278).jpeg',
-        '/img/c (267).jpeg'
+        '/img/village-2.jpeg',
+        '/img/village.jpeg',
+        '/img/village-1.jpeg'
       ]
     },
 
@@ -243,11 +243,11 @@ export class Tours implements OnInit {
       description:
         'Experience traditional Zanzibar fishing and spend an unforgettable day on the water with local fishermen.',
       icon: 'fa-fish',
-      image: '/img/c (193).jpeg',
+      image: '/img/fish.jpeg',
       gallery: [
-        '/img/c (193).jpeg',
-        '/img/c (252).jpeg',
-        '/img/c (93).jpeg'
+        '/img/fish.jpeg',
+        '/img/fish-1.jpeg',
+        '/img/fish-2.jpeg'
       ]
     },
 
@@ -263,9 +263,9 @@ export class Tours implements OnInit {
       description:
         'Explore Zanzibar’s lush tropical forest and encounter the rare red colobus monkeys in their natural habitat.',
       icon: 'fa-leaf',
-      image: '/img/Jozni forest.jpeg',
+      image: '/img/jozani.jpeg',
       gallery: [
-        '/img/Jozni forest.jpeg',
+        '/img/jozani.jpeg',
         '/img/c (193).jpeg',
         '/img/c (302).jpeg'
       ]
@@ -283,9 +283,9 @@ export class Tours implements OnInit {
       description:
         'Sail across Zanzibar’s turquoise waters, discover hidden sandbanks and enjoy an unforgettable marine adventure.',
       icon: 'fa-water',
-      image: '/img/Blue Safari Trip Zanzibar.jpeg',
+      image: '/img/safari-blue-1.png',
       gallery: [
-        '/img/Blue Safari Trip Zanzibar.jpeg',
+        '/img/safari-blue-1.png',
         '/img/c (224).jpeg',
         '/img/Mnemba Atoll Trip.jpeg'
       ]
@@ -303,7 +303,7 @@ export class Tours implements OnInit {
       description:
         'Set out into the Indian Ocean for an exciting dolphin experience surrounded by Zanzibar’s beautiful coastal scenery.',
       icon: 'fa-fish',
-      image: '/img/c (302).jpeg',
+      image: '/img/dolphin-2.jpeg',
       gallery: [
         '/img/c (302).jpeg',
         '/img/Mnemba Atoll Trip.jpeg',
@@ -323,9 +323,9 @@ export class Tours implements OnInit {
       description:
         'Walk through Zanzibar’s famous spice farms and discover the aromas, flavours and traditions of the Spice Island.',
       icon: 'fa-seedling',
-      image: '/img/c (153).jpeg',
+      image: '/img/spice-1.jpeg',
       gallery: [
-        '/img/c (153).jpeg',
+        '/img/spice-1.jpeg',
         '/img/spice-1.jpeg',
         '/img/c (105).jpeg'
       ]

@@ -75,7 +75,7 @@ export const DESTINATIONS: Destination[] = [
   },
   {
   slug: 'salam-cave',
-  image: '/img/salam-cave.jpeg',
+  image: '/img/salam-cave.png',
   region: 'ZANZIBAR',
   title: 'Salam Cave',
   description:
@@ -105,7 +105,7 @@ export const DESTINATIONS: Destination[] = [
 
   {
     slug: 'prison-island',
-    image: '/img/prison.jpeg',
+    image: '/img/prison-1.jpeg',
     region: 'ZANZIBAR',
     title: 'Prison Island',
     description:
@@ -135,7 +135,7 @@ export const DESTINATIONS: Destination[] = [
 
   {
     slug: 'safari-blue',
-    image: '/img/blue-safari-2.jpeg',
+    image: '/img/safari-blue-2.jpeg',
     region: 'ZANZIBAR',
     title: 'Safari Blue',
     description:
@@ -150,9 +150,9 @@ export const DESTINATIONS: Destination[] = [
 
   {
     slug: 'spice-tour',
-    image: '/img/spice-3.jpeg',
+    image: '/img/spice-3.png',
     region: 'ZANZIBAR',
-    title: 'Spice Tour',
+    title: 'Spice Farm',
     description:
       'Discover why Zanzibar is known as the Spice Island through an authentic journey into its farms, traditions and flavors.',
     icon: 'fa-seedling',
