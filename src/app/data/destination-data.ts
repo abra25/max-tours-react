@@ -16,7 +16,7 @@ export const DESTINATIONS: Destination[] = [
 
   {
     slug: 'stone-town',
-    image: '/img/stone-town.jpeg',
+    image: '/img/stone-town-1.png',
     region: 'ZANZIBAR',
     title: 'Stone Town',
     description:
@@ -31,7 +31,7 @@ export const DESTINATIONS: Destination[] = [
 
   {
     slug: 'mnemba-island',
-    image: '/img/Mnemba Island.jpeg',
+    image: '/img/mnemba.jpeg',
     region: 'ZANZIBAR',
     title: 'Mnemba Island',
     description:
@@ -150,7 +150,7 @@ export const DESTINATIONS: Destination[] = [
 
   {
     slug: 'spice-tour',
-    image: '/img/spice-2.png',
+    image: '/img/spice-3.jpeg',
     region: 'ZANZIBAR',
     title: 'Spice Tour',
     description:
@@ -213,21 +213,6 @@ export const DESTINATIONS: Destination[] = [
   },
 
   {
-    slug: 'olduvai-gorge',
-    image: '/img/Olduvai Gorge.jpeg',
-    region: 'NORTHERN TANZANIA',
-    title: 'Olduvai Gorge',
-    description:
-      'Journey into one of the world’s most important archaeological sites and discover the fascinating story of early human evolution.',
-    icon: 'fa-monument',
-    highlights: [
-      'Human evolution history',
-      'Archaeological discoveries',
-      'Unique geological landscapes'
-    ]
-  },
-
-  {
     slug: 'nyerere-national-park',
     image: '/img/nyerere.jpg',
     region: 'SOUTHERN TANZANIA',
@@ -254,36 +239,6 @@ export const DESTINATIONS: Destination[] = [
       'Wildlife safaris',
       'Elephants & giraffes',
       'Accessible safari destination'
-    ]
-  },
-
-  {
-    slug: 'gombe-national-park',
-    image: '/img/Gombe.jpeg',
-    region: 'WESTERN TANZANIA',
-    title: 'Gombe National Park',
-    description:
-      'Explore the beautiful forests of western Tanzania and encounter chimpanzees in one of Africa’s most fascinating wildlife destinations.',
-    icon: 'fa-tree',
-    highlights: [
-      'Chimpanzee trekking',
-      'Lake Tanganyika',
-      'Beautiful forest scenery'
-    ]
-  },
-
-  {
-    slug: 'bagamoyo',
-    image: '/img/bagamoyo.jpeg',
-    region: 'COASTAL TANZANIA',
-    title: 'Bagamoyo',
-    description:
-      'Step into Tanzania’s coastal history through ancient architecture, cultural heritage and stories of the Swahili coast.',
-    icon: 'fa-landmark-dome',
-    highlights: [
-      'Swahili heritage',
-      'Historic coastal town',
-      'Cultural exploration'
     ]
   }
 

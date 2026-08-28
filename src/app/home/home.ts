@@ -71,7 +71,7 @@ export class Home implements AfterViewInit, OnDestroy {
   heroSlides: HeroSlide[] = [
 
     {
-      image: '/img/hero-1.jpeg',
+      image: '/img/hero-1.png',
       eyebrow: 'WELCOME TO ZANZIBAR',
       title: 'Discover',
       accent: 'the Extraordinary.',
@@ -366,7 +366,7 @@ destinations: Destination[] = [
   // ================================
 
   {
-    image: '/img/stone-town.jpeg',
+    image: '/img/stone-town-1.png',
     region: 'ZANZIBAR',
     title: 'Stone Town',
     description:
@@ -375,7 +375,7 @@ destinations: Destination[] = [
   },
 
   {
-    image: '/img/Mnemba Island.jpeg',
+    image: '/img/mnemba.jpeg',
     region: 'ZANZIBAR',
     title: 'Mnemba Island',
     description:

@@ -99,7 +99,7 @@ export class ToursDetails implements OnInit {
       gallery: [
         '/img/safari-1.jpeg',
         '/img/safari.jpeg',
-        '/img/Ngorongoro creater.jpg'
+        '/img/safari-2.jpeg'
       ]
     },
 
@@ -115,11 +115,11 @@ export class ToursDetails implements OnInit {
       description:
         'A complete African escape combining unforgettable wildlife adventures with the tropical beauty of Zanzibar.',
       icon: 'fa-route',
-      image: '/img/safari-2.jpeg',
+      image: '/img/safari-3.jpeg',
       gallery: [
-        '/img/safari-2.jpeg',
-        '/img/znz.jpeg',
-        '/img/Blue Safari Trip Zanzibar.jpeg'
+        '/img/safari-3.jpeg',
+        '/img/znz-1.jpeg',
+        '/img/safari-4.jpeg'
       ]
     },
 
@@ -135,11 +135,11 @@ export class ToursDetails implements OnInit {
       description:
         'Relax, explore and experience the best of Zanzibar with beautiful beaches, culture and island adventures.',
       icon: 'fa-umbrella-beach',
-      image: '/img/holiday-1.jpeg',
+      image: '/img/holiday-1.png',
       gallery: [
-        '/img/holiday-1.jpeg',
-        '/img/beach-2.jpg',
-        '/img/znz.jpg'
+        '/img/holiday-1.png',
+        '/img/holiday-2.jpeg',
+        '/img/holiday-3.jpeg'
       ]
     },
 
