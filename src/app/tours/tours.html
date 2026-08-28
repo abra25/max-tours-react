@@ -1,1 +1,421 @@
-<p>tours works!</p>
+<main class="tours-page">
+
+  <!-- =====================================================
+       HERO
+  ===================================================== -->
+
+  <section class="tours-hero">
+
+    <div class="tours-hero-background"></div>
+
+    <div class="tours-hero-overlay"></div>
+
+    <div class="tours-hero-content">
+
+      <span class="tours-hero-eyebrow">
+
+        <span></span>
+
+        CURATED EXPERIENCES
+
+      </span>
+
+      <h1>
+        Journeys worth
+        <em>remembering.</em>
+      </h1>
+
+      <p>
+        From unforgettable Tanzania safaris to
+        authentic Zanzibar experiences, choose a
+        journey designed around the moments that matter.
+      </p>
+
+      <div class="tours-hero-stats">
+
+        <div>
+          <strong>{{ tours.length }}+</strong>
+          <span>Experiences</span>
+        </div>
+
+        <div>
+          <strong>2</strong>
+          <span>Destinations</span>
+        </div>
+
+        <div>
+          <strong>100%</strong>
+          <span>Local expertise</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       TOUR COLLECTION
+  ===================================================== -->
+
+  <section class="tours-collection">
+
+    <div class="tours-container">
+
+      <!-- HEADER -->
+
+      <div class="tours-page-header">
+
+        <div>
+
+          <span class="section-eyebrow">
+
+            <span class="section-eyebrow-line"></span>
+
+            OUR EXPERIENCES
+
+          </span>
+
+          <h2>
+            Find your
+            <span>perfect journey.</span>
+          </h2>
+
+        </div>
+
+        <p>
+          Choose from carefully selected day tours and
+          holiday packages across Zanzibar and Tanzania.
+          Every experience is created to make your journey
+          effortless, authentic and memorable.
+        </p>
+
+      </div>
+
+
+      <!-- GRID -->
+
+      <div class="tours-page-grid">
+
+        @for (
+          tour of tours;
+          track trackByTour($index, tour)
+        ) {
+
+          <article
+            class="tour-page-card"
+            [style.--tour-index]="$index"
+          >
+
+            <!-- IMAGE -->
+
+            <div class="tour-page-image">
+
+              <img
+                [src]="tour.image"
+                [alt]="tour.title"
+                loading="lazy"
+              />
+
+              <div class="tour-page-image-overlay"></div>
+
+
+              <!-- CATEGORY -->
+
+              <div class="tour-page-category">
+
+                <i
+                  class="fa-solid"
+                  [class]="tour.icon"
+                ></i>
+
+                {{ tour.categoryLabel }}
+
+              </div>
+
+
+              <!-- LOCATION -->
+
+              <div class="tour-page-location">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                {{ tour.location }}
+
+              </div>
+
+
+              <!-- PRICE -->
+
+              <div class="tour-page-price">
+
+                <small>FROM</small>
+
+                <strong>{{ tour.price }}</strong>
+
+                <span>/ person</span>
+
+              </div>
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div class="tour-page-content">
+
+              <div class="tour-page-meta">
+
+                <span>
+                  <i class="fa-regular fa-clock"></i>
+                  {{ tour.duration }}
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-circle-check"></i>
+                  Available
+                </span>
+
+              </div>
+
+
+              <h3>
+                {{ tour.title }}
+              </h3>
+
+
+              <p>
+                {{ tour.description }}
+              </p>
+
+
+              <div class="tour-page-footer">
+
+                <span class="tour-experience-label">
+                  {{ tour.category === 'holiday_package'
+                    ? 'HOLIDAY PACKAGE'
+                    : 'DAY TOUR'
+                  }}
+                </span>
+
+
+                <a
+                  class="tour-view-button"
+                  [routerLink]="[
+                    '/tours',
+                    tour.slug
+                  ]"
+                >
+
+                  Explore
+
+                  <span>
+                    <i class="fa-solid fa-arrow-up-right"></i>
+                  </span>
+
+                </a>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       CTA
+  ===================================================== -->
+
+  <section class="tours-cta">
+
+    <div class="tours-cta-pattern"></div>
+
+    <div class="tours-cta-inner">
+
+      <span class="tours-cta-eyebrow">
+        YOUR NEXT ADVENTURE
+      </span>
+
+      <h2>
+        Not sure where
+        <em>to start?</em>
+      </h2>
+
+      <p>
+        Tell us what you are looking for and our local
+        team will help you create the perfect experience.
+      </p>
+
+      <a
+        routerLink="/booking"
+        class="tours-cta-button"
+      >
+
+        Plan Your Journey
+
+        <i class="fa-solid fa-arrow-right"></i>
+
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       BACK TO TOP
+  ===================================================== -->
+
+  <button
+    type="button"
+    class="back-to-top"
+    [class.show]="showBackTop"
+    (click)="scrollToTop()"
+    aria-label="Back to top"
+  >
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+  </button>
+
+</main>
+
+<footer class="site-footer">
+  
+  <div class="footer-main wrapper">
+
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <a href="#home" class="footer-logo">
+        <img src="/img/logo.png" alt="Max Tour & Safari Logo">
+        <span>Max Tour & Safari</span>
+      </a>
+
+      <p>
+        Discover Zanzibar & Tanzania through authentic tours,
+        unforgettable adventures and local experiences.
+      </p>
+
+      <div class="footer-socials">
+        <a
+          href="https://wa.me/255617438758"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="WhatsApp"
+        >
+          <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <a
+          href="https://www.facebook.com/profile.php?id=61561055606916"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Facebook"
+        >
+          <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a
+          href="https://www.instagram.com/zakayo3838"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+
+        <a
+          href="https://tiktok.com/@max.tours.safari"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="TikTok"
+        >
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-column">
+      <h3>Explore</h3>
+
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#tours">Tours & Safaris</a>
+      <a href="#blogs">Travel Journal</a>
+    </div>
+
+    <!-- TRAVEL -->
+    <div class="footer-column">
+      <h3>Travel With Us</h3>
+
+      <a href="#contact">Contact Us</a>
+      <a href="/booking">Book Your Trip</a>
+      <a href="/agents">Travel Agents</a>
+      <a href="/gallery">Our Gallery</a>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="footer-column footer-contact">
+      <h3>Get In Touch</h3>
+
+      <p>
+        <i class="fas fa-map-marker-alt"></i>
+        Zanzibar, Tanzania
+      </p>
+
+      <a href="tel:+255689840637">
+        <i class="fas fa-phone"></i>
+        +255 617 438 758
+      </a>
+
+      <a href="mailto:maxtourandsafari@gmail.com">
+        <i class="fas fa-envelope"></i>
+        maxtourandsafari@gmail.com
+      </a>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <div class="wrapper footer-bottom-inner">
+
+      <p >
+  © <span >{{ currentYear }}</span>
+  <strong style="padding-left: 3px;">Max Tour & Safari</strong>.
+  All rights reserved.
+</p>
+
+      <div class="footer-legal">
+        <a href="/privacy">Privacy</a>
+        <span>•</span>
+        <a href="/terms">Terms</a>
+        <span>•</span>
+        <a href="/faqs">FAQs</a>
+      </div>
+
+      <p class="developer-credit">
+        Developed by
+        <a
+          href="https://abra25.github.io/solidy/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          MrSolidy
+        </a>
+      </p>
+
+    </div>
+  </div>
+</footer>

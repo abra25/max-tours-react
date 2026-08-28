@@ -605,6 +605,10 @@
 
 </section>
 
+<!-- =========================================================
+     DESTINATIONS
+     ========================================================= -->
+
 <section
   class="destinations-section"
   id="destinations"
@@ -618,23 +622,27 @@
       <div class="destinations-heading">
 
         <div class="section-eyebrow">
+
           <span class="section-eyebrow-line"></span>
+
           PLACES WORTH DISCOVERING
+
         </div>
 
         <h2>
-          Journey beyond
-          <span>the ordinary.</span>
+          Find your
+          <span>next escape.</span>
         </h2>
 
       </div>
 
+
       <div class="destinations-intro">
 
         <p>
-          From the wild plains of Tanzania to the turquoise
-          waters of Zanzibar, discover places that turn
-          every journey into a story worth remembering.
+          From Zanzibar's timeless streets to Tanzania's
+          legendary wilderness, discover places made for
+          unforgettable journeys.
         </p>
 
       </div>
@@ -642,47 +650,69 @@
     </div>
 
 
-    <!-- DESTINATION GRID -->
-    <div class="destinations-grid">
+    <!-- =====================================================
+         CINEMATIC DESTINATION RAIL
+         ===================================================== -->
 
-      @for (destination of destinations; track destination.title) {
+    <div class="destination-rail">
+
+      @for (
+        destination of destinations;
+        track destination.title;
+        let i = $index
+      ) {
 
         <article
-          class="destination-card"
+          class="destination-panel"
+          [class.active]="activeDestination === i"
+          (mouseenter)="pauseDestinationAnimation()"
+          (mouseleave)="resumeDestinationAnimation()"
+          (click)="activateDestination(i)"
         >
 
           <!-- IMAGE -->
-          <div class="destination-image">
+
+          <div class="destination-panel-image">
 
             <img
               [src]="destination.image"
               [alt]="destination.title"
             />
 
-            <div class="destination-image-overlay"></div>
+            <div class="destination-panel-overlay"></div>
+
+          </div>
 
 
-            <!-- CATEGORY -->
-            <div class="destination-region">
+          <!-- TOP INFO -->
+
+          <div class="destination-panel-top">
+
+            <span class="destination-number">
+              {{ (i + 1).toString().padStart(2, '0') }}
+            </span>
+
+            <span class="destination-region">
+
               <i
                 class="fa-solid"
                 [class]="destination.icon"
               ></i>
 
               {{ destination.region }}
-            </div>
 
-
-            <!-- ARROW -->
-            <div class="destination-arrow">
-              <i class="fa-solid fa-arrow-up-right"></i>
-            </div>
+            </span>
 
           </div>
 
 
-          <!-- CONTENT -->
-          <div class="destination-content">
+          <!-- ACTIVE CONTENT -->
+
+          <div class="destination-panel-content">
+
+            <span class="destination-kicker">
+              
+            </span>
 
             <h3>
               {{ destination.title }}
@@ -692,14 +722,35 @@
               {{ destination.description }}
             </p>
 
+
             <a
               routerLink="/destinations"
-              class="destination-link"
+              class="destination-discover"
+              (click)="$event.stopPropagation()"
             >
-              Explore destination
 
-              <i class="fa-solid fa-arrow-right"></i>
+              <span>
+                Discover place
+              </span>
+
+              <span class="destination-discover-icon">
+
+                <i class="fa-solid fa-arrow-up-right"></i>
+
+              </span>
+
             </a>
+
+          </div>
+
+
+          <!-- ACTIVE INDICATOR -->
+
+          <div class="destination-progress">
+
+            <span
+              [class.visible]="activeDestination === i"
+            ></span>
 
           </div>
 
@@ -710,20 +761,42 @@
     </div>
 
 
-    <!-- FOOTER -->
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
     <div class="destinations-footer">
 
-      <div class="destinations-footer-line"></div>
+      <div class="destinations-footer-meta">
+
+        <span>
+          Explore Tanzania & Zanzibar
+        </span>
+
+        <span class="destinations-footer-dot"></span>
+
+        <span>
+          06 destinations
+        </span>
+
+      </div>
+
 
       <a
         routerLink="/destinations"
         class="view-all-destinations"
       >
-        <span>View All Destinations</span>
+
+        <span>
+          View All Destinations
+        </span>
 
         <span class="view-all-icon">
+
           <i class="fa-solid fa-arrow-right"></i>
+
         </span>
+
       </a>
 
     </div>
@@ -1496,6 +1569,7 @@
 </section>
 
 <footer class="site-footer">
+  
   <div class="footer-main wrapper">
 
     <!-- BRAND -->

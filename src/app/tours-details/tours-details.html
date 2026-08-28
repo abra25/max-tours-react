@@ -1,1 +1,440 @@
-<p>tours-details works!</p>
+@if (tour) {
+
+  <main class="tour-details-page">
+
+
+    <!-- =================================================
+         HERO
+    ================================================= -->
+
+    <section
+      class="tour-details-hero"
+      [style.backgroundImage]="
+        'url(' + tour.image + ')'
+      "
+    >
+
+      <div class="tour-details-overlay"></div>
+
+
+      <div class="tour-details-hero-content">
+
+        <a
+          routerLink="/tours"
+          class="back-tours"
+        >
+
+          <i class="fa-solid fa-arrow-left"></i>
+
+          Back to tours
+
+        </a>
+
+
+        <div class="tour-details-category">
+
+          <i
+            class="fa-solid"
+            [class]="tour.icon"
+          ></i>
+
+          {{ tour.categoryLabel }}
+
+        </div>
+
+
+        <h1>
+          {{ tour.title }}
+        </h1>
+
+
+        <p>
+          {{ tour.description }}
+        </p>
+
+
+        <div class="tour-hero-meta">
+
+          <div>
+
+            <i class="fa-regular fa-clock"></i>
+
+            <span>
+              {{ tour.duration }}
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            <span>
+              {{ tour.location }}
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <i class="fa-solid fa-tag"></i>
+
+            <span>
+              From {{ tour.price }} / person
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         OVERVIEW
+    ================================================= -->
+
+    <section class="tour-overview">
+
+      <div class="tour-overview-container">
+
+
+        <!-- STORY -->
+
+        <div class="tour-story">
+
+          <span class="section-eyebrow">
+
+            <span></span>
+
+            ABOUT THIS EXPERIENCE
+
+          </span>
+
+
+          <h2>
+
+            A journey designed
+            <em>for the moment.</em>
+
+          </h2>
+
+
+          <p>
+            {{ tour.description }}
+          </p>
+
+
+          <p>
+            Whether you are looking for adventure,
+            culture, relaxation or an authentic local
+            experience, this carefully selected journey
+            gives you the opportunity to discover
+            Tanzania and Zanzibar from a different perspective.
+          </p>
+
+
+          <div class="tour-story-points">
+
+            <div>
+
+              <span>
+                <i class="fa-solid fa-check"></i>
+              </span>
+
+              <div>
+                <strong>Local expertise</strong>
+                <small>
+                  Experience the destination with people
+                  who know it best.
+                </small>
+              </div>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                <i class="fa-solid fa-check"></i>
+              </span>
+
+              <div>
+                <strong>Flexible experience</strong>
+                <small>
+                  Designed to make your journey comfortable
+                  and enjoyable.
+                </small>
+              </div>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                <i class="fa-solid fa-check"></i>
+              </span>
+
+              <div>
+                <strong>Memorable moments</strong>
+                <small>
+                  Discover places and experiences worth remembering.
+                </small>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- BOOKING CARD -->
+
+        <aside class="tour-booking-card">
+
+          <span class="booking-card-label">
+            PLAN YOUR EXPERIENCE
+          </span>
+
+
+          <h3>
+            {{ tour.title }}
+          </h3>
+
+
+          <div class="booking-price">
+
+            <small>
+              FROM
+            </small>
+
+            <strong>
+              {{ tour.price }}
+            </strong>
+
+            <span>
+              / person
+            </span>
+
+          </div>
+
+
+          <div class="booking-card-divider"></div>
+
+
+          <div class="booking-info">
+
+            <div>
+
+              <i class="fa-regular fa-clock"></i>
+
+              <span>
+                {{ tour.duration }}
+              </span>
+
+            </div>
+
+
+            <div>
+
+              <i class="fa-solid fa-location-dot"></i>
+
+              <span>
+                {{ tour.location }}
+              </span>
+
+            </div>
+
+
+            <div>
+
+              <i class="fa-solid fa-circle-check"></i>
+
+              <span>
+                Available for booking
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <a
+            routerLink="/booking"
+            class="booking-card-button"
+          >
+
+            Book This Experience
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+          </a>
+
+
+          <span class="booking-note">
+
+            <i class="fa-solid fa-shield-heart"></i>
+
+            Friendly local support throughout your journey
+
+          </span>
+
+        </aside>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         GALLERY
+    ================================================= -->
+
+    <section class="tour-details-gallery">
+
+      <div class="tour-gallery-container">
+
+
+        <div class="tour-gallery-header">
+
+          <div>
+
+            <span class="section-eyebrow">
+
+              <span></span>
+
+              VISUAL JOURNEY
+
+            </span>
+
+
+            <h2>
+
+              See the experience
+              <em>before you go.</em>
+
+            </h2>
+
+          </div>
+
+
+          <p>
+            A glimpse of the landscapes, people and
+            moments waiting for you on this experience.
+          </p>
+
+        </div>
+
+
+        <!-- EXACTLY 3 IMAGES -->
+
+        <div class="tour-gallery-grid">
+
+          @for (
+            image of tour.gallery;
+            track image
+          ) {
+
+            <div class="tour-gallery-item">
+
+              <img
+                [src]="image"
+                [alt]="tour.title"
+                loading="lazy"
+              />
+
+              <div class="gallery-number">
+                0{{ $index + 1 }}
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         FINAL CTA
+    ================================================= -->
+
+    <section class="tour-details-cta">
+
+      <div class="tour-cta-inner">
+
+        <span>
+          READY FOR {{ tour.title | uppercase }}?
+        </span>
+
+
+        <h2>
+          Let's make this
+          <em>journey yours.</em>
+        </h2>
+
+
+        <p>
+          Contact our local team or start your booking
+          today and let us help you plan an unforgettable experience.
+        </p>
+
+
+        <div class="tour-cta-actions">
+
+          <a
+            routerLink="/booking"
+            class="tour-main-cta"
+          >
+
+            Book Your Experience
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+          </a>
+
+
+          <a
+            routerLink="/tours"
+            class="tour-secondary-cta"
+          >
+
+            Explore Other Tours
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         BACK TO TOP
+    ================================================= -->
+
+    <button
+      type="button"
+      class="back-to-top"
+      [class.show]="showBackTop"
+      (click)="scrollToTop()"
+      aria-label="Back to top"
+    >
+
+      <i class="fa-solid fa-arrow-up"></i>
+
+    </button>
+
+  </main>
+
+}

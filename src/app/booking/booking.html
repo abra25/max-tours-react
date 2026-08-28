@@ -1,1 +1,1257 @@
-<p>booking works!</p>
+<main class="booking-page">
+
+
+  <!-- =====================================================
+       HERO
+  ====================================================== -->
+
+  <section class="booking-hero">
+
+    <div class="booking-hero-image"></div>
+
+    <div class="booking-hero-overlay"></div>
+
+
+    <div class="booking-hero-content">
+
+      <span class="booking-eyebrow">
+
+        <span></span>
+
+        MAX TOURS &amp; SAFARI
+
+      </span>
+
+
+      <h1>
+
+        Let's plan
+        <em>your journey.</em>
+
+      </h1>
+
+
+      <p>
+
+        Tell us where you would like to go,
+        when you would like to travel, and
+        what kind of experience you have in mind.
+
+      </p>
+
+
+      <div class="booking-hero-pills">
+
+        <span>
+          <i class="fa-solid fa-location-dot"></i>
+          Zanzibar &amp; Tanzania
+        </span>
+
+        <span>
+          <i class="fa-solid fa-clock"></i>
+          Fast response
+        </span>
+
+        <span>
+          <i class="fa-solid fa-heart"></i>
+          Personal planning
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       BOOKING AREA
+  ====================================================== -->
+
+  <section class="booking-section">
+
+
+    <div class="booking-container">
+
+
+      <!-- =================================================
+           SECTION INTRO
+      ================================================= -->
+
+      <div class="booking-heading">
+
+        <div>
+
+          <span class="section-eyebrow">
+
+            <span></span>
+
+            BOOKING REQUEST
+
+          </span>
+
+
+          <h2>
+
+            Tell us what
+            <span>you have in mind.</span>
+
+          </h2>
+
+        </div>
+
+
+        <p>
+
+          Choose your experience and share a few
+          details with us. We will review your request
+          and contact you to confirm availability,
+          arrangements and final pricing.
+
+        </p>
+
+      </div>
+
+
+      <!-- =================================================
+           LAYOUT
+      ================================================= -->
+
+      <div class="booking-layout">
+
+
+        <!-- ===============================================
+             FORM
+        ================================================ -->
+
+        <div class="booking-form-card">
+
+
+          <!-- FORM STATUS -->
+
+          @if (formStatus.text) {
+
+            <div
+              class="form-status"
+              [class.success]="formStatus.type === 'success'"
+              [class.error]="formStatus.type === 'error'"
+            >
+
+              <div class="status-icon">
+
+                <i
+                  class="fa-solid"
+                  [class.fa-circle-check]="formStatus.type === 'success'"
+                  [class.fa-circle-exclamation]="formStatus.type === 'error'"
+                ></i>
+
+              </div>
+
+              <span>
+                {{ formStatus.text }}
+              </span>
+
+            </div>
+
+          }
+
+
+          <form
+            #bookingForm="ngForm"
+            (ngSubmit)="handleSubmit()"
+            novalidate
+          >
+
+
+            <!-- =========================================
+                 STEP 01
+            ========================================== -->
+
+            <div class="form-section">
+
+
+              <div class="form-section-heading">
+
+                <span class="step-number">
+                  01
+                </span>
+
+                <div>
+
+                  <h3>
+                    Your details
+                  </h3>
+
+                  <p>
+                    How can we reach you?
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-grid">
+
+
+                <!-- FULL NAME -->
+
+                <div class="form-group">
+
+                  <label for="fullName">
+                    Full Name
+                    <span>*</span>
+                  </label>
+
+                  <div class="input-wrap">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                      id="fullName"
+                      type="text"
+                      name="fullName"
+                      [(ngModel)]="formData.full_name"
+                      placeholder="Your full name"
+                      autocomplete="name"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                  <label for="email">
+                    Email Address
+                    <span>*</span>
+                  </label>
+
+                  <div class="input-wrap">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      [(ngModel)]="formData.email"
+                      placeholder="you@example.com"
+                      autocomplete="email"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="form-group">
+
+                  <label for="phone">
+                    Phone / WhatsApp
+                    <span>*</span>
+                  </label>
+
+                  <div class="input-wrap">
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                    <input
+                      id="phone"
+                      type="tel"
+                      name="phone"
+                      [(ngModel)]="formData.phone"
+                      placeholder="+255..."
+                      autocomplete="tel"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                <!-- DATE -->
+
+                <div class="form-group">
+
+                  <label for="travelDate">
+                    Preferred Travel Date
+                  </label>
+
+                  <div class="input-wrap">
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    <input
+                      id="travelDate"
+                      type="date"
+                      name="travelDate"
+                      [(ngModel)]="formData.travel_date"
+                    />
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 STEP 02
+            ========================================== -->
+
+            <div class="form-section">
+
+
+              <div class="form-section-heading">
+
+                <span class="step-number">
+                  02
+                </span>
+
+                <div>
+
+                  <h3>
+                    Choose your experience
+                  </h3>
+
+                  <p>
+                    What would you like to explore?
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <!-- SERVICE CARDS -->
+
+              <div class="service-grid">
+
+                @for (
+                  service of serviceTypes;
+                  track service.value
+                ) {
+
+                  <button
+                    type="button"
+                    class="service-card"
+                    [class.selected]="
+                      formData.service_type === service.value
+                    "
+                    (click)="selectService(service.value)"
+                  >
+
+                    <span class="service-icon">
+
+                      <i
+                        [class]="service.icon"
+                      ></i>
+
+                    </span>
+
+
+                    <span class="service-info">
+
+                      <strong>
+                        {{ service.title }}
+                      </strong>
+
+                      <small>
+                        {{ service.description }}
+                      </small>
+
+                    </span>
+
+
+                    <span class="service-check">
+
+                      <i class="fa-solid fa-check"></i>
+
+                    </span>
+
+                  </button>
+
+                }
+
+              </div>
+
+
+              <!-- SELECTED SERVICE PACKAGES -->
+
+              @if (
+                formData.service_type === 'day_tour' ||
+                formData.service_type === 'holiday_package' ||
+                formData.service_type === 'visit_zanzibar'
+              ) {
+
+                <div class="package-selector">
+
+
+                  <div class="selector-header">
+
+                    <div>
+
+                      <label>
+                        Select Tour / Package
+                        <span>*</span>
+                      </label>
+
+                      <p>
+                        You can select one or more experiences.
+                      </p>
+
+                    </div>
+
+
+                    @if (
+                      formData.package_name.length
+                    ) {
+
+                      <span class="selection-count">
+
+                        {{ formData.package_name.length }}
+
+                        selected
+
+                      </span>
+
+                    }
+
+                  </div>
+
+
+                  @if (loadingPackages) {
+
+                    <div class="packages-loading">
+
+                      <span class="loader"></span>
+
+                      Loading available experiences...
+
+                    </div>
+
+                  } @else if (
+                    packageOptions.length
+                  ) {
+
+                    <div class="package-grid">
+
+                      @for (
+                        packageItem of packageOptions;
+                        track packageItem.id
+                      ) {
+
+                        <button
+                          type="button"
+                          class="package-option"
+                          [class.selected]="
+                            isPackageSelected(packageItem.title)
+                          "
+                          (click)="togglePackage(packageItem)"
+                        >
+
+                          <span class="package-option-icon">
+
+                            <i
+                              class="fa-solid fa-location-dot"
+                            ></i>
+
+                          </span>
+
+
+                          <span class="package-option-content">
+
+                            <strong>
+                              {{ packageItem.title }}
+                            </strong>
+
+                            <small>
+                              {{ packageItem.location }}
+                            </small>
+
+                          </span>
+
+
+                          <span class="package-option-check">
+
+                            <i class="fa-solid fa-check"></i>
+
+                          </span>
+
+                        </button>
+
+                      }
+
+                    </div>
+
+                  } @else {
+
+                    <div class="empty-packages">
+
+                      <i class="fa-solid fa-compass"></i>
+
+                      <span>
+                        No experiences are currently available
+                        for this category.
+                      </span>
+
+                    </div>
+
+                  }
+
+
+                  <!-- SELECTED -->
+
+                  @if (
+                    formData.package_name.length
+                  ) {
+
+                    <div class="selected-packages">
+
+                      <span class="selected-label">
+                        Your selection
+                      </span>
+
+                      <div class="selected-list">
+
+                        @for (
+                          packageName of formData.package_name;
+                          track packageName
+                        ) {
+
+                          <span class="selected-item">
+
+                            <i class="fa-solid fa-check"></i>
+
+                            {{ packageName }}
+
+                          </span>
+
+                        }
+
+                      </div>
+
+                    </div>
+
+                  }
+
+                </div>
+
+              }
+
+
+              <!-- TANZANIA -->
+
+              @if (
+                formData.service_type === 'visit_tanzania'
+              ) {
+
+                <div class="custom-request-box">
+
+                  <div class="custom-request-icon">
+
+                    <i class="fa-solid fa-binoculars"></i>
+
+                  </div>
+
+                  <div>
+
+                    <strong>
+                      Tanzania Adventure Request
+                    </strong>
+
+                    <p>
+                      Tell us what you would like to
+                      experience in Tanzania. Our team
+                      will create the right itinerary for you.
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <input
+                  type="hidden"
+                  name="tanzaniaRequest"
+                  [(ngModel)]="formData.package_name"
+                />
+
+                <button
+                  type="button"
+                  class="hidden-request-button"
+                  (click)="formData.package_name = ['Visit Tanzania Request']"
+                >
+                  Select Tanzania
+                </button>
+
+                @if (
+                  !formData.package_name.length
+                ) {
+
+                  <button
+                    type="button"
+                    class="tanzania-select-button"
+                    (click)="
+                      formData.package_name =
+                      ['Visit Tanzania Request']
+                    "
+                  >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Tanzania Request
+
+                  </button>
+
+                }
+
+              }
+
+
+              <!-- GENERAL -->
+
+              @if (
+                formData.service_type === 'general_inquiry'
+              ) {
+
+                <div class="custom-request-box">
+
+                  <div class="custom-request-icon">
+
+                    <i class="fa-solid fa-comments"></i>
+
+                  </div>
+
+                  <div>
+
+                    <strong>
+                      General Inquiry
+                    </strong>
+
+                    <p>
+                      Ask us anything about tours,
+                      destinations, transfers or planning
+                      your trip.
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                <button
+                  type="button"
+                  class="tanzania-select-button"
+                  [class.selected]="
+                    formData.package_name.includes('General Inquiry')
+                  "
+                  (click)="selectGeneralInquiry()"
+                >
+
+                  <i class="fa-solid fa-check"></i>
+
+                  General Inquiry
+
+                </button>
+
+              }
+
+            </div>
+
+
+            <!-- =========================================
+                 STEP 03
+            ========================================== -->
+
+            <div class="form-section">
+
+
+              <div class="form-section-heading">
+
+                <span class="step-number">
+                  03
+                </span>
+
+                <div>
+
+                  <h3>
+                    Trip details
+                  </h3>
+
+                  <p>
+                    Help us understand your plans.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-grid">
+
+
+                <!-- PICKUP -->
+
+                <div class="form-group form-group-wide">
+
+                  <label for="pickupLocation">
+                    Hotel / Pickup Location
+                  </label>
+
+                  <div class="input-wrap">
+
+                    <i class="fa-solid fa-hotel"></i>
+
+                    <input
+                      id="pickupLocation"
+                      type="text"
+                      name="pickupLocation"
+                      [(ngModel)]="formData.pickup_location"
+                      placeholder="Hotel name, airport or pickup area"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                <!-- ADULTS -->
+
+                <div class="form-group">
+
+                  <label for="adults">
+                    Adults
+                    <span>*</span>
+                  </label>
+
+                  <div class="input-wrap">
+
+                    <i class="fa-solid fa-person"></i>
+
+                    <input
+                      id="adults"
+                      type="number"
+                      name="adults"
+                      min="1"
+                      [(ngModel)]="formData.adults"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                <!-- CHILDREN -->
+
+                <div class="form-group">
+
+                  <label for="children">
+                    Children
+                  </label>
+
+                  <div class="input-wrap">
+
+                    <i class="fa-solid fa-child"></i>
+
+                    <input
+                      id="children"
+                      type="number"
+                      name="children"
+                      min="0"
+                      [(ngModel)]="formData.children"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div class="form-group form-group-wide">
+
+                  <label for="message">
+                    Special Request / Message
+                  </label>
+
+                  <div class="textarea-wrap">
+
+                    <i class="fa-solid fa-pen"></i>
+
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows="6"
+                      [(ngModel)]="formData.message"
+                      placeholder="Tell us about special requests, preferred activities, dietary requirements or anything else we should know..."
+                    ></textarea>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 SUBMIT
+            ========================================== -->
+
+            <div class="form-bottom">
+
+
+              <div class="form-note">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                  Your information is used only to arrange
+                  and respond to your booking request.
+                </span>
+
+              </div>
+
+
+              <div class="form-actions">
+
+                <a
+                  routerLink="/"
+                  class="secondary-button"
+                >
+
+                  <i class="fa-solid fa-arrow-left"></i>
+
+                  Back Home
+
+                </a>
+
+
+                <button
+                  type="submit"
+                  class="primary-button"
+                  [disabled]="sending"
+                >
+
+                  @if (sending) {
+
+                    <span class="button-loader"></span>
+
+                    Sending Request...
+
+                  } @else {
+
+                    Send Booking Request
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                  }
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </form>
+
+        </div>
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="booking-sidebar">
+
+
+          <!-- WHY US -->
+
+          <div class="side-card featured">
+
+            <span class="side-label">
+              WHY BOOK WITH US
+            </span>
+
+
+            <h3>
+              Travel with
+              <em>confidence.</em>
+            </h3>
+
+
+            <p>
+              We combine local knowledge, personal
+              attention and flexible planning to make
+              your Zanzibar or Tanzania experience
+              simple from start to finish.
+            </p>
+
+
+            <ul class="feature-list">
+
+              <li>
+
+                <span>
+                  <i class="fa-solid fa-check"></i>
+                </span>
+
+                Personal trip assistance
+
+              </li>
+
+              <li>
+
+                <span>
+                  <i class="fa-solid fa-check"></i>
+                </span>
+
+                Flexible tour planning
+
+              </li>
+
+              <li>
+
+                <span>
+                  <i class="fa-solid fa-check"></i>
+                </span>
+
+                Local destination expertise
+
+              </li>
+
+              <li>
+
+                <span>
+                  <i class="fa-solid fa-check"></i>
+                </span>
+
+                Easy WhatsApp communication
+
+              </li>
+
+            </ul>
+
+          </div>
+
+
+          <!-- CONTACT -->
+
+          <div class="side-card contact-card">
+
+            <span class="side-label">
+              NEED HELP FIRST?
+            </span>
+
+
+            <h3>
+              Speak with
+              <span>our team.</span>
+            </h3>
+
+
+            <p>
+              Not sure which experience is right for you?
+              Contact us directly and we will help you
+              choose.
+            </p>
+
+
+            <div class="contact-details">
+
+              <a href="maxtourandsafari@gmail.com">
+
+                <span class="contact-icon">
+
+                  <i class="fa-solid fa-envelope"></i>
+
+                </span>
+
+                <span>
+
+                  <small>Email</small>
+
+                  maxtourandsafari@gmail.com
+
+                </span>
+
+              </a>
+
+
+              <a href="tel:+255689840637">
+
+                <span class="contact-icon">
+
+                  <i class="fa-solid fa-phone"></i>
+
+                </span>
+
+                <span>
+
+                  <small>Phone</small>
+
+                  +255 617 438 758
+
+                </span>
+
+              </a>
+
+
+              <div>
+
+                <span class="contact-icon">
+
+                  <i class="fa-solid fa-location-dot"></i>
+
+                </span>
+
+                <span>
+
+                  <small>Location</small>
+
+                  Zanzibar, Tanzania
+
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <a
+              href="https://wa.me/255617438758"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="whatsapp-button"
+            >
+
+              <i class="fa-brands fa-whatsapp"></i>
+
+              Chat on WhatsApp
+
+              <i class="fa-solid fa-arrow-up-right"></i>
+
+            </a>
+
+          </div>
+
+
+          <!-- PAYMENT NOTE -->
+
+          <div class="side-note">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <p>
+              <strong>Good to know</strong><br>
+              Payment is arranged separately after
+              your booking request has been reviewed
+              and confirmed by our team.
+            </p>
+
+          </div>
+
+        </aside>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       BOTTOM CTA
+  ====================================================== -->
+
+  <section class="booking-bottom-cta">
+
+    <div>
+
+      <span>
+        ZANZIBAR · TANZANIA · AFRICA
+      </span>
+
+      <h2>
+        Your adventure is
+        <em>closer than you think.</em>
+      </h2>
+
+    </div>
+
+
+    <a
+      href="https://wa.me/255617438758"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+
+      Talk to us
+
+      <i class="fa-solid fa-arrow-up-right"></i>
+
+    </a>
+
+  </section>
+
+
+ 
+
+
+  <!-- =====================================================
+       BACK TO TOP
+  ====================================================== -->
+
+  <button
+    type="button"
+    class="back-to-top"
+    [class.show]="showBackTop"
+    (click)="scrollToTop()"
+    aria-label="Back to top"
+  >
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+  </button>
+
+</main>
+
+<footer class="site-footer">
+  
+  <div class="footer-main wrapper">
+
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <a href="#home" class="footer-logo">
+        <img src="/img/logo.png" alt="Max Tour & Safari Logo">
+        <span>Max Tour & Safari</span>
+      </a>
+
+      <p>
+        Discover Zanzibar & Tanzania through authentic tours,
+        unforgettable adventures and local experiences.
+      </p>
+
+      <div class="footer-socials">
+        <a
+          href="https://wa.me/255617438758"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="WhatsApp"
+        >
+          <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <a
+          href="https://www.facebook.com/profile.php?id=61561055606916"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Facebook"
+        >
+          <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a
+          href="https://www.instagram.com/zakayo3838"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+
+        <a
+          href="https://tiktok.com/@max.tours.safari"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="TikTok"
+        >
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-column">
+      <h3>Explore</h3>
+
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#tours">Tours & Safaris</a>
+      <a href="#blogs">Travel Journal</a>
+    </div>
+
+    <!-- TRAVEL -->
+    <div class="footer-column">
+      <h3>Travel With Us</h3>
+
+      <a href="#contact">Contact Us</a>
+      <a href="/booking">Book Your Trip</a>
+      <a href="/agents">Travel Agents</a>
+      <a href="/gallery">Our Gallery</a>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="footer-column footer-contact">
+      <h3>Get In Touch</h3>
+
+      <p>
+        <i class="fas fa-map-marker-alt"></i>
+        Zanzibar, Tanzania
+      </p>
+
+      <a href="tel:+255689840637">
+        <i class="fas fa-phone"></i>
+        +255 617 438 758
+      </a>
+
+      <a href="mailto:maxtourandsafari@gmail.com">
+        <i class="fas fa-envelope"></i>
+        maxtourandsafari@gmail.com
+      </a>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <div class="wrapper footer-bottom-inner">
+
+      <p >
+  © <span >{{ currentYear }}</span>
+  <strong style="padding-left: 3px;">Max Tour & Safari</strong>.
+  All rights reserved.
+</p>
+
+      <div class="footer-legal">
+        <a href="/privacy">Privacy</a>
+        <span>•</span>
+        <a href="/terms">Terms</a>
+        <span>•</span>
+        <a href="/faqs">FAQs</a>
+      </div>
+
+      <p class="developer-credit">
+        Developed by
+        <a
+          href="https://abra25.github.io/solidy/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          MrSolidy
+        </a>
+      </p>
+
+    </div>
+  </div>
+</footer>

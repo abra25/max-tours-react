@@ -32,22 +32,36 @@ export const routes: Routes = [
   },
 
   {
-    path: 'tours-details',
+    path: 'tours/:slug',
     loadComponent: () =>
       import('./tours-details/tours-details').then(m => m.ToursDetails)
   },
 
-  {
+   {
     path: 'destinations',
     loadComponent: () =>
-      import('./destinations/destinations').then(m => m.Destinations)
+      import('./destinations/destinations')
+        .then(m => m.Destinations)
   },
 
   {
-    path: 'destinations-details',
+    path: 'destinations/:slug',
     loadComponent: () =>
-      import('./destinations-details/destinations-details').then(
-        m => m.DestinationsDetails
+      import('./destinations-details/destinations-details')
+        .then(m => m.DestinationsDetails)
+  },
+  {
+    path: 'admin-login',
+    loadComponent: () =>
+      import('./auth/login/login').then(
+        m => m.Login
+      )  
+  },
+  {
+    path:'admin',
+    loadComponent: () =>
+      import('./auth/admin/admin').then(
+        m => m.Admin
       )
   },
 

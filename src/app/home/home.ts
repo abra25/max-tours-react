@@ -129,18 +129,29 @@ export class Home implements AfterViewInit, OnDestroy {
   // LIFECYCLE
   // ============================================
 
-  ngAfterViewInit(): void {
-    this.startAutoPlay();
-  }
+ ngAfterViewInit(): void {
 
+  this.startAutoPlay();
+
+  this.startDestinationAnimation();
+
+}
 
   ngOnInit() {
   window.addEventListener('scroll', this.handleScroll);
-}
+ }
   ngOnDestroy(): void {
-    this.stopAutoPlay();
-    window.removeEventListener('scroll', this.handleScroll);
-  }
+
+  this.stopAutoPlay();
+
+  this.stopDestinationAnimation();
+
+  window.removeEventListener(
+    'scroll',
+    this.handleScroll
+  );
+
+}
 
 
   // ============================================
@@ -338,6 +349,16 @@ aboutLanguages: string[] = [
   'German'
 ];
 
+// =========================================================
+// DESTINATION CINEMATIC RAIL
+// =========================================================
+
+activeDestination = 0;
+
+private destinationTimer?: ReturnType<typeof setInterval>;
+
+private destinationPaused = false;
+
 destinations: Destination[] = [
 
   // ================================
@@ -403,6 +424,64 @@ destinations: Destination[] = [
   }
 
 ];
+
+// =========================================================
+// DESTINATION AUTOMATIC ANIMATION
+// =========================================================
+
+private startDestinationAnimation(): void {
+
+  this.stopDestinationAnimation();
+
+  this.destinationTimer = setInterval(() => {
+
+    if (this.destinationPaused) {
+      return;
+    }
+
+    this.activeDestination =
+      (this.activeDestination + 1) %
+      this.destinations.length;
+
+  }, 4200);
+
+}
+
+
+private stopDestinationAnimation(): void {
+
+  if (this.destinationTimer) {
+
+    clearInterval(
+      this.destinationTimer
+    );
+
+    this.destinationTimer = undefined;
+
+  }
+
+}
+
+
+activateDestination(index: number): void {
+
+  this.activeDestination = index;
+
+}
+
+
+pauseDestinationAnimation(): void {
+
+  this.destinationPaused = true;
+
+}
+
+
+resumeDestinationAnimation(): void {
+
+  this.destinationPaused = false;
+
+}
 
 homeTours: HomeTour[] = [
   {

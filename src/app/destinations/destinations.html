@@ -1,1 +1,582 @@
-<p>destinations works!</p>
+<section class="destinations-page">
+
+<header
+  class="site-header"
+  [class.scrolled]="isScrolled"
+  [class.menu-open]="isMenuOpen"
+>
+
+  <div class="nav-container">
+
+    <!-- =====================================================
+         LOGO
+         ===================================================== -->
+
+    <a
+      routerLink="/"
+      class="brand"
+      aria-label="Max Tours & Safari home"
+      (click)="closeMenu()"
+    >
+
+      <img
+        src="/img/logo.png"
+        alt="Max Tours & Safari"
+        class="brand-logo"
+      />
+
+      <span class="brand-name">
+
+        <strong>MAX TOURS</strong>
+
+        <small>&amp; SAFARI</small>
+
+      </span>
+
+    </a>
+
+
+    <!-- =====================================================
+         DESKTOP NAVIGATION
+         ===================================================== -->
+
+    <nav class="desktop-nav">
+
+
+      <!-- HOME -->
+
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMenu()"
+      >
+        Home
+      </a>
+
+
+      <!-- ABOUT -->
+
+      <a
+        href="/#about"
+        (click)="scrollToSection('about', $event)"
+      >
+        About Us
+      </a>
+
+
+      <!-- DESTINATIONS -->
+
+      <a
+        routerLink="/destinations"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMenu()"
+      >
+        Destinations
+      </a>
+
+
+      <!-- TOURS -->
+
+      <a
+        href="/#tours"
+        (click)="scrollToSection('tours', $event)"
+      >
+        Tours
+      </a>
+
+
+      <!-- JOURNAL -->
+
+      <a
+        href="/#journal"
+        (click)="scrollToSection('journal', $event)"
+      >
+        Journal
+      </a>
+
+
+      <!-- BOOK -->
+
+      <a
+        routerLink="/booking"
+        class="nav-book"
+        (click)="closeMenu()"
+      >
+
+        Book a Tour
+
+        <span>↗</span>
+
+      </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MOBILE TOGGLE
+         ===================================================== -->
+
+    <button
+      type="button"
+      class="menu-toggle"
+      [class.open]="isMenuOpen"
+      (click)="toggleMenu()"
+      aria-label="Toggle navigation"
+      [attr.aria-expanded]="isMenuOpen"
+    >
+
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       MOBILE NAVIGATION
+       ===================================================== -->
+
+  <div
+    class="mobile-nav"
+    [class.open]="isMenuOpen"
+  >
+
+    <div class="mobile-nav-inner">
+
+
+      <!-- HOME -->
+
+      <a
+        routerLink="/"
+        fragment="home"
+        (click)="closeMenu()"
+      >
+
+        <span>01</span>
+
+        Home
+
+      </a>
+
+
+      <!-- ABOUT -->
+
+      <a
+        href="/#about"
+        (click)="scrollToSection('about', $event)"
+      >
+
+        <span>02</span>
+
+        About Us
+
+      </a>
+
+
+      <!-- DESTINATIONS -->
+
+      <a
+        routerLink="/destinations"
+        (click)="closeMenu()"
+      >
+
+        <span>03</span>
+
+        Destinations
+
+      </a>
+
+
+      <!-- TOURS -->
+
+      <a
+        href="/#tours"
+        (click)="scrollToSection('tours', $event)"
+      >
+
+        <span>04</span>
+
+        Tours
+
+      </a>
+
+
+      <!-- JOURNAL -->
+
+      <a
+        href="/#journal"
+        (click)="scrollToSection('journal', $event)"
+      >
+
+        <span>05</span>
+
+        Journal
+
+      </a>
+
+
+      <!-- BOOK -->
+
+      <a
+        routerLink="/booking"
+        class="mobile-book"
+        (click)="closeMenu()"
+      >
+
+        Book a Tour
+
+        <span>↗</span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</header>
+
+  <!-- =====================================================
+       PAGE HERO
+       ===================================================== -->
+
+  <section class="destinations-hero">
+
+    <div class="destinations-hero-overlay"></div>
+
+    <div class="destinations-hero-content">
+
+      <span class="hero-eyebrow">
+        <span></span>
+        EXPLORE TANZANIA & ZANZIBAR
+      </span>
+
+      <h1>
+        Places that
+        <em>stay with you.</em>
+      </h1>
+
+      <p>
+        Discover extraordinary destinations,
+        from Zanzibar's turquoise coast to
+        Tanzania's wild landscapes.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       DESTINATIONS
+       ===================================================== -->
+
+  <section class="all-destinations">
+
+    <div class="destinations-container">
+
+      <!-- HEADER -->
+
+      <div class="destinations-page-header">
+
+        <div>
+
+          <span class="section-eyebrow">
+            <span class="section-eyebrow-line"></span>
+            OUR DESTINATIONS
+          </span>
+
+          <h2>
+            Explore
+            <span>somewhere remarkable.</span>
+          </h2>
+
+        </div>
+
+        <p>
+          From historic coastal towns and tropical
+          islands to unforgettable wildlife destinations,
+          find the place that inspires your next journey.
+        </p>
+
+      </div>
+
+
+      <!-- GRID -->
+
+      <div class="destinations-page-grid">
+
+        @for (
+          destination of destinations;
+          track destination.slug
+        ) {
+
+          <article
+            class="destination-page-card"
+          >
+
+            <!-- IMAGE -->
+
+            <div class="destination-page-image">
+
+              <img
+                [src]="destination.image"
+                [alt]="destination.title"
+                loading="lazy"
+              />
+
+              <div
+                class="destination-page-overlay"
+              ></div>
+
+
+              <!-- REGION -->
+
+              <div class="destination-page-region">
+
+                <i
+                  class="fa-solid"
+                  [class]="destination.icon"
+                ></i>
+
+                {{ destination.region }}
+
+              </div>
+
+
+              <!-- NUMBER -->
+
+              <span class="destination-number">
+
+                {{ $index + 1 < 10
+                  ? '0' + ($index + 1)
+                  : $index + 1 }}
+
+              </span>
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div class="destination-page-content">
+
+              <h3>
+                {{ destination.title }}
+              </h3>
+
+              <p>
+                {{ destination.description }}
+              </p>
+
+
+              <!-- HIGHLIGHTS -->
+
+              <div class="destination-highlights">
+
+                @for (
+                  highlight of destination.highlights.slice(0, 2);
+                  track highlight
+                ) {
+
+                  <span>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    {{ highlight }}
+
+                  </span>
+
+                }
+
+              </div>
+
+
+              <!-- VIEW MORE -->
+
+              <a
+                class="destination-view-more"
+                [routerLink]="[
+                  '/destinations',
+                  destination.slug
+                ]"
+                (click)="closeMenu()"
+              >
+
+                <span>
+                  View More
+                </span>
+
+                <span class="destination-view-icon">
+
+                  <i
+                    class="fa-solid fa-arrow-up-right"
+                  ></i>
+
+                </span>
+
+              </a>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       BACK TO TOP
+       ===================================================== -->
+
+  <button
+    type="button"
+    class="back-to-top"
+    [class.show]="showBackTop"
+    (click)="scrollToTop()"
+    aria-label="Back to top"
+  >
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+  </button>
+
+</section>
+
+<footer class="site-footer">
+  <div class="footer-main wrapper">
+
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <a href="#home" class="footer-logo">
+        <img src="/img/logo.png" alt="Max Tour & Safari Logo">
+        <span>Max Tour & Safari</span>
+      </a>
+
+      <p>
+        Discover Zanzibar & Tanzania through authentic tours,
+        unforgettable adventures and local experiences.
+      </p>
+
+      <div class="footer-socials">
+        <a
+          href="https://wa.me/255617438758"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="WhatsApp"
+        >
+          <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <a
+          href="https://www.facebook.com/profile.php?id=61561055606916"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Facebook"
+        >
+          <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a
+          href="https://www.instagram.com/zakayo3838"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+
+        <a
+          href="https://tiktok.com/@max.tours.safari"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="TikTok"
+        >
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-column">
+      <h3>Explore</h3>
+
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#tours">Tours & Safaris</a>
+      <a href="#blogs">Travel Journal</a>
+    </div>
+
+    <!-- TRAVEL -->
+    <div class="footer-column">
+      <h3>Travel With Us</h3>
+
+      <a href="#contact">Contact Us</a>
+      <a href="/booking">Book Your Trip</a>
+      <a href="/agents">Travel Agents</a>
+      <a href="/gallery">Our Gallery</a>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="footer-column footer-contact">
+      <h3>Get In Touch</h3>
+
+      <p>
+        <i class="fas fa-map-marker-alt"></i>
+        Zanzibar, Tanzania
+      </p>
+
+      <a href="tel:+255689840637">
+        <i class="fas fa-phone"></i>
+        +255 617 438 758
+      </a>
+
+      <a href="mailto:maxtourandsafari@gmail.com">
+        <i class="fas fa-envelope"></i>
+        maxtourandsafari@gmail.com
+      </a>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <div class="wrapper footer-bottom-inner">
+
+      <p >
+  © <span >{{ currentYear }}</span>
+  <strong style="padding-left: 3px;">Max Tour & Safari</strong>.
+  All rights reserved.
+</p>
+
+      <div class="footer-legal">
+        <a href="/privacy">Privacy</a>
+        <span>•</span>
+        <a href="/terms">Terms</a>
+        <span>•</span>
+        <a href="/faqs">FAQs</a>
+      </div>
+
+      <p class="developer-credit">
+        Developed by
+        <a
+          href="https://abra25.github.io/solidy/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          MrSolidy
+        </a>
+      </p>
+
+    </div>
+  </div>
+</footer>

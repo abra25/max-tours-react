@@ -1,1 +1,281 @@
-<p>destinations-details works!</p>
+@if (destination) {
+
+  <main class="destination-details-page">
+
+
+    <!-- =================================================
+         HERO
+         ================================================= -->
+
+    <section
+      class="destination-details-hero"
+      [style.backgroundImage]="
+        'url(' + destination.image + ')'
+      "
+    >
+
+      <div
+        class="destination-details-overlay"
+      ></div>
+
+
+      <div class="destination-details-hero-content">
+
+        <a
+          routerLink="/destinations"
+          class="back-destinations"
+        >
+
+          <i class="fa-solid fa-arrow-left"></i>
+
+          Back to destinations
+
+        </a>
+
+
+        <div class="destination-details-region">
+
+          <i
+            class="fa-solid"
+            [class]="destination.icon"
+          ></i>
+
+          {{ destination.region }}
+
+        </div>
+
+
+        <h1>
+          {{ destination.title }}
+        </h1>
+
+
+        <p>
+          {{ destination.description }}
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         INTRO / DETAILS
+         ================================================= -->
+
+    <section class="destination-details-content">
+
+      <div class="destination-details-container">
+
+
+        <!-- LEFT -->
+
+        <div class="destination-story">
+
+          <span class="section-eyebrow">
+
+            <span
+              class="section-eyebrow-line"
+            ></span>
+
+            DISCOVER THE DESTINATION
+
+          </span>
+
+
+          <h2>
+
+            Experience
+            <span>{{ destination.title }}</span>
+            differently.
+
+          </h2>
+
+
+          <p>
+
+            {{ destination.description }}
+
+          </p>
+
+
+          <p>
+
+            Every destination has its own character,
+            rhythm and unforgettable moments. Explore
+            the landscapes, culture and experiences that
+            make this place special.
+
+          </p>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <aside class="destination-highlights-box">
+
+          <span class="highlights-label">
+            HIGHLIGHTS
+          </span>
+
+
+          <h3>
+            What makes it special
+          </h3>
+
+
+          <ul>
+
+            @for (
+              highlight of destination.highlights;
+              track highlight
+            ) {
+
+              <li>
+
+                <span class="highlight-icon">
+
+                  <i
+                    class="fa-solid fa-check"
+                  ></i>
+
+                </span>
+
+                {{ highlight }}
+
+              </li>
+
+            }
+
+          </ul>
+
+        </aside>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         GALLERY
+         ================================================= -->
+
+    <section class="destination-gallery">
+
+      <div class="destination-gallery-container">
+
+
+        <div class="destination-gallery-header">
+
+          <div>
+
+            <span class="section-eyebrow">
+
+              <span
+                class="section-eyebrow-line"
+              ></span>
+
+              VISUAL JOURNEY
+
+            </span>
+
+
+            <h2>
+              Moments from
+              <span>{{ destination.title }}</span>
+            </h2>
+
+          </div>
+
+
+          <p>
+            A glimpse of the landscapes,
+            atmosphere and experiences waiting
+            to be discovered.
+          </p>
+
+        </div>
+
+
+        <div class="destination-gallery-grid">
+
+          @for (
+            image of galleryImages;
+            track image
+          ) {
+
+            <div class="gallery-item">
+
+              <img
+                [src]="image"
+                [alt]="destination.title"
+                loading="lazy"
+              />
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         CTA
+         ================================================= -->
+
+    <section class="destination-details-cta">
+
+      <div class="destination-cta-inner">
+
+        <span>
+          READY TO DISCOVER {{ destination.title | uppercase }}?
+        </span>
+
+        <h2>
+          Your next unforgettable
+          journey starts here.
+        </h2>
+
+
+        <a
+          routerLink="/booking"
+          class="destination-cta-button"
+        >
+
+          Plan Your Journey
+
+          <i
+            class="fa-solid fa-arrow-right"
+          ></i>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         BACK TO TOP
+         ================================================= -->
+
+    <button
+      type="button"
+      class="back-to-top"
+      [class.show]="showBackTop"
+      (click)="scrollToTop()"
+      aria-label="Back to top"
+    >
+
+      <i class="fa-solid fa-arrow-up"></i>
+
+    </button>
+
+  </main>
+
+}
