@@ -7,6 +7,8 @@ import {
 import { CommonModule } from '@angular/common';
 
 import {
+  ActivatedRoute,
+  Router,
   RouterLink,
   RouterLinkActive
 } from '@angular/router';
@@ -63,6 +65,14 @@ export class Tours implements OnInit {
   // =========================================================
 
   showBackTop = false;
+
+  // =========================================================
+// TOUR DETAILS
+// =========================================================
+
+selectedTour: Tour | null = null;
+
+showTourDetails = false;
 
 
   // =========================================================
@@ -353,6 +363,11 @@ export class Tours implements OnInit {
 
   ];
 
+  // CONSTRUCTOR
+ constructor(
+  private route: ActivatedRoute,
+  private router: Router
+) {}
 
   // =========================================================
   // LIFECYCLE
@@ -362,7 +377,39 @@ export class Tours implements OnInit {
 
     this.handleScroll();
 
+     this.route.queryParams.subscribe(params => {
+
+    const tourSlug = params['tour'];
+
+    if (tourSlug) {
+      this.openTourFromHome(tourSlug);
+    }
+
+  });
+
   }
+
+  private openTourFromHome(slug: string): void {
+
+  const tour = this.tours.find(
+    (item: any) =>
+      item.slug === slug
+  );
+
+  if (!tour) {
+    return;
+  }
+
+  this.selectedTour = tour;
+
+  this.showTourDetails = true;
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+}
 
 
   // =========================================================

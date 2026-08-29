@@ -50,6 +50,31 @@ export const routes: Routes = [
       import('./destinations-details/destinations-details')
         .then(m => m.DestinationsDetails)
   },
+
+   // ==========================================
+  // LEGAL & INFORMATION
+  // ==========================================
+
+  {
+    path: 'privacy',
+    loadComponent: () =>
+      import('./legal/privacy/privacy').then(m => m.Privacy)
+  },
+
+  {
+    path: 'terms',
+    loadComponent: () =>
+      import('./legal/terms/terms').then(m => m.Terms)
+  },
+
+  {
+    path: 'faqs',
+    loadComponent: () =>
+      import('./legal/faqs/faqs').then(m => m.Faqs)
+  },
+
+
+  // ADMIN
   {
     path: 'admin-login',
     loadComponent: () =>

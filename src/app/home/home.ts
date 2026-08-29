@@ -485,6 +485,7 @@ resumeDestinationAnimation(): void {
 
 homeTours: HomeTour[] = [
   {
+    slug: 'tanzania-safari',
     image: '/img/safari-1.jpeg',
     category: 'TANZANIA SAFARI',
     location: 'Tanzania',
@@ -497,6 +498,7 @@ homeTours: HomeTour[] = [
   },
 
   {
+    slug: '11-days-tanzania-zanzibar',
     image: '/img/safari-3.jpeg',
     category: 'MULTI-DESTINATION',
     location: 'Tanzania & Zanzibar',
@@ -509,6 +511,7 @@ homeTours: HomeTour[] = [
   },
 
   {
+    slug: '6-days-zanzibar-holidays',
     image: '/img/holiday-1.png',
     category: 'ZANZIBAR HOLIDAY',
     location: 'Zanzibar',
@@ -521,7 +524,8 @@ homeTours: HomeTour[] = [
   },
 
   {
-    image: '/img/blue-safari-1.jpeg',
+    slug: 'blue-safari',
+    image: '/img/safari-blue-1.png',
     category: 'OCEAN ADVENTURE',
     location: 'Zanzibar',
     title: 'Blue Safari',
@@ -533,6 +537,7 @@ homeTours: HomeTour[] = [
   },
 
   {
+    slug: 'prison-island-nakupenda',
     image: '/img/nakupenda_bech-2.jpeg',
     category: 'BEACH ESCAPE',
     location: 'Zanzibar',
@@ -545,6 +550,7 @@ homeTours: HomeTour[] = [
   },
 
   {
+    slug: 'spice-tour-cooking-class',
     image: '/img/spice-5.png',
     category: 'CULTURE & FOOD',
     location: 'Zanzibar',

@@ -37,14 +37,14 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: 'A Destination With Something For Everyone',
         text:
           'Zanzibar brings together beautiful beaches, warm Indian Ocean waters, fascinating history and authentic Swahili culture. Whether you are looking for relaxation, romance or adventure, the island offers experiences for different types of travelers.',
-        image: '/img/beach.png'
+        image: '/img/experience-1.jpeg'
       },
 
       {
         heading: 'Beautiful Beaches & Ocean Experiences',
         text:
           'From the peaceful beaches of Matemwe and Nungwi to the spectacular waters around Mnemba Island, Zanzibar offers unforgettable coastal experiences. Visitors can swim, snorkel, enjoy dhow cruises or simply relax beside the ocean.',
-        image: '/img/Mnemba Island.jpeg'
+        image: '/img/culture.jpeg'
       },
 
       {
@@ -87,7 +87,7 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: 'Stone Town',
         text:
           'Stone Town is the cultural heart of Zanzibar. Its narrow streets, historic buildings and beautifully carved wooden doors reflect centuries of Swahili, Arab, Indian and European influence.',
-        image: '/img/stone-town-2.jpeg'
+        image: '/img/stone-town-4.jpeg'
       },
 
       {
@@ -101,7 +101,7 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: 'Forodhani Gardens',
         text:
           'When the sun goes down, Forodhani Gardens becomes one of Stone Town’s most vibrant places. Local vendors serve seafood, Zanzibar pizza, sugarcane juice and other popular Swahili treats.',
-        image: '/img/foro.jpg'
+        image: '/img/foro.jpeg'
       },
 
       {
@@ -137,21 +137,21 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: 'Mnemba Island',
         text:
           'Mnemba Island is famous for its clear waters and beautiful marine life. Snorkeling around the island gives visitors the opportunity to see colorful fish and coral reefs in a spectacular tropical environment.',
-        image: '/img/island.jpeg'
+        image: '/img/mnemba-1.jpeg'
       },
 
       {
         heading: 'Safari Blue',
         text:
           'Safari Blue is a full-day ocean adventure combining dhow sailing, snorkeling, sandbanks, swimming and a delicious seafood experience. It is one of Zanzibar’s most popular marine excursions.',
-        image: '/img/c (167).jpeg'
+        image: '/img/safari-blue-4.jpeg'
       },
 
       {
         heading: 'Prison Island & Nakupenda',
         text:
           'Prison Island offers history and encounters with giant tortoises, while Nakupenda is famous for its beautiful white sandbank surrounded by turquoise water.',
-        image: '/img/Nakupenda Beach.jpeg'
+        image: '/img/prison-6.jpeg'
       },
 
       {
@@ -176,7 +176,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: 'Discover The Spice & Flavours Of Zanzibar',
     excerpt:
       'Explore why Zanzibar is known as the Spice Island and experience the aromas, food and traditions that make the island unique.',
-    heroImage: '/img/spice-1.jpeg',
+    heroImage: '/img/spice-9.jpeg',
     author: 'Max Tour & Safari',
     date: 'August 2026',
     readTime: '5 min read',
@@ -187,7 +187,7 @@ export const BLOG_POSTS: BlogPost[] = [
         heading: 'Welcome To The Spice Island',
         text:
           'Zanzibar has long been associated with cloves, cinnamon, cardamom, vanilla and many other spices. A spice tour provides a fascinating introduction to the plants and traditions behind these famous flavours.',
-        image: '/img/spice-1.jpeg'
+        image: '/img/spice-8.jpeg'
       },
 
       {

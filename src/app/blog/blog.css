@@ -34,7 +34,7 @@
   position: absolute;
   inset: 0;
   background:
-    url('/img/blog-hero.png')
+    url('/img/blog-hero.jpeg')
     center / cover no-repeat;
   transform: scale(1.03);
   transition: transform 8s ease;

@@ -34,6 +34,7 @@ interface Destination {
 }
 
 interface HomeTour {
+  slug: string;
   image: string;
   category: string;
   location: string;

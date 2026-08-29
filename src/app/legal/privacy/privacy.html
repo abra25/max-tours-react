@@ -1,0 +1,682 @@
+<div class="legal-page">
+
+  <!-- ================= HEADER ================= -->
+
+  <header
+    class="site-header"
+    [class.scrolled]="isScrolled"
+    [class.menu-open]="isMenuOpen"
+  >
+
+    <div class="nav-container">
+
+      <a
+        routerLink="/"
+        class="brand"
+        aria-label="Max Tours & Safari home"
+        (click)="closeMenu()"
+      >
+
+        <img
+          src="/img/logo.png"
+          alt="Max Tours & Safari"
+          class="brand-logo"
+        />
+
+        <span class="brand-name">
+          <strong>MAX TOURS</strong>
+          <small>&amp; SAFARI</small>
+        </span>
+
+      </a>
+
+
+      <!-- DESKTOP -->
+
+      <nav class="desktop-nav">
+
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          Home
+        </a>
+
+        <a
+          href="/#tours"
+          (click)="scrollToSection('tours', $event)"
+        >
+          Tours
+        </a>
+
+        <a
+          routerLink="/privacy"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          Privacy
+        </a>
+
+        <a
+          routerLink="/terms"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          Terms
+        </a>
+
+        <a
+          routerLink="/faqs"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          FAQs
+        </a>
+
+        <a
+          routerLink="/booking"
+          class="nav-book"
+          (click)="closeMenu()"
+        >
+          Book a Tour
+          <span>↗</span>
+        </a>
+
+      </nav>
+
+
+      <!-- MOBILE TOGGLE -->
+
+      <button
+        type="button"
+        class="menu-toggle"
+        [class.open]="isMenuOpen"
+        (click)="toggleMenu()"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isMenuOpen"
+      >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+
+    </div>
+
+
+    <!-- MOBILE -->
+
+    <div
+      class="mobile-nav"
+      [class.open]="isMenuOpen"
+    >
+
+      <div class="mobile-nav-inner">
+
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          <span>01</span>
+          Home
+        </a>
+
+        <a
+          href="/#tours"
+          (click)="scrollToSection('tours', $event)"
+        >
+          <span>02</span>
+          Tours
+        </a>
+
+        <a
+          routerLink="/privacy"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          <span>03</span>
+          Privacy
+        </a>
+
+        <a
+          routerLink="/terms"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          <span>04</span>
+          Terms
+        </a>
+
+        <a
+          routerLink="/faqs"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          <span>05</span>
+          FAQs
+        </a>
+
+        <a
+          routerLink="/booking"
+          class="mobile-book"
+          (click)="closeMenu()"
+        >
+          Book a Tour
+          <span>↗</span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= HERO ================= -->
+
+  <section class="legal-hero">
+
+    <div class="hero-background"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="legal-hero-content">
+
+      <div class="eyebrow">
+        <span></span>
+        YOUR PRIVACY MATTERS
+      </div>
+
+      <h1>
+        Your information.
+        <em>Your trust.</em>
+      </h1>
+
+      <p>
+        We respect the information you share with us
+        and take reasonable steps to keep it secure,
+        private and responsibly handled.
+      </p>
+
+      <div class="hero-meta">
+
+        <span>
+          <i class="fa-solid fa-lock"></i>
+          Secure handling
+        </span>
+
+        <span>
+          <i class="fa-solid fa-user-shield"></i>
+          Respect for your privacy
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= INTRO ================= -->
+
+  <section class="privacy-intro">
+
+    <div>
+
+      <span class="section-label">
+        PRIVACY POLICY
+      </span>
+
+      <h2>
+        Travel freely.
+        <span>Trust us with the details.</span>
+      </h2>
+
+    </div>
+
+    <p>
+      This Privacy Policy explains what information
+      Max Tours & Safari may collect through our
+      website, how we use it and the choices available
+      to you.
+    </p>
+
+  </section>
+
+
+  <!-- ================= HIGHLIGHTS ================= -->
+
+  <section class="privacy-highlights">
+
+    <div class="privacy-highlight">
+
+      <i class="fa-solid fa-database"></i>
+
+      <div>
+        <strong>We collect only what we need</strong>
+        <span>
+          Information relevant to your booking and communication.
+        </span>
+      </div>
+
+    </div>
+
+
+    <div class="privacy-highlight">
+
+      <i class="fa-solid fa-shield-halved"></i>
+
+      <div>
+        <strong>We handle information responsibly</strong>
+        <span>
+          Access is limited to people who need it for their work.
+        </span>
+      </div>
+
+    </div>
+
+
+    <div class="privacy-highlight">
+
+      <i class="fa-solid fa-ban"></i>
+
+      <div>
+        <strong>We don't sell your information</strong>
+        <span>
+          Your personal information is not sold for advertising.
+        </span>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= CONTENT ================= -->
+
+  <main class="privacy-content">
+
+    <section class="privacy-card">
+
+      <div class="privacy-icon">
+        <i class="fa-solid fa-database"></i>
+      </div>
+
+      <div>
+
+        <span>01</span>
+
+        <h2>Information We Collect</h2>
+
+        <p>
+          Depending on how you interact with our website,
+          we may collect information such as:
+        </p>
+
+        <ul>
+
+          <li>Name and contact details.</li>
+          <li>Email address and phone number.</li>
+          <li>Booking and travel preferences.</li>
+          <li>Messages or inquiries you send to us.</li>
+          <li>Information voluntarily provided through booking forms.</li>
+
+        </ul>
+
+      </div>
+
+    </section>
+
+
+    <section class="privacy-card">
+
+      <div class="privacy-icon">
+        <i class="fa-solid fa-gears"></i>
+      </div>
+
+      <div>
+
+        <span>02</span>
+
+        <h2>How We Use Your Information</h2>
+
+        <p>
+          Information may be used to provide and improve
+          our travel services, including:
+        </p>
+
+        <ul>
+
+          <li>Processing and managing bookings.</li>
+          <li>Responding to questions and inquiries.</li>
+          <li>Communicating important travel information.</li>
+          <li>Providing customer support.</li>
+          <li>Improving our website and services.</li>
+
+        </ul>
+
+      </div>
+
+    </section>
+
+
+    <section class="privacy-card">
+
+      <div class="privacy-icon">
+        <i class="fa-solid fa-share-nodes"></i>
+      </div>
+
+      <div>
+
+        <span>03</span>
+
+        <h2>Sharing Information</h2>
+
+        <p>
+          We do not sell your personal information.
+          However, certain information may need to be
+          shared with trusted service providers when
+          required to arrange your trip.
+        </p>
+
+        <p>
+          For example, relevant booking information may
+          be provided to accommodation providers,
+          transport operators or activity providers
+          where necessary to deliver the service you
+          requested.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <section class="privacy-card">
+
+      <div class="privacy-icon">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+
+      <div>
+
+        <span>04</span>
+
+        <h2>Data Protection</h2>
+
+        <p>
+          We take reasonable technical and organizational
+          measures to protect personal information against
+          unauthorized access, misuse, loss or disclosure.
+        </p>
+
+        <div class="security-note">
+
+          <i class="fa-solid fa-shield-check"></i>
+
+          <span>
+            We aim to keep your information secure
+            throughout our relationship with you.
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="privacy-card">
+
+      <div class="privacy-icon">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+      </div>
+
+      <div>
+
+        <span>05</span>
+
+        <h2>Data Retention</h2>
+
+        <p>
+          We retain information only for as long as
+          reasonably necessary for the purposes for which
+          it was collected, including booking,
+          accounting, customer support and legal
+          requirements.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <section class="privacy-card">
+
+      <div class="privacy-icon">
+        <i class="fa-solid fa-user-check"></i>
+      </div>
+
+      <div>
+
+        <span>06</span>
+
+        <h2>Your Choices & Rights</h2>
+
+        <p>
+          Depending on applicable law, you may request
+          access to, correction of or deletion of your
+          personal information.
+        </p>
+
+        <p>
+          You may also contact us if you have concerns
+          about how your information has been handled.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <section class="privacy-card contact-card">
+
+      <div class="privacy-icon">
+        <i class="fa-solid fa-envelope-open-text"></i>
+      </div>
+
+      <div>
+
+        <span>07</span>
+
+        <h2>Questions About Privacy?</h2>
+
+        <p>
+          If you have any questions about this Privacy
+          Policy or the information we hold about you,
+          please contact our team.
+        </p>
+
+        <div class="privacy-contact">
+
+          <a href="mailto:maxtourandsafari@gmail.com">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            maxtourandsafari@gmail.com
+
+          </a>
+
+          <a href="tel:+255617438758">
+
+            <i class="fa-solid fa-phone"></i>
+
+            +255 617 438 758
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer class="site-footer">
+  
+  <div class="footer-main wrapper">
+
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <a href="#home" class="footer-logo">
+        <img src="/img/logo.png" alt="Max Tour & Safari Logo">
+        <span>Max Tour & Safari</span>
+      </a>
+
+      <p>
+        Discover Zanzibar & Tanzania through authentic tours,
+        unforgettable adventures and local experiences.
+      </p>
+
+      <div class="footer-socials">
+        <a
+          href="https://wa.me/255617438758"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="WhatsApp"
+        >
+          <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <a
+          href="https://www.facebook.com/profile.php?id=61561055606916"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Facebook"
+        >
+          <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a
+          href="https://www.instagram.com/zakayo3838"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+
+        <a
+          href="https://tiktok.com/@max.tours.safari"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="TikTok"
+        >
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-column">
+      <h3>Explore</h3>
+
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#tours">Tours & Safaris</a>
+      <a href="#blogs">Travel Journal</a>
+    </div>
+
+    <!-- TRAVEL -->
+    <div class="footer-column">
+      <h3>Travel With Us</h3>
+
+      <a href="#contact">Contact Us</a>
+      <a href="/booking">Book Your Trip</a>
+      <a href="/agents">Travel Agents</a>
+      <a href="/gallery">Our Gallery</a>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="footer-column footer-contact">
+      <h3>Get In Touch</h3>
+
+      <p>
+        <i class="fas fa-map-marker-alt"></i>
+        Zanzibar, Tanzania
+      </p>
+
+      <a href="tel:+255617438758">
+        <i class="fas fa-phone"></i>
+        +255 617 438 758
+      </a>
+
+      <a href="mailto:maxtourandsafari@gmail.com">
+        <i class="fas fa-envelope"></i>
+        maxtourandsafari@gmail.com
+      </a>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <div class="wrapper footer-bottom-inner">
+
+      <p >
+  © <span >{{ currentYear }}</span>
+  <strong style="padding-left: 3px;">Max Tour & Safari</strong>.
+  All rights reserved.
+</p>
+
+      <div class="footer-legal">
+        <a href="/privacy">Privacy</a>
+        <span>•</span>
+        <a href="/terms">Terms</a>
+        <span>•</span>
+        <a href="/faqs">FAQs</a>
+      </div>
+
+      <p class="developer-credit">
+        Developed by
+        <a
+          href="https://abra25.github.io/solidy/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          MrSolidy
+        </a>
+      </p>
+
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button
+  type="button"
+  class="back-to-top"
+  [class.show]="showBackTop"
+  (click)="scrollToTop()"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+</div>

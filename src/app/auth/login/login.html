@@ -1,1 +1,443 @@
-<p>login works!</p>
+<div class="login-page">
+
+  <!-- =====================================================
+       BACKGROUND
+  ====================================================== -->
+
+  <div class="login-background">
+
+    <div class="background-image"></div>
+
+    <div class="background-overlay"></div>
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+  </div>
+
+
+  <!-- =====================================================
+       TOP BRAND
+  ====================================================== -->
+
+  <header class="login-header">
+
+    <a
+      routerLink="/"
+      class="login-logo"
+      aria-label="Back to Max Tours & Safari"
+    >
+
+      <img
+        src="/img/logo.png"
+        alt="Max Tours & Safari"
+      />
+
+      <div class="logo-text">
+
+        <strong>MAX TOURS</strong>
+
+        <span>&amp; SAFARI</span>
+
+      </div>
+
+    </a>
+
+
+    <a
+      routerLink="/"
+      class="back-home"
+    >
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      <span>Back to website</span>
+
+    </a>
+
+  </header>
+
+
+  <!-- =====================================================
+       MAIN LOGIN AREA
+  ====================================================== -->
+
+  <main class="login-main">
+
+    <div class="login-layout">
+
+
+      <!-- =================================================
+           LEFT BRAND / VISUAL SIDE
+      ================================================== -->
+
+      <section class="login-visual">
+
+        <div class="visual-content">
+
+          <div class="visual-eyebrow">
+
+            <span class="eyebrow-line"></span>
+
+            <span>MAX TOURS &amp; SAFARI</span>
+
+          </div>
+
+
+          <h1>
+
+            Manage the journey<br>
+
+            <em>behind the journey.</em>
+
+          </h1>
+
+
+          <p>
+
+            Welcome to your private administration space.
+            Manage bookings, tours and the experiences
+            that make every Max Tours journey unforgettable.
+
+          </p>
+
+
+          <!-- TRUST ITEMS -->
+
+          <div class="visual-features">
+
+            <div class="visual-feature">
+
+              <div class="feature-icon">
+                <i class="fa-solid fa-calendar-check"></i>
+              </div>
+
+              <div>
+                <strong>Bookings</strong>
+                <span>Stay on top of every reservation</span>
+              </div>
+
+            </div>
+
+
+            <div class="visual-feature">
+
+              <div class="feature-icon">
+                <i class="fa-solid fa-route"></i>
+              </div>
+
+              <div>
+                <strong>Tours</strong>
+                <span>Manage your travel experiences</span>
+              </div>
+
+            </div>
+
+
+            <div class="visual-feature">
+
+              <div class="feature-icon">
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
+
+              <div>
+                <strong>Insights</strong>
+                <span>Keep your operation organized</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- VISUAL FOOTER -->
+
+        <div class="visual-footer">
+
+          <span>
+            <i class="fa-solid fa-location-dot"></i>
+            Zanzibar, Tanzania
+          </span>
+
+          <span class="visual-dot"></span>
+
+          <span>
+            Travel beyond ordinary
+          </span>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =================================================
+           LOGIN CARD
+      ================================================== -->
+
+      <section class="login-panel">
+
+        <div class="login-card">
+
+
+          <!-- CARD TOP -->
+
+          <div class="card-top">
+
+            <div class="secure-badge">
+
+              <span class="secure-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+              </span>
+
+              <span>Secure Area</span>
+
+            </div>
+
+
+            <div class="card-status">
+
+              <span class="status-dot"></span>
+
+              Admin Portal
+
+            </div>
+
+          </div>
+
+
+
+          <!-- HEADING -->
+
+          <div class="login-heading">
+
+            <h2>
+              Welcome <span>back.</span>
+            </h2>
+
+            <p>
+              Sign in to access your Max Tours
+              administration dashboard.
+            </p>
+
+          </div>
+
+
+
+          <!-- LOGIN FORM -->
+
+          <form
+            class="login-form"
+            (ngSubmit)="login()"
+            #loginForm="ngForm"
+          >
+
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+              <label for="username">
+                Username
+              </label>
+
+              <div class="input-wrapper">
+
+                <div class="input-icon">
+                  <i class="fa-regular fa-user"></i>
+                </div>
+
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  [(ngModel)]="username"
+                  placeholder="@maxtours"
+                  autocomplete="username"
+                  required
+                  [disabled]="isLoggingIn"
+                />
+
+              </div>
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+              <div class="password-label">
+
+                <label for="password">
+                  Password
+                </label>
+
+              </div>
+
+
+              <div class="input-wrapper">
+
+                <div class="input-icon">
+                  <i class="fa-solid fa-lock"></i>
+                </div>
+
+
+                <input
+                  id="password"
+                  name="password"
+                  [type]="showPassword ? 'text' : 'password'"
+                  [(ngModel)]="password"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                  [disabled]="isLoggingIn"
+                />
+
+
+                <button
+                  type="button"
+                  class="password-toggle"
+                  (click)="togglePassword()"
+                  [disabled]="isLoggingIn"
+                  [attr.aria-label]="
+                    showPassword
+                      ? 'Hide password'
+                      : 'Show password'
+                  "
+                >
+
+                  <i
+                    class="fa-solid"
+                    [class.fa-eye]="!showPassword"
+                    [class.fa-eye-slash]="showPassword"
+                  ></i>
+
+                </button>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- MESSAGE -->
+
+            @if (loginMessage) {
+
+              <div
+                class="login-message"
+                [class.success]="loginMessageType === 'success'"
+                [class.error]="loginMessageType === 'error'"
+              >
+
+                <div class="message-icon">
+
+                  @if (loginMessageType === 'success') {
+                    <i class="fa-solid fa-circle-check"></i>
+                  }
+
+                  @if (loginMessageType === 'error') {
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                  }
+
+                </div>
+
+                <span>
+                  {{ loginMessage }}
+                </span>
+
+              </div>
+
+            }
+
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+              type="submit"
+              class="login-button"
+              [disabled]="isLoggingIn || loginForm.invalid"
+            >
+
+              @if (!isLoggingIn) {
+
+                <span>
+                  Login to Admin Panel
+                </span>
+
+                <span class="button-icon">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </span>
+
+              }
+
+              @if (isLoggingIn) {
+
+                <span>
+                  Signing in...
+                </span>
+
+                <span class="button-icon loading">
+                  <i class="fa-solid fa-spinner"></i>
+                </span>
+
+              }
+
+            </button>
+
+
+          </form>
+
+
+
+          <!-- SECURITY NOTE -->
+
+          <div class="security-note">
+
+            <i class="fa-solid fa-lock"></i>
+
+            <span>
+              Protected administration area
+            </span>
+
+          </div>
+
+
+          <!-- COPYRIGHT -->
+
+          <div class="login-card-footer">
+
+            <span>
+              © {{ currentYear }}
+              Max Tours &amp; Safari
+            </span>
+
+            <span>
+              Zanzibar
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- =====================================================
+       DECORATIVE SIDE NUMBER
+  ====================================================== -->
+
+  <div class="side-label">
+    ADMINISTRATION
+  </div>
+
+</div>

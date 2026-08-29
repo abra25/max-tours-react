@@ -110,8 +110,9 @@
       <div class="mobile-nav-inner">
 
   <a
-    routerLink="/"
+    routerLink=""
     fragment="home"
+    href="#hero"
     (click)="closeMenu()"
   >
     <span>01</span>
@@ -120,7 +121,7 @@
 
   <a
     href="#about"
-    (click)="scrollToSection('destinations', $event)"
+    (click)="scrollToSection('about', $event)"
     (click)="closeMenu()"
   >
     <span>02</span>
@@ -138,7 +139,7 @@
 
   <a
     href="#tours"
-    (click)="scrollToSection('destinations', $event)"
+    (click)="scrollToSection('tours', $event)"
     (click)="closeMenu()"
   >
     <span>04</span>
@@ -147,7 +148,7 @@
 
   <a
     href="#blog"
-    (click)="scrollToSection('destinations', $event)"
+    (click)="scrollToSection('blog', $event)"
     (click)="closeMenu()"
   >
     <span>05</span>
@@ -784,6 +785,7 @@
 
       <a
         routerLink="/destinations"
+        
         class="view-all-destinations"
       >
 
@@ -947,19 +949,17 @@
             </div>
 
 
-            <a
-              routerLink="/tours"
-              class="tour-explore"
-              [attr.aria-label]="'Explore ' + tour.title"
-            >
+<a
+  [routerLink]="['/tours', tour.slug]"
+  class="tour-explore"
+  [attr.aria-label]="'Explore ' + tour.title"
+>
+  <span>Explore More</span>
 
-              <span>Explore More</span>
-
-              <span class="tour-arrow">
-                <i class="fas fa-arrow-right"></i>
-              </span>
-
-            </a>
+  <span class="tour-arrow">
+    <i class="fas fa-arrow-right"></i>
+  </span>
+</a>
 
           </div>
 

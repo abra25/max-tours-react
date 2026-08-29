@@ -1,0 +1,718 @@
+<div class="legal-page">
+
+  <!-- ================= HEADER ================= -->
+
+  <header
+    class="site-header"
+    [class.scrolled]="isScrolled"
+    [class.menu-open]="isMenuOpen"
+  >
+
+    <div class="nav-container">
+
+      <a
+        routerLink="/"
+        class="brand"
+        aria-label="Max Tours & Safari home"
+        (click)="closeMenu()"
+      >
+
+        <img
+          src="/img/logo.png"
+          alt="Max Tours & Safari"
+          class="brand-logo"
+        />
+
+        <span class="brand-name">
+          <strong>MAX TOURS</strong>
+          <small>&amp; SAFARI</small>
+        </span>
+
+      </a>
+
+
+      <nav class="desktop-nav">
+
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          Home
+        </a>
+
+        <a
+          href="/#tours"
+          (click)="scrollToSection('tours', $event)"
+        >
+          Tours
+        </a>
+
+        <a
+          routerLink="/privacy"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          Privacy
+        </a>
+
+        <a
+          routerLink="/terms"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          Terms
+        </a>
+
+        <a
+          routerLink="/faqs"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          FAQs
+        </a>
+
+        <a
+          routerLink="/booking"
+          class="nav-book"
+          (click)="closeMenu()"
+        >
+          Book a Tour
+          <span>↗</span>
+        </a>
+
+      </nav>
+
+
+      <button
+        type="button"
+        class="menu-toggle"
+        [class.open]="isMenuOpen"
+        (click)="toggleMenu()"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isMenuOpen"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+
+
+    <!-- MOBILE NAV -->
+
+    <div
+      class="mobile-nav"
+      [class.open]="isMenuOpen"
+    >
+
+      <div class="mobile-nav-inner">
+
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          <span>01</span>
+          Home
+        </a>
+
+        <a
+          href="/#tours"
+          (click)="scrollToSection('tours', $event)"
+        >
+          <span>02</span>
+          Tours
+        </a>
+
+        <a
+          routerLink="/privacy"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          <span>03</span>
+          Privacy
+        </a>
+
+        <a
+          routerLink="/terms"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          <span>04</span>
+          Terms
+        </a>
+
+        <a
+          routerLink="/faqs"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+        >
+          <span>05</span>
+          FAQs
+        </a>
+
+        <a
+          routerLink="/booking"
+          class="mobile-book"
+          (click)="closeMenu()"
+        >
+          Book a Tour
+          <span>↗</span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================= HERO ================= -->
+
+  <section class="legal-hero">
+
+    <div class="hero-background"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="legal-hero-content">
+
+      <div class="eyebrow">
+        <span></span>
+        IMPORTANT INFORMATION
+      </div>
+
+      <h1>
+        Travel with
+        <em>clarity.</em>
+      </h1>
+
+      <p>
+        Our terms help keep every journey clear,
+        fair and comfortable for everyone.
+        Please take a moment to review them
+        before confirming your trip.
+      </p>
+
+      <div class="hero-meta">
+
+        <span>
+          <i class="fa-solid fa-file-shield"></i>
+          Booking terms
+        </span>
+
+        <span>
+          <i class="fa-solid fa-circle-check"></i>
+          Clear policies
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= INTRO ================= -->
+
+  <section class="terms-intro">
+
+    <div>
+
+      <span class="section-label">
+        MAX TOURS & SAFARI
+      </span>
+
+      <h2>
+        Simple rules for
+        <span>great journeys.</span>
+      </h2>
+
+    </div>
+
+    <p>
+      These terms outline the general conditions
+      that apply when you book tours, activities,
+      transportation or other travel services with
+      Max Tours & Safari.
+    </p>
+
+  </section>
+
+
+  <!-- ================= CONTENT ================= -->
+
+  <main class="terms-main">
+
+    <aside class="terms-sidebar">
+
+      <div class="sidebar-card">
+
+        <span>ON THIS PAGE</span>
+
+        <button (click)="scrollTo('booking')">
+          Booking & Payment
+        </button>
+
+        <button (click)="scrollTo('cancellation')">
+          Cancellation
+        </button>
+
+        <button (click)="scrollTo('travel')">
+          Travel Information
+        </button>
+
+        <button (click)="scrollTo('safety')">
+          Health & Safety
+        </button>
+
+        <button (click)="scrollTo('itinerary')">
+          Itinerary Changes
+        </button>
+
+        <button (click)="scrollTo('add-ons')">
+          Optional Services
+        </button>
+
+        <button (click)="scrollTo('support')">
+          Support
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <div class="terms-content">
+
+      <!-- 01 -->
+
+      <section
+        id="booking"
+        class="terms-card"
+      >
+
+        <div class="card-icon">
+          <i class="fa-solid fa-wallet"></i>
+        </div>
+
+        <div>
+
+          <span class="card-number">01</span>
+
+          <h2>Booking & Payment</h2>
+
+          <p>
+            A booking becomes confirmed once the
+            required deposit or payment has been
+            received and the travel arrangements
+            have been accepted by our team.
+          </p>
+
+          <ul>
+            <li>Advance booking is recommended, especially during peak seasons.</li>
+            <li>A deposit may be required depending on the selected package.</li>
+            <li>The remaining balance must be paid according to the agreed booking schedule.</li>
+            <li>Payment instructions will be provided during the booking process.</li>
+            <li>Confirmation will be sent once the booking arrangements are secured.</li>
+          </ul>
+
+        </div>
+
+      </section>
+
+
+      <!-- 02 -->
+
+      <section
+        id="cancellation"
+        class="terms-card"
+      >
+
+        <div class="card-icon">
+          <i class="fa-solid fa-calendar-xmark"></i>
+        </div>
+
+        <div>
+
+          <span class="card-number">02</span>
+
+          <h2>Cancellation & Changes</h2>
+
+          <p>
+            Cancellation and amendment conditions
+            may vary depending on the tour,
+            accommodation and third-party services
+            involved.
+          </p>
+
+          <ul>
+            <li>Cancellation requests should be communicated as early as possible.</li>
+            <li>Refund eligibility depends on the timing and conditions of the booking.</li>
+            <li>Third-party cancellation charges may apply.</li>
+            <li>Changes to confirmed bookings may be subject to availability.</li>
+            <li>Force majeure situations may require rescheduling or alternative arrangements.</li>
+          </ul>
+
+        </div>
+
+      </section>
+
+
+      <!-- 03 -->
+
+      <section
+        id="travel"
+        class="terms-card"
+      >
+
+        <div class="card-icon">
+          <i class="fa-solid fa-passport"></i>
+        </div>
+
+        <div>
+
+          <span class="card-number">03</span>
+
+          <h2>Travel Information</h2>
+
+          <p>
+            Guests are responsible for ensuring that
+            they have the documents required for their
+            journey.
+          </p>
+
+          <ul>
+            <li>A valid passport and required travel documents should be carried.</li>
+            <li>Guests should check applicable visa and entry requirements before travelling.</li>
+            <li>Travel insurance is strongly recommended.</li>
+            <li>Guests should provide accurate information when making a booking.</li>
+          </ul>
+
+        </div>
+
+      </section>
+
+
+      <!-- 04 -->
+
+      <section
+        id="safety"
+        class="terms-card"
+      >
+
+        <div class="card-icon">
+          <i class="fa-solid fa-shield-heart"></i>
+        </div>
+
+        <div>
+
+          <span class="card-number">04</span>
+
+          <h2>Health & Safety</h2>
+
+          <p>
+            Your safety is important to us. Some
+            activities involve outdoor, marine or
+            physical environments.
+          </p>
+
+          <ul>
+            <li>Guests should follow instructions provided by guides and activity operators.</li>
+            <li>Guests should inform us in advance about relevant allergies or health considerations.</li>
+            <li>Swimming ability may be required for certain water activities.</li>
+            <li>Activities may be modified when conditions are considered unsafe.</li>
+          </ul>
+
+        </div>
+
+      </section>
+
+
+      <!-- 05 -->
+
+      <section
+        id="itinerary"
+        class="terms-card"
+      >
+
+        <div class="card-icon">
+          <i class="fa-solid fa-route"></i>
+        </div>
+
+        <div>
+
+          <span class="card-number">05</span>
+
+          <h2>Itinerary Changes</h2>
+
+          <p>
+            Travel conditions can occasionally change
+            because of weather, availability,
+            operational requirements or other
+            circumstances.
+          </p>
+
+          <ul>
+            <li>Minor itinerary adjustments may be necessary.</li>
+            <li>Weather-sensitive activities may be rescheduled.</li>
+            <li>Alternative arrangements may be offered when practical.</li>
+            <li>We will make reasonable efforts to communicate important changes.</li>
+          </ul>
+
+        </div>
+
+      </section>
+
+
+      <!-- 06 -->
+
+      <section
+        id="add-ons"
+        class="terms-card"
+      >
+
+        <div class="card-icon">
+          <i class="fa-solid fa-plus"></i>
+        </div>
+
+        <div>
+
+          <span class="card-number">06</span>
+
+          <h2>Optional Services</h2>
+
+          <p>
+            Additional experiences can sometimes be
+            added to your itinerary depending on
+            availability.
+          </p>
+
+          <div class="add-on-grid">
+
+            <span>Scuba Diving</span>
+            <span>Sunset Dhow Cruise</span>
+            <span>Spa Experiences</span>
+            <span>Kite Surfing</span>
+            <span>Deep Sea Fishing</span>
+            <span>Prison Island</span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- 07 -->
+
+      <section
+        id="support"
+        class="terms-card support-card"
+      >
+
+        <div class="card-icon">
+          <i class="fa-solid fa-headset"></i>
+        </div>
+
+        <div>
+
+          <span class="card-number">07</span>
+
+          <h2>Help & Support</h2>
+
+          <p>
+            If you have questions about your booking
+            or these terms, our team is happy to help.
+          </p>
+
+          <div class="support-grid">
+
+            <a href="tel:+255617438758">
+
+              <i class="fa-solid fa-phone"></i>
+
+              <span>
+                <small>Call us</small>
+                +255 617 438 758
+              </span>
+
+            </a>
+
+            <a href="mailto:maxtourandsafari@gmail.com">
+
+              <i class="fa-solid fa-envelope"></i>
+
+              <span>
+                <small>Email us</small>
+                maxtourandsafari@gmail.com
+              </span>
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer class="site-footer">
+  
+  <div class="footer-main wrapper">
+
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <a href="#home" class="footer-logo">
+        <img src="/img/logo.png" alt="Max Tour & Safari Logo">
+        <span>Max Tour & Safari</span>
+      </a>
+
+      <p>
+        Discover Zanzibar & Tanzania through authentic tours,
+        unforgettable adventures and local experiences.
+      </p>
+
+      <div class="footer-socials">
+        <a
+          href="https://wa.me/255617438758"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="WhatsApp"
+        >
+          <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <a
+          href="https://www.facebook.com/profile.php?id=61561055606916"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Facebook"
+        >
+          <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a
+          href="https://www.instagram.com/zakayo3838"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+
+        <a
+          href="https://tiktok.com/@max.tours.safari"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="TikTok"
+        >
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-column">
+      <h3>Explore</h3>
+
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#tours">Tours & Safaris</a>
+      <a href="#blogs">Travel Journal</a>
+    </div>
+
+    <!-- TRAVEL -->
+    <div class="footer-column">
+      <h3>Travel With Us</h3>
+
+      <a href="#contact">Contact Us</a>
+      <a href="/booking">Book Your Trip</a>
+      <a href="/agents">Travel Agents</a>
+      <a href="/gallery">Our Gallery</a>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="footer-column footer-contact">
+      <h3>Get In Touch</h3>
+
+      <p>
+        <i class="fas fa-map-marker-alt"></i>
+        Zanzibar, Tanzania
+      </p>
+
+      <a href="tel:+255617438758">
+        <i class="fas fa-phone"></i>
+        +255 617 438 758
+      </a>
+
+      <a href="mailto:maxtourandsafari@gmail.com">
+        <i class="fas fa-envelope"></i>
+        maxtourandsafari@gmail.com
+      </a>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="footer-bottom">
+    <div class="wrapper footer-bottom-inner">
+
+      <p >
+  © <span >{{ currentYear }}</span>
+  <strong style="padding-left: 3px;">Max Tour & Safari</strong>.
+  All rights reserved.
+</p>
+
+      <div class="footer-legal">
+        <a href="/privacy">Privacy</a>
+        <span>•</span>
+        <a href="/terms">Terms</a>
+        <span>•</span>
+        <a href="/faqs">FAQs</a>
+      </div>
+
+      <p class="developer-credit">
+        Developed by
+        <a
+          href="https://abra25.github.io/solidy/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          MrSolidy
+        </a>
+      </p>
+
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button
+  type="button"
+  class="back-to-top"
+  [class.show]="showBackTop"
+  (click)="scrollToTop()"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+</div>
