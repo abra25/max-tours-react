@@ -26,8 +26,7 @@ import { CommonModule } from '@angular/common';
 
   imports: [
     CommonModule,
-    RouterLink,
-    RouterLinkActive
+    RouterLink
   ],
 
   templateUrl: './destinations-details.html',

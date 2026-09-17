@@ -180,8 +180,6 @@
 
   /*
    * BEFORE SCROLL
-   */
-  border: 2px solid rgba(255, 255, 255, 0.95);
 
   /*
    * No padding around the image
@@ -1957,7 +1955,7 @@
 
   .tour-page-image {
 
-    height: 305px;
+    height: 280px;
 
   }
 
@@ -2045,7 +2043,7 @@
 
   .tour-page-image {
 
-    height: 185px;
+    height: 280px;
 
   }
 

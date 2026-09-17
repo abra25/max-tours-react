@@ -48,12 +48,18 @@
         </h1>
 
 
+        <!-- SHORT DESCRIPTION FROM DATABASE -->
+
         <p>
           {{ tour.description }}
         </p>
 
 
+        <!-- HERO META -->
+
         <div class="tour-hero-meta">
+
+          <!-- DURATION -->
 
           <div>
 
@@ -66,6 +72,8 @@
           </div>
 
 
+          <!-- LOCATION -->
+
           <div>
 
             <i class="fa-solid fa-location-dot"></i>
@@ -77,6 +85,8 @@
           </div>
 
 
+          <!-- PRICE -->
+
           <div>
 
             <i class="fa-solid fa-tag"></i>
@@ -86,6 +96,23 @@
             </span>
 
           </div>
+
+
+          <!-- RATING -->
+
+          @if (tour.rating) {
+
+            <div class="hero-rating">
+
+              <i class="fa-solid fa-star"></i>
+
+              <span>
+                {{ tour.rating }}
+              </span>
+
+            </div>
+
+          }
 
         </div>
 
@@ -124,6 +151,8 @@
           </h2>
 
 
+          <!-- SHORT DESCRIPTION ONLY -->
+
           <p>
             {{ tour.description }}
           </p>
@@ -148,10 +177,12 @@
 
               <div>
                 <strong>Local expertise</strong>
+
                 <small>
                   Experience the destination with people
                   who know it best.
                 </small>
+
               </div>
 
             </div>
@@ -165,10 +196,12 @@
 
               <div>
                 <strong>Flexible experience</strong>
+
                 <small>
                   Designed to make your journey comfortable
                   and enjoyable.
                 </small>
+
               </div>
 
             </div>
@@ -182,19 +215,78 @@
 
               <div>
                 <strong>Memorable moments</strong>
+
                 <small>
                   Discover places and experiences worth remembering.
                 </small>
+
               </div>
 
             </div>
 
           </div>
 
+
+          <!-- =================================================
+               INCLUSIONS
+          ================================================= -->
+
+          @if (hasInclusions()) {
+
+            <div class="tour-inclusions">
+
+              <div class="tour-content-heading">
+
+                <span class="section-eyebrow">
+
+                  <span></span>
+
+                  WHAT'S INCLUDED
+
+                </span>
+
+                <h3>
+                  Your experience includes
+                </h3>
+
+              </div>
+
+
+              <div class="inclusions-grid">
+
+                @for (
+                  inclusion of tour.inclusions;
+                  track inclusion
+                ) {
+
+                  <div class="inclusion-item">
+
+                    <span class="inclusion-icon">
+
+                      <i class="fa-solid fa-check"></i>
+
+                    </span>
+
+                    <span class="inclusion-text">
+                      {{ inclusion }}
+                    </span>
+
+                  </div>
+
+                }
+
+              </div>
+
+            </div>
+
+          }
+
         </div>
 
 
-        <!-- BOOKING CARD -->
+        <!-- =================================================
+             BOOKING CARD
+        ================================================= -->
 
         <aside class="tour-booking-card">
 
@@ -208,6 +300,8 @@
           </h3>
 
 
+          <!-- ADULT PRICE -->
+
           <div class="booking-price">
 
             <small>
@@ -219,10 +313,70 @@
             </strong>
 
             <span>
-              / person
+              / adult
             </span>
 
           </div>
+
+
+          <!-- CHILD PRICE -->
+
+          @if (tour.childPrice) {
+
+            <div class="child-price-row">
+
+              <span>
+
+                <i class="fa-solid fa-child"></i>
+
+                Child rate
+
+              </span>
+
+              <strong>
+                {{ tour.childPrice }}
+              </strong>
+
+            </div>
+
+          }
+
+
+          <!-- RATING -->
+
+          @if (tour.rating) {
+
+            <div class="booking-rating">
+
+              <div class="rating-stars">
+
+                @for (
+                  star of getRatingStars();
+                  track $index
+                ) {
+
+                  <i class="fa-solid fa-star"></i>
+
+                }
+
+                @for (
+                  star of getEmptyRatingStars();
+                  track $index
+                ) {
+
+                  <i class="fa-regular fa-star"></i>
+
+                }
+
+              </div>
+
+              <span>
+                {{ tour.rating }} / 5
+              </span>
+
+            </div>
+
+          }
 
 
           <div class="booking-card-divider"></div>
@@ -293,6 +447,148 @@
 
 
     <!-- =================================================
+         RATES / PRICING
+    ================================================= -->
+
+    @if (tour.rating || tour.price || tour.childPrice) {
+
+      <section class="tour-rates-section">
+
+        <div class="tour-rates-container">
+
+          <div class="tour-rates-header">
+
+            <span class="section-eyebrow">
+
+              <span></span>
+
+              TOUR RATES
+
+            </span>
+
+            <h2>
+              Simple and clear <em>pricing.</em>
+            </h2>
+
+            <p>
+              View the current rates for this experience before
+              making your booking.
+            </p>
+
+          </div>
+
+
+          <div class="tour-rates-grid">
+
+
+            <!-- ADULT -->
+
+            @if (tour.price) {
+
+              <div class="rate-card">
+
+                <div class="rate-icon">
+
+                  <i class="fa-solid fa-user"></i>
+
+                </div>
+
+                <div class="rate-content">
+
+                  <span>
+                    Adult
+                  </span>
+
+                  <strong>
+                    {{ tour.price }}
+                  </strong>
+
+                  <small>
+                    Per person
+                  </small>
+
+                </div>
+
+              </div>
+
+            }
+
+
+            <!-- CHILD -->
+
+            @if (tour.childPrice) {
+
+              <div class="rate-card">
+
+                <div class="rate-icon">
+
+                  <i class="fa-solid fa-child"></i>
+
+                </div>
+
+                <div class="rate-content">
+
+                  <span>
+                    Child
+                  </span>
+
+                  <strong>
+                    {{ tour.childPrice }}
+                  </strong>
+
+                  <small>
+                    Child rate
+                  </small>
+
+                </div>
+
+              </div>
+
+            }
+
+
+            <!-- RATING -->
+
+            @if (tour.rating) {
+
+              <div class="rate-card">
+
+                <div class="rate-icon">
+
+                  <i class="fa-solid fa-star"></i>
+
+                </div>
+
+                <div class="rate-content">
+
+                  <span>
+                    Guest Rating
+                  </span>
+
+                  <strong>
+                    {{ tour.rating }}
+                  </strong>
+
+                  <small>
+                    Out of 5
+                  </small>
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+      </section>
+
+    }
+
+
+    <!-- =================================================
          GALLERY
     ================================================= -->
 
@@ -332,7 +628,7 @@
         </div>
 
 
-        <!-- EXACTLY 3 IMAGES -->
+        <!-- GALLERY FROM DATABASE -->
 
         <div class="tour-gallery-grid">
 
@@ -350,7 +646,13 @@
               />
 
               <div class="gallery-number">
-                0{{ $index + 1 }}
+
+                @if ($index < 9) {
+                  0{{ $index + 1 }}
+                } @else {
+                  {{ $index + 1 }}
+                }
+
               </div>
 
             </div>
@@ -378,14 +680,18 @@
 
 
         <h2>
+
           Let's make this
           <em>journey yours.</em>
+
         </h2>
 
 
         <p>
+
           Contact our local team or start your booking
           today and let us help you plan an unforgettable experience.
+
         </p>
 
 

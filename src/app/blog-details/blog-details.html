@@ -118,7 +118,7 @@
 
               <ul>
 
-                @for (item of blog.highlights; track item) {
+                @for (item of blog.highlights; track $index) {
 
                   <li>
                     <i class="fa-solid fa-check"></i>
@@ -178,7 +178,7 @@
 
             <ul>
 
-              @for (item of blog.highlights; track item) {
+              @for (item of blog.highlights; track $index) {
 
                 <li>
                   <i class="fa-solid fa-location-dot"></i>

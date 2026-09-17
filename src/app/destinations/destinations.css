@@ -177,7 +177,7 @@
   /*
    * BEFORE SCROLL
    */
-  border: 2px solid rgba(255, 255, 255, 0.95);
+  
 
   /*
    * No padding around the image
@@ -1456,7 +1456,7 @@
 
 
   .destination-page-image {
-    height: 270px;
+    height: 280px;
   }
 
 }
@@ -1726,7 +1726,7 @@
 
 
   .destination-page-image {
-    height: 185px;
+    height: 280px;
   }
 
 

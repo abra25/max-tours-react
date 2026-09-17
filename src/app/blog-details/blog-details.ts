@@ -22,7 +22,23 @@ export class BlogDetails implements OnInit {
 
   ngOnInit(): void {
 
-    const slug = this.route.snapshot.paramMap.get('slug');
+    this.route.paramMap.subscribe(params => {
+
+      const slug = params.get('slug');
+
+      this.loadBlog(slug);
+
+    });
+
+  }
+
+  private loadBlog(slug: string | null): void {
+
+    if (!slug) {
+      this.blog = undefined;
+      this.relatedBlogs = [];
+      return;
+    }
 
     this.blog = BLOG_POSTS.find(
       post => post.slug === slug
@@ -33,6 +49,10 @@ export class BlogDetails implements OnInit {
       this.relatedBlogs = BLOG_POSTS
         .filter(post => post.slug !== this.blog?.slug)
         .slice(0, 3);
+
+    } else {
+
+      this.relatedBlogs = [];
 
     }
 

@@ -1,8 +1,10 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   HostListener,
-  OnDestroy
+  OnDestroy,
+  OnInit
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -13,6 +15,7 @@ import {
 } from '@angular/router';
 import { BLOG_POSTS } from '../data/blog-data';
 import { FormsModule } from '@angular/forms';
+import { Package, PackageService } from '../services/package.service';
 
 
 
@@ -30,7 +33,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home implements AfterViewInit, OnDestroy {
+export class Home implements OnInit,  AfterViewInit, OnDestroy {
 
   //new year 
   currentYear = new Date().getFullYear();
@@ -71,7 +74,7 @@ export class Home implements AfterViewInit, OnDestroy {
   heroSlides: HeroSlide[] = [
 
     {
-      image: '/img/hero-1.png',
+      image: '/img/hero-1.jpeg',
       eyebrow: 'WELCOME TO ZANZIBAR',
       title: 'Discover',
       accent: 'the Extraordinary.',
@@ -128,6 +131,10 @@ export class Home implements AfterViewInit, OnDestroy {
   // ============================================
   // LIFECYCLE
   // ============================================
+  constructor(
+  private packageService: PackageService,
+    private readonly cdr: ChangeDetectorRef
+) {}
 
  ngAfterViewInit(): void {
 
@@ -137,9 +144,16 @@ export class Home implements AfterViewInit, OnDestroy {
 
 }
 
-  ngOnInit() {
-  window.addEventListener('scroll', this.handleScroll);
- }
+  ngOnInit(): void {
+
+  window.addEventListener(
+    'scroll',
+    this.handleScroll
+  );
+
+  this.loadHomePackages();
+
+}
   ngOnDestroy(): void {
 
   this.stopAutoPlay();
@@ -483,86 +497,165 @@ resumeDestinationAnimation(): void {
 
 }
 
-homeTours: HomeTour[] = [
-  {
-    slug: 'tanzania-safari',
-    image: '/img/safari-1.jpeg',
-    category: 'TANZANIA SAFARI',
-    location: 'Tanzania',
-    title: 'Tanzania Safari',
-    duration: '3 Days / 2 Nights',
-    price: '$400',
-    description:
-      'Experience Tanzania’s incredible wildlife, breathtaking landscapes and unforgettable safari moments.',
-    icon: 'fa-binoculars'
-  },
+homeTours: HomeTour[] = [];
 
-  {
-    slug: '11-days-tanzania-zanzibar',
-    image: '/img/safari-3.jpeg',
-    category: 'MULTI-DESTINATION',
-    location: 'Tanzania & Zanzibar',
-    title: '11 Days Tanzania & Zanzibar',
-    duration: '11 Days',
-    price: '$3,200',
-    description:
-      'A complete African escape combining unforgettable wildlife adventures with the tropical beauty of Zanzibar.',
-    icon: 'fa-route'
-  },
+packagesLoading = false;
+packagesError = '';
 
-  {
-    slug: '6-days-zanzibar-holidays',
-    image: '/img/holiday-1.png',
-    category: 'ZANZIBAR HOLIDAY',
-    location: 'Zanzibar',
-    title: '6 Days Zanzibar Holidays',
-    duration: '6 Days / 5 Nights',
-    price: '$350',
-    description:
-      'Relax, explore and experience the best of Zanzibar with beautiful beaches, culture and island adventures.',
-    icon: 'fa-umbrella-beach'
-  },
+  private async loadHomePackages(): Promise<void> {
 
-  {
-    slug: 'blue-safari',
-    image: '/img/safari-blue-1.png',
-    category: 'OCEAN ADVENTURE',
-    location: 'Zanzibar',
-    title: 'Blue Safari',
-    duration: 'Full Day',
-    price: '$55',
-    description:
-      'Sail across Zanzibar’s turquoise waters, discover hidden sandbanks and enjoy an unforgettable marine adventure.',
-    icon: 'fa-water'
-  },
+  this.packagesLoading = true;
+  this.packagesError = '';
 
-  {
-    slug: 'prison-island-nakupenda',
-    image: '/img/nakupenda_bech-2.jpeg',
-    category: 'BEACH ESCAPE',
-    location: 'Zanzibar',
-    title: 'Prison Island & Nakupenda Beach',
-    duration: 'Full Day',
-    price: '$65',
-    description:
-      'Combine a visit to Prison Island with the stunning Nakupenda sandbank for a perfect day in paradise.',
-    icon: 'fa-island-tropical'
-  },
+  try {
 
-  {
-    slug: 'spice-tour-cooking-class',
-    image: '/img/spice-5.png',
-    category: 'CULTURE & FOOD',
-    location: 'Zanzibar',
-    title: 'Spice Tour with Cooking Class',
-    duration: '3 Hours',
-    price: '$40',
-    description:
-      'Discover Zanzibar’s famous spices and learn how local dishes are prepared in an authentic cooking experience.',
-    icon: 'fa-utensils'
+    const packages =
+      await this.packageService.getHomePackages();
+
+    this.homeTours =
+      packages.map((item: Package) =>
+        this.mapPackageToHomeTour(item)
+      );
+
+  } catch (error) {
+
+    console.error(
+      'Failed to load home packages:',
+      error
+    );
+
+    this.packagesError =
+      'Unable to load tour packages right now.';
+
+    this.homeTours = [];
+
+  } finally {
+
+    this.packagesLoading = false;
+
   }
-];
 
+}
+
+private mapPackageToHomeTour(
+  item: Package
+): HomeTour {
+
+  const category =
+    item.category || 'TOUR EXPERIENCE';
+
+  return {
+
+    slug:
+      item.slug ||
+      this.createSlug(item.title),
+
+    image:
+      item.image_url ||
+      '/img/placeholder.jpg',
+
+    category:
+      this.getCategoryLabel(category),
+
+    location:
+      item.location || 'Tanzania',
+
+    title:
+      item.title,
+
+    duration:
+      item.duration || '',
+
+    price:
+      item.price || '',
+
+    description:
+      item.short_description || '',
+
+    icon:
+      this.getCategoryIcon(category)
+
+  };
+
+}
+
+private getCategoryLabel(
+  category: string
+): string {
+
+  const labels: Record<string, string> = {
+
+    holiday_package:
+      'HOLIDAY PACKAGE',
+
+    day_tour:
+      'DAY TOUR',
+
+    safari:
+      'TANZANIA SAFARI',
+
+    beach:
+      'BEACH ESCAPE',
+
+    adventure:
+      'ADVENTURE',
+
+    culture:
+      'CULTURE & FOOD'
+
+  };
+
+  return (
+    labels[category] ||
+    category
+      .replace(/_/g, ' ')
+      .toUpperCase()
+  );
+
+}
+
+private getCategoryIcon(
+  category: string
+): string {
+
+  const icons: Record<string, string> = {
+
+    holiday_package:
+      'fa-suitcase-rolling',
+
+    day_tour:
+      'fa-route',
+
+    safari:
+      'fa-binoculars',
+
+    beach:
+      'fa-umbrella-beach',
+
+    adventure:
+      'fa-mountain-sun',
+
+    culture:
+      'fa-landmark'
+
+  };
+
+  return (
+    icons[category] ||
+    'fa-map-location-dot'
+  );
+
+}
+
+private createSlug(title: string): string {
+
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+}
 
 contactFormData = {
     name: '',

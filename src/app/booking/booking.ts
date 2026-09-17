@@ -126,7 +126,10 @@ export class Booking implements OnInit {
   // =========================================================
 
   private readonly notificationEmail =
-    'solidy789@gmail.com,maxtourandsafari@gmail.com';
+    'maxtourandsafari@gmail.com';
+
+  private readonly notificationCcEmail =
+    'lucaszakayo37@gmail.com';
 
   // =========================================================
   // SERVICE TYPES
@@ -521,6 +524,17 @@ export class Booking implements OnInit {
     );
 
     emailData.append(
+      '_captcha',
+      'false'
+    );
+
+    // Send a copy to Max Tour & Safari
+    emailData.append(
+      '_cc',
+      this.notificationCcEmail
+    );
+
+    emailData.append(
       'Full Name',
       payload.full_name
     );
@@ -580,11 +594,31 @@ export class Booking implements OnInit {
       }
     );
 
+    let result: any = null;
+
+    try {
+      result = await response.json();
+    } catch {
+      // FormSubmit may return a non-JSON response.
+    }
+
     if (!response.ok) {
       throw new Error(
-        'Email notification failed'
+        result?.message ||
+        'Email notification failed.'
       );
     }
+
+    if (result?.success === false) {
+      throw new Error(
+        result?.message ||
+        'FormSubmit could not send the notification.'
+      );
+    }
+
+    console.log(
+      'Booking email notification sent successfully.'
+    );
   }
 
   // =========================================================

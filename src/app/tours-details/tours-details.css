@@ -1425,7 +1425,7 @@
 
   .tour-gallery-item {
 
-    height: 220px;
+    height: 280px;
 
   }
 
@@ -1529,7 +1529,7 @@
 
   .tour-gallery-item {
 
-    height: 195px;
+    height: 280px;
 
   }
 
@@ -1551,6 +1551,339 @@
 
     transition: none !important;
 
+  }
+
+}
+
+/* =========================================================
+   TOUR DETAILS
+   DATABASE CONTENT ADDITIONS
+========================================================= */
+
+
+/* =========================================================
+   HERO RATING
+========================================================= */
+
+.hero-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-rating i {
+  color: #f4b942;
+}
+
+.hero-rating span {
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   INCLUSIONS
+========================================================= */
+
+.tour-inclusions {
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(15, 61, 57, 0.12);
+}
+
+.tour-content-heading {
+  margin-bottom: 24px;
+}
+
+.tour-content-heading .section-eyebrow {
+  margin-bottom: 10px;
+}
+
+.tour-content-heading h3 {
+  margin: 0;
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   INCLUSIONS GRID
+========================================================= */
+
+.inclusions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 18px;
+}
+
+.inclusion-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(15, 61, 57, 0.035);
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.inclusion-item:hover {
+  transform: translateY(-2px);
+  background: rgba(15, 61, 57, 0.07);
+}
+
+.inclusion-icon {
+  flex: 0 0 23px;
+  width: 23px;
+  height: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #0f766e;
+  color: #fff;
+  font-size: 11px;
+  margin-top: 1px;
+}
+
+.inclusion-text {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #374151;
+}
+
+
+/* =========================================================
+   CHILD PRICE
+========================================================= */
+
+.child-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 18px;
+  padding: 13px 15px;
+  border-radius: 10px;
+  background: rgba(15, 118, 110, 0.06);
+}
+
+.child-price-row span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #59636e;
+}
+
+.child-price-row span i {
+  color: #0f766e;
+}
+
+.child-price-row strong {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   BOOKING CARD RATING
+========================================================= */
+
+.booking-rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 17px;
+}
+
+.rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.rating-stars .fa-star {
+  font-size: 13px;
+}
+
+.rating-stars .fa-solid {
+  color: #f4b942;
+}
+
+.rating-stars .fa-regular {
+  color: #c9ced3;
+}
+
+.booking-rating > span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #59636e;
+}
+
+
+/* =========================================================
+   RATES SECTION
+========================================================= */
+
+.tour-rates-section {
+  padding: 85px 20px;
+  background: #f7f8f7;
+}
+
+.tour-rates-container {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.tour-rates-header {
+  max-width: 650px;
+  margin-bottom: 38px;
+}
+
+.tour-rates-header .section-eyebrow {
+  margin-bottom: 12px;
+}
+
+.tour-rates-header h2 {
+  margin: 0 0 12px;
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.1;
+}
+
+.tour-rates-header h2 em {
+  font-style: normal;
+  color: #0f766e;
+}
+
+.tour-rates-header p {
+  margin: 0;
+  color: #68727c;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   RATE CARDS
+========================================================= */
+
+.tour-rates-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.rate-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid rgba(15, 61, 57, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 12px 35px rgba(15, 61, 57, 0.06);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.rate-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 42px rgba(15, 61, 57, 0.1);
+}
+
+.rate-icon {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  background: rgba(15, 118, 110, 0.09);
+  color: #0f766e;
+  font-size: 18px;
+}
+
+.rate-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rate-content span {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #78818a;
+  margin-bottom: 4px;
+}
+
+.rate-content strong {
+  font-size: 24px;
+  line-height: 1.1;
+  font-weight: 750;
+  color: #17211f;
+}
+
+.rate-content small {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #899199;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .tour-rates-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .inclusions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tour-rates-section {
+    padding: 65px 18px;
+  }
+
+  .tour-rates-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .rate-card {
+    padding: 20px;
+  }
+
+}
+
+
+@media (max-width: 520px) {
+
+  .child-price-row {
+    padding: 12px;
+  }
+
+  .hero-rating {
+    width: 100%;
+  }
+
+  .booking-rating {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
 }

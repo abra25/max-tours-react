@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { supabaseClient } from '../../lib/supabase';
 
 @Component({
   selector: 'app-login',
@@ -161,5 +162,50 @@ export class Login implements OnInit {
     }, 500);
 
   }
+
+  async uploadPackageImage(
+  file: File,
+  folder: 'hero' | 'gallery' = 'gallery'
+): Promise<string> {
+
+  const extension =
+    file.name.split('.').pop()?.toLowerCase() || 'jpg';
+
+  const safeName =
+    `${Date.now()}-${crypto.randomUUID()}.${extension}`;
+
+  const filePath =
+    `packages/${folder}/${safeName}`;
+
+  const { error } =
+    await supabaseClient.storage
+      .from('tour-images')
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: false
+      });
+
+  if (error) {
+    console.error(
+      'Package image upload error:',
+      error
+    );
+
+    throw error;
+  }
+
+  const { data } =
+    supabaseClient.storage
+      .from('tour-images')
+      .getPublicUrl(filePath);
+
+  if (!data?.publicUrl) {
+    throw new Error(
+      'Could not generate public image URL.'
+    );
+  }
+
+  return data.publicUrl;
+}
 
 }

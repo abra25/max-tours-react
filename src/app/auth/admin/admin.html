@@ -1,1 +1,2231 @@
-<p>admin works!</p>
+<div class="admin-layout">
+
+  <!-- =====================================================
+       SIDEBAR
+  ====================================================== -->
+  <aside
+    class="sidebar"
+    [class.active]="sidebarOpen"
+  >
+
+    <div class="sidebar-brand">
+      <a routerLink="/" class="brand-link">
+        <img
+          src="/img/favicon.png"
+          alt="Max Tours"
+        />
+
+        <div class="brand-text">
+          <strong>Max Tours</strong>
+          <span>Admin Panel</span>
+        </div>
+      </a>
+
+      <button
+        type="button"
+        class="mobile-close"
+        (click)="closeSidebar()"
+        aria-label="Close menu"
+      >
+        ×
+      </button>
+    </div>
+
+
+    <!-- ADMIN USER -->
+    <div class="admin-user-box">
+
+      <div class="admin-avatar">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+
+      <div class="admin-user-info">
+        <strong>Administrator</strong>
+        <span>{{ adminUser }}</span>
+      </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+    <nav class="sidebar-nav">
+
+      <button
+        type="button"
+        class="nav-link"
+        [class.active]="activeSection === 'dashboard'"
+        (click)="openSection('dashboard')"
+      >
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Dashboard</span>
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        [class.active]="activeSection === 'bookings'"
+        (click)="openSection('bookings')"
+      >
+        <i class="fa-solid fa-calendar-check"></i>
+        <span>Bookings</span>
+
+        <span
+          class="nav-count"
+          *ngIf="totalBookings > 0"
+        >
+          {{ totalBookings }}
+        </span>
+      </button>
+
+
+      <button
+        type="button"
+        class="nav-link"
+        [class.active]="activeSection === 'packages'"
+        (click)="openSection('packages')"
+      >
+        <i class="fa-solid fa-suitcase-rolling"></i>
+        <span>Packages</span>
+      </button>
+
+    </nav>
+
+
+    <!-- LOGOUT -->
+    <button
+      type="button"
+      class="logout-btn"
+      (click)="logout()"
+    >
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Logout</span>
+    </button>
+
+  </aside>
+
+
+  <!-- MOBILE BACKDROP -->
+  <div
+    class="sidebar-backdrop"
+    [class.active]="sidebarOpen"
+    (click)="closeSidebar()"
+  ></div>
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+  ====================================================== -->
+  <main class="main-content">
+
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+      <div class="topbar-text">
+
+        <span class="topbar-eyebrow">
+          MAX TOURS & SAFARI
+        </span>
+
+        <h1>
+          Welcome, Admin
+        </h1>
+
+        <p>
+          Manage your bookings and tour packages from one place.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="menu-btn"
+        (click)="toggleSidebar()"
+        aria-label="Open menu"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+    </header>
+
+
+
+    <!-- ===================================================
+         DASHBOARD
+    ==================================================== -->
+    <section
+      class="page-section"
+      [class.active]="activeSection === 'dashboard'"
+    >
+
+      <div class="section-heading">
+
+        <div>
+          <span class="section-kicker">
+            OVERVIEW
+          </span>
+
+          <h2>
+            Dashboard
+          </h2>
+
+          <p>
+            A quick overview of your tourism business.
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- STATS -->
+      <div class="stats-grid">
+
+        <div class="stat-card">
+
+          <div class="stat-icon booking-icon">
+            <i class="fa-solid fa-calendar-check"></i>
+          </div>
+
+          <div>
+            <span>Total Bookings</span>
+            <strong>{{ totalBookings }}</strong>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon package-icon">
+            <i class="fa-solid fa-suitcase-rolling"></i>
+          </div>
+
+          <div>
+            <span>Total Packages</span>
+            <strong>{{ totalPackages }}</strong>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-icon active-icon">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+
+          <div>
+            <span>Active Packages</span>
+            <strong>{{ activePackages }}</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- RECENT BOOKINGS -->
+      <div class="panel-card">
+
+        <div class="panel-head">
+
+          <div>
+            <span class="section-kicker">
+              BOOKINGS
+            </span>
+
+            <h3>
+              Recent Bookings
+            </h3>
+          </div>
+
+          <button
+            type="button"
+            class="text-btn"
+            (click)="openSection('bookings')"
+          >
+            View All
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Guest</th>
+                <th>Package</th>
+                <th>Travel Date</th>
+                <th>Status</th>
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr
+                *ngFor="let booking of recentBookings"
+              >
+
+                <td>
+                  <strong class="table-primary">
+                    {{ booking.full_name || '—' }}
+                  </strong>
+
+                  <span class="table-secondary">
+                    {{ booking.email || '—' }}
+                  </span>
+                </td>
+
+
+                <td>
+                  {{ booking.package_name || '—' }}
+                </td>
+
+
+                <td>
+                  {{ formatDate(booking.travel_date) }}
+                </td>
+
+
+                <td>
+
+                  <span
+                    class="status-badge"
+                    [class.pending]="booking.status === 'pending'"
+                    [class.confirmed]="booking.status === 'confirmed'"
+                    [class.rejected]="booking.status === 'rejected'"
+                  >
+                    {{ booking.status || 'pending' }}
+                  </span>
+
+                </td>
+
+              </tr>
+
+
+              <tr *ngIf="recentBookings.length === 0">
+
+                <td
+                  colspan="4"
+                  class="empty-state"
+                >
+                  <i class="fa-regular fa-calendar-xmark"></i>
+                  <span>No bookings found.</span>
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- QUICK ACTIONS -->
+      <div class="panel-card">
+
+        <div class="panel-head">
+
+          <div>
+            <span class="section-kicker">
+              QUICK ACTIONS
+            </span>
+
+            <h3>
+              Manage Website
+            </h3>
+          </div>
+
+        </div>
+
+
+        <div class="quick-actions">
+
+          <button
+            type="button"
+            class="quick-action"
+            (click)="openSection('bookings')"
+          >
+            <span class="quick-icon">
+              <i class="fa-solid fa-calendar-check"></i>
+            </span>
+
+            <span>
+              <strong>Bookings</strong>
+              <small>
+                View and manage customer bookings
+              </small>
+            </span>
+
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+
+          <button
+            type="button"
+            class="quick-action"
+            (click)="openAddPackage()"
+          >
+            <span class="quick-icon">
+              <i class="fa-solid fa-plus"></i>
+            </span>
+
+            <span>
+              <strong>Add Package</strong>
+              <small>
+                Create a new tour or holiday package
+              </small>
+            </span>
+
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+
+          <button
+            type="button"
+            class="quick-action"
+            (click)="openSection('packages')"
+          >
+            <span class="quick-icon">
+              <i class="fa-solid fa-suitcase-rolling"></i>
+            </span>
+
+            <span>
+              <strong>Packages</strong>
+              <small>
+                Manage your existing packages
+              </small>
+            </span>
+
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         BOOKINGS
+    ==================================================== -->
+    <section
+      class="page-section"
+      [class.active]="activeSection === 'bookings'"
+    >
+
+      <div class="section-heading section-heading-row">
+
+        <div>
+
+          <span class="section-kicker">
+            CUSTOMER REQUESTS
+          </span>
+
+          <h2>
+            Bookings
+          </h2>
+
+          <p>
+            View and manage tour booking requests.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="secondary-btn"
+          (click)="loadBookings()"
+        >
+          <i class="fa-solid fa-rotate"></i>
+          Refresh
+        </button>
+
+      </div>
+
+
+      <!-- BOOKING STATUS -->
+      <div
+        class="alert-message"
+        *ngIf="bookingStatusMessage"
+        [class.success]="bookingStatusType === 'success'"
+        [class.error]="bookingStatusType === 'error'"
+      >
+        {{ bookingStatusMessage }}
+      </div>
+
+
+      <!-- SEARCH -->
+      <div class="toolbar">
+
+        <div class="search-box">
+
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="text"
+            [(ngModel)]="bookingSearch"
+            placeholder="Search by name, email, package..."
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- BOOKINGS TABLE -->
+      <div class="panel-card">
+
+        <div class="table-wrap">
+
+          <table class="bookings-table">
+
+            <thead>
+
+              <tr>
+                <th>ID</th>
+                <th>Guest</th>
+                <th>Package</th>
+                <th>Travel Date</th>
+                <th>Guests</th>
+                <th>Submitted</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr
+                *ngFor="let booking of filteredBookings"
+              >
+
+                <td>
+                  <span class="id-badge">
+                    #{{ booking.id }}
+                  </span>
+                </td>
+
+
+                <td>
+
+                  <div class="guest-cell">
+
+                    <strong>
+                      {{ booking.full_name || '—' }}
+                    </strong>
+
+                    <span>
+                      {{ booking.email || '—' }}
+                    </span>
+
+                    <span>
+                      {{ booking.phone || '—' }}
+                    </span>
+
+                  </div>
+
+                </td>
+
+
+                <td>
+
+                  <div class="package-cell">
+
+                    <strong>
+                      {{ booking.package_name || '—' }}
+                    </strong>
+
+                    <span>
+                      {{ booking.service_type || '—' }}
+                    </span>
+
+                  </div>
+
+                </td>
+
+
+                <td>
+                  {{ formatDate(booking.travel_date) }}
+                </td>
+
+
+                <td>
+
+                  <span class="guest-count">
+                    {{ booking.adults || 0 }}
+                    Adult{{ (booking.adults || 0) !== 1 ? 's' : '' }}
+                  </span>
+
+                  <span
+                    class="guest-count child-count"
+                    *ngIf="booking.children"
+                  >
+                    {{ booking.children }}
+                    Child{{ booking.children !== 1 ? 'ren' : '' }}
+                  </span>
+
+                </td>
+
+
+                <td>
+                  {{ formatDateTime(booking.created_at) }}
+                </td>
+
+
+                <td>
+
+                  <span
+                    class="status-badge"
+                    [class.pending]="booking.status === 'pending'"
+                    [class.confirmed]="booking.status === 'confirmed'"
+                    [class.rejected]="booking.status === 'rejected'"
+                  >
+                    {{ booking.status || 'pending' }}
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  <div class="booking-actions">
+
+                    <select
+                      class="status-select"
+                      [ngModel]="booking.status || 'pending'"
+                      (ngModelChange)="
+                        booking.status = $event
+                      "
+                    >
+
+                      <option value="pending">
+                        Pending
+                      </option>
+
+                      <option value="confirmed">
+                        Confirmed
+                      </option>
+
+                      <option value="rejected">
+                        Rejected
+                      </option>
+
+                    </select>
+
+
+                    <button
+                      type="button"
+                      class="small-btn save-btn"
+                      (click)="
+                        updateBookingStatus(
+                          booking.id,
+                          booking.status || 'pending'
+                        )
+                      "
+                    >
+                      Save
+                    </button>
+
+
+                    <a
+                      *ngIf="normalizePhoneForWhatsApp(booking.phone || '')"
+                      class="small-btn whatsapp-btn"
+                      [href]="getBookingWhatsAppLink(booking)"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i class="fa-brands fa-whatsapp"></i>
+                      Chat
+                    </a>
+
+
+                    <button
+                      type="button"
+                      class="small-btn delete-btn"
+                      (click)="deleteBooking(booking.id)"
+                    >
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+
+              <tr *ngIf="filteredBookings.length === 0">
+
+                <td
+                  colspan="8"
+                  class="empty-state large"
+                >
+                  <i class="fa-regular fa-calendar-xmark"></i>
+                  <strong>No bookings found</strong>
+                  <span>
+                    There are currently no booking requests.
+                  </span>
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         PACKAGES
+    ==================================================== -->
+    <section
+      class="page-section"
+      [class.active]="activeSection === 'packages'"
+    >
+
+      <div class="section-heading section-heading-row">
+
+        <div>
+
+          <span class="section-kicker">
+            TOUR CONTENT
+          </span>
+
+          <h2>
+            Packages
+          </h2>
+
+          <p>
+            Manage the tours and holiday packages shown on your website.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="primary-btn"
+          (click)="openAddPackage()"
+        >
+          <i class="fa-solid fa-plus"></i>
+          Add Package
+        </button>
+
+      </div>
+
+
+      <!-- PACKAGE STATUS -->
+      <div
+        class="alert-message"
+        *ngIf="packageStatusMessage"
+        [class.success]="packageStatusType === 'success'"
+        [class.error]="packageStatusType === 'error'"
+      >
+        {{ packageStatusMessage }}
+      </div>
+
+
+      <!-- PACKAGE TOOLBAR -->
+      <div class="toolbar">
+
+        <div class="search-box">
+
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="text"
+            [(ngModel)]="packageSearch"
+            placeholder="Search packages..."
+          />
+
+        </div>
+
+
+        <button
+          type="button"
+          class="secondary-btn"
+          (click)="loadPackages()"
+        >
+          <i class="fa-solid fa-rotate"></i>
+          Refresh
+        </button>
+
+      </div>
+
+
+      <!-- PACKAGE TABLE -->
+      <div class="panel-card">
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>ID</th>
+                <th>Package</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr
+                *ngFor="let pkg of filteredPackages"
+              >
+
+                <td>
+
+                  <span class="id-badge">
+                    #{{ pkg.id }}
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  <div class="package-table-cell">
+
+                    <div
+                      class="package-thumb"
+                      *ngIf="pkg.image_url"
+                    >
+                      <img
+                        [src]="pkg.image_url"
+                        [alt]="pkg.title"
+                      />
+                    </div>
+
+                    <div
+                      class="package-thumb placeholder"
+                      *ngIf="!pkg.image_url"
+                    >
+                      <i class="fa-solid fa-image"></i>
+                    </div>
+
+
+                    <div>
+
+                      <strong>
+                        {{ pkg.title }}
+                      </strong>
+
+                      <span>
+                        {{ pkg.duration || 'No duration' }}
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                </td>
+
+
+                <td>
+                  {{ pkg.category || '—' }}
+                </td>
+
+
+                <td>
+                  {{ pkg.location || '—' }}
+                </td>
+
+
+                <td>
+                  {{ pkg.price || '—' }}
+                </td>
+
+
+                <td>
+
+                  <span
+                    class="status-badge"
+                    [class.confirmed]="pkg.is_active"
+                    [class.rejected]="!pkg.is_active"
+                  >
+                    {{ pkg.is_active ? 'Active' : 'Inactive' }}
+                  </span>
+
+                </td>
+
+
+                <!-- ACTIONS -->
+                <td>
+
+                  <div class="package-actions">
+
+                    <!-- VIEW -->
+                    <button
+                      type="button"
+                      class="small-btn view-btn"
+                      (click)="viewPackage(pkg)"
+                    >
+                      <i class="fa-solid fa-eye"></i>
+                      View
+                    </button>
+
+
+                    <!-- EDIT -->
+                    <button
+                      type="button"
+                      class="small-btn edit-btn"
+                      (click)="editPackage(pkg)"
+                    >
+                      <i class="fa-solid fa-pen"></i>
+                      Edit
+                    </button>
+
+
+                    <!-- DELETE -->
+                    <button
+                      type="button"
+                      class="small-btn delete-btn"
+                      (click)="deletePackage(pkg.id)"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                      Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+
+              <tr *ngIf="filteredPackages.length === 0">
+
+                <td
+                  colspan="7"
+                  class="empty-state large"
+                >
+                  <i class="fa-solid fa-box-open"></i>
+                  <strong>No packages found</strong>
+                  <span>
+                    Add your first tour package to get started.
+                  </span>
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =====================================================
+       PACKAGE ADD / EDIT MODAL
+  ====================================================== -->
+  <div
+    class="modal-overlay"
+    [class.active]="packageModalOpen"
+    (click)="closePackageModal()"
+  >
+
+    <div
+      class="package-modal"
+      (click)="$event.stopPropagation()"
+    >
+
+      <!-- MODAL HEADER -->
+      <div class="modal-header">
+
+        <div>
+
+          <span class="section-kicker">
+            PACKAGE MANAGER
+          </span>
+
+          <h2>
+            {{ editingPackage ? 'Edit Package' : 'Add New Package' }}
+          </h2>
+
+          <p>
+            Add complete information for this tour package.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="modal-close"
+          (click)="closePackageModal()"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <!-- MESSAGE -->
+      <div
+        class="alert-message"
+        *ngIf="packageEditorMessage"
+        [class.success]="packageEditorMessageType === 'success'"
+        [class.error]="packageEditorMessageType === 'error'"
+      >
+        {{ packageEditorMessage }}
+      </div>
+
+
+      <!-- PACKAGE FORM -->
+      <form
+        class="package-form"
+        (ngSubmit)="savePackage()"
+      >
+
+        <!-- BASIC INFORMATION -->
+        <div class="form-section">
+
+          <div class="form-section-title">
+
+            <span class="form-section-number">
+              01
+            </span>
+
+            <div>
+              <h3>Basic Information</h3>
+              <p>General information about the package.</p>
+            </div>
+
+          </div>
+
+
+          <div class="form-grid two">
+
+            <div class="form-group">
+
+              <label>
+                Package Title
+                <span>*</span>
+              </label>
+
+              <input
+                type="text"
+                [(ngModel)]="packageForm.title"
+                name="title"
+                required
+                placeholder="e.g. Blue Safari"
+                (input)="
+                  !editingPackage
+                    ? packageForm.slug = slugify(packageForm.title)
+                    : null
+                "
+              />
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Slug
+              </label>
+
+              <input
+                type="text"
+                [(ngModel)]="packageForm.slug"
+                name="slug"
+                placeholder="blue-safari"
+              />
+
+              <small>
+                Used for the tour details URL.
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-grid three">
+
+            <div class="form-group">
+
+              <label>
+                Category
+                <span>*</span>
+              </label>
+
+              <select
+                [(ngModel)]="packageForm.category"
+                name="category"
+                required
+              >
+
+                <option value="">
+                  Select category
+                </option>
+
+                <option value="day_tour">
+                  Day Tour
+                </option>
+
+                <option value="holiday_package">
+                  Holiday Package
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Location
+                <span>*</span>
+              </label>
+
+              <select
+                [(ngModel)]="packageForm.location"
+                name="location"
+                required
+              >
+
+                <option value="">
+                  Select location
+                </option>
+
+                <option value="zanzibar">
+                  Zanzibar
+                </option>
+
+                <option value="tanzania">
+                  Tanzania
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Duration
+              </label>
+
+              <input
+                type="text"
+                [(ngModel)]="packageForm.duration"
+                name="duration"
+                placeholder="Full Day / 3 Days / 7 Nights"
+              />
+
+            </div>
+
+          </div>
+
+
+          <div class="form-grid three">
+
+            <div class="form-group">
+
+              <label>
+                Price
+              </label>
+
+              <input
+                type="text"
+                [(ngModel)]="packageForm.price"
+                name="price"
+                placeholder="$55"
+              />
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Child Price
+              </label>
+
+              <input
+                type="text"
+                [(ngModel)]="packageForm.child_price"
+                name="child_price"
+                placeholder="$40"
+              />
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label>
+                Rating
+              </label>
+
+              <input
+                type="text"
+                [(ngModel)]="packageForm.rating"
+                name="rating"
+                placeholder="5"
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- IMAGES -->
+        <div class="form-section">
+
+          <div class="form-section-title">
+
+            <span class="form-section-number">
+              02
+            </span>
+
+            <div>
+              <h3>Package Images</h3>
+              <p>
+                Upload the main hero image and gallery images.
+              </p>
+            </div>
+
+          </div>
+
+
+          <!-- HERO -->
+          <div class="upload-card">
+
+            <div class="upload-card-icon">
+              <i class="fa-solid fa-image"></i>
+            </div>
+
+            <div class="upload-card-content">
+
+              <label>
+                Hero / Main Image
+                <span>*</span>
+              </label>
+
+              <p>
+                This image will be used as the main package image.
+              </p>
+
+              <input
+                type="file"
+                accept="image/*"
+                class="file-input"
+                #heroImageInput
+              />
+
+              <button
+                type="button"
+                class="file-btn"
+                (click)="heroImageInput.click()"
+              >
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                Choose Hero Image
+              </button>
+
+              <small>
+                Recommended: JPG, JPEG or PNG.
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <!-- CURRENT HERO -->
+          <div
+            class="current-image"
+            *ngIf="packageForm.image_url"
+          >
+
+            <img
+              [src]="packageForm.image_url"
+              [alt]="packageForm.title || 'Package image'"
+            />
+
+            <div>
+              <strong>
+                Current Hero Image
+              </strong>
+
+              <span>
+                Existing image
+              </span>
+            </div>
+
+          </div>
+
+
+          <!-- GALLERY -->
+          <div class="upload-card gallery-upload">
+
+            <div class="upload-card-icon">
+              <i class="fa-solid fa-images"></i>
+            </div>
+
+            <div class="upload-card-content">
+
+              <label>
+                Gallery Images
+              </label>
+
+              <p>
+                Select multiple images for the tour details gallery.
+              </p>
+
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                class="file-input"
+                #galleryImageInput
+              />
+
+              <button
+                type="button"
+                class="file-btn"
+                (click)="galleryImageInput.click()"
+              >
+                <i class="fa-solid fa-images"></i>
+                Choose Gallery Images
+              </button>
+
+              <small>
+                You can select multiple images at once.
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <!-- EXISTING GALLERY -->
+          <div
+            class="form-group"
+            *ngIf="editingPackage && packageForm.gallery"
+          >
+
+            <label>
+              Existing Gallery
+            </label>
+
+            <textarea
+              [(ngModel)]="packageForm.gallery"
+              name="gallery"
+              rows="4"
+              readonly
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- DESCRIPTIONS -->
+        <div class="form-section">
+
+          <div class="form-section-title">
+
+            <span class="form-section-number">
+              03
+            </span>
+
+            <div>
+              <h3>Descriptions</h3>
+              <p>
+                Information visitors will see on the website.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Short Description
+            </label>
+
+            <textarea
+              [(ngModel)]="packageForm.short_description"
+              name="short_description"
+              rows="3"
+              placeholder="Short description shown on tour cards."
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Full Description
+            </label>
+
+            <textarea
+              [(ngModel)]="packageForm.full_description"
+              name="full_description"
+              rows="6"
+              placeholder="Complete package overview."
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Additional Details
+            </label>
+
+            <textarea
+              [(ngModel)]="packageForm.details"
+              name="details"
+              rows="5"
+              placeholder="Additional information about the package."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- TOUR CONTENT -->
+        <div class="form-section">
+
+          <div class="form-section-title">
+
+            <span class="form-section-number">
+              04
+            </span>
+
+            <div>
+              <h3>Tour Content</h3>
+              <p>
+                Add the information visitors need before booking.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Highlights
+            </label>
+
+            <textarea
+              [(ngModel)]="packageForm.highlights"
+              name="highlights"
+              rows="5"
+              placeholder="One highlight per line"
+            ></textarea>
+
+            <small>
+              Example: Stone Town experience
+            </small>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Includes / Inclusions
+            </label>
+
+            <textarea
+              [(ngModel)]="packageForm.inclusions"
+              name="inclusions"
+              rows="6"
+              placeholder="One inclusion per line&#10;Airport transfer&#10;Professional guide&#10;Boat trip"
+            ></textarea>
+
+            <small>
+              One item per line.
+            </small>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Essentials
+            </label>
+
+            <textarea
+              [(ngModel)]="packageForm.essentials"
+              name="essentials"
+              rows="5"
+              placeholder="One item per line"
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Features
+            </label>
+
+            <textarea
+              [(ngModel)]="packageForm.features"
+              name="features"
+              rows="5"
+              placeholder="One feature per line"
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Itinerary
+            </label>
+
+            <textarea
+              [(ngModel)]="packageForm.itinerary"
+              name="itinerary"
+              rows="8"
+              placeholder="1|Arrival|Airport pickup and hotel check-in.&#10;2|Stone Town|Explore the historic city.&#10;3|Departure|Transfer to airport."
+            ></textarea>
+
+            <small>
+              Format:
+              <strong>Day | Title | Description</strong>
+            </small>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- SETTINGS -->
+        <div class="form-section">
+
+          <div class="form-section-title">
+
+            <span class="form-section-number">
+              05
+            </span>
+
+            <div>
+              <h3>Visibility</h3>
+              <p>
+                Control how this package appears on the website.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="settings-grid">
+
+            <label class="switch-row">
+
+              <input
+                type="checkbox"
+                [(ngModel)]="packageForm.is_active"
+                name="is_active"
+              />
+
+              <span class="switch"></span>
+
+              <span class="switch-text">
+
+                <strong>
+                  Active Package
+                </strong>
+
+                <small>
+                  Show this package on the public website.
+                </small>
+
+              </span>
+
+            </label>
+
+
+            <label class="switch-row">
+
+              <input
+                type="checkbox"
+                [(ngModel)]="packageForm.is_featured"
+                name="is_featured"
+              />
+
+              <span class="switch"></span>
+
+              <span class="switch-text">
+
+                <strong>
+                  Featured Package
+                </strong>
+
+                <small>
+                  Mark this package as featured.
+                </small>
+
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- FORM ACTIONS -->
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="secondary-btn"
+            (click)="resetPackageForm()"
+          >
+            Reset
+          </button>
+
+
+          <button
+            type="button"
+            class="secondary-btn"
+            (click)="closePackageModal()"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="submit"
+            class="primary-btn"
+            [disabled]="savingPackage"
+          >
+
+            <i
+              class="fa-solid"
+              [class.fa-plus]="!editingPackage && !savingPackage"
+              [class.fa-pen]="editingPackage && !savingPackage"
+              [class.fa-spinner]="savingPackage"
+              [class.fa-spin]="savingPackage"
+            ></i>
+
+            {{
+              savingPackage
+                ? 'Saving...'
+                : editingPackage
+                  ? 'Update Package'
+                  : 'Save Package'
+            }}
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       VIEW PACKAGE MODAL
+  ====================================================== -->
+  <div
+    class="modal-overlay"
+    [class.active]="viewPackageModalOpen"
+    (click)="closeViewPackageModal()"
+  >
+
+    <div
+      class="package-modal view-package-modal"
+      (click)="$event.stopPropagation()"
+    >
+
+      <!-- HEADER -->
+      <div class="modal-header">
+
+        <div>
+
+          <span class="section-kicker">
+            PACKAGE DETAILS
+          </span>
+
+          <h2>
+            {{ selectedPackage?.title }}
+          </h2>
+
+          <p>
+            Complete information about this package.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="modal-close"
+          (click)="closeViewPackageModal()"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      @if (selectedPackage) {
+
+        <!-- HERO IMAGE -->
+        <div
+          class="view-package-hero"
+          *ngIf="selectedPackage.image_url"
+        >
+
+          <img
+            [src]="selectedPackage.image_url"
+            [alt]="selectedPackage.title"
+          />
+
+        </div>
+
+
+        <!-- BASIC DETAILS -->
+        <div class="view-package-grid">
+
+          <div class="view-package-item">
+
+            <span>
+              Category
+            </span>
+
+            <strong>
+              {{ selectedPackage.category || '—' }}
+            </strong>
+
+          </div>
+
+
+          <div class="view-package-item">
+
+            <span>
+              Location
+            </span>
+
+            <strong>
+              {{ selectedPackage.location || '—' }}
+            </strong>
+
+          </div>
+
+
+          <div class="view-package-item">
+
+            <span>
+              Duration
+            </span>
+
+            <strong>
+              {{ selectedPackage.duration || '—' }}
+            </strong>
+
+          </div>
+
+
+          <div class="view-package-item">
+
+            <span>
+              Adult Price
+            </span>
+
+            <strong>
+              {{ selectedPackage.price || '—' }}
+            </strong>
+
+          </div>
+
+
+          <div class="view-package-item">
+
+            <span>
+              Child Price
+            </span>
+
+            <strong>
+              {{ selectedPackage.child_price || '—' }}
+            </strong>
+
+          </div>
+
+
+          <div class="view-package-item">
+
+            <span>
+              Rating
+            </span>
+
+            <strong>
+              {{ selectedPackage.rating || '—' }}
+            </strong>
+
+          </div>
+
+
+          <div class="view-package-item">
+
+            <span>
+              Status
+            </span>
+
+            <strong>
+              {{ selectedPackage.is_active ? 'Active' : 'Inactive' }}
+            </strong>
+
+          </div>
+
+
+          <div class="view-package-item">
+
+            <span>
+              Featured
+            </span>
+
+            <strong>
+              {{ selectedPackage.is_featured ? 'Yes' : 'No' }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- SHORT DESCRIPTION -->
+        <div
+          class="view-package-section"
+          *ngIf="selectedPackage.short_description"
+        >
+
+          <span class="section-kicker">
+            SHORT DESCRIPTION
+          </span>
+
+          <p>
+            {{ selectedPackage.short_description }}
+          </p>
+
+        </div>
+
+
+        <!-- FULL DESCRIPTION -->
+        <div
+          class="view-package-section"
+          *ngIf="selectedPackage.full_description"
+        >
+
+          <span class="section-kicker">
+            FULL DESCRIPTION
+          </span>
+
+          <p>
+            {{ selectedPackage.full_description }}
+          </p>
+
+        </div>
+
+
+        <!-- DETAILS -->
+        <div
+          class="view-package-section"
+          *ngIf="selectedPackage.details"
+        >
+
+          <span class="section-kicker">
+            ADDITIONAL DETAILS
+          </span>
+
+          <p>
+            {{ selectedPackage.details }}
+          </p>
+
+        </div>
+
+
+        <!-- HIGHLIGHTS -->
+        <div
+          class="view-package-section"
+          *ngIf="getPackageHighlights(selectedPackage).length"
+        >
+
+          <span class="section-kicker">
+            HIGHLIGHTS
+          </span>
+
+          <ul class="view-package-list">
+
+            @for (
+              item of getPackageHighlights(selectedPackage);
+              track $index
+            ) {
+
+              <li>
+                <i class="fa-solid fa-check"></i>
+                {{ item }}
+              </li>
+
+            }
+
+          </ul>
+
+        </div>
+
+
+        <!-- INCLUSIONS -->
+        <div
+          class="view-package-section"
+          *ngIf="getPackageInclusions(selectedPackage).length"
+        >
+
+          <span class="section-kicker">
+            WHAT'S INCLUDED
+          </span>
+
+          <ul class="view-package-list">
+
+            @for (
+              item of getPackageInclusions(selectedPackage);
+              track $index
+            ) {
+
+              <li>
+                <i class="fa-solid fa-check"></i>
+                {{ item }}
+              </li>
+
+            }
+
+          </ul>
+
+        </div>
+
+
+        <!-- ESSENTIALS -->
+        <div
+          class="view-package-section"
+          *ngIf="getPackageEssentials(selectedPackage).length"
+        >
+
+          <span class="section-kicker">
+            ESSENTIALS
+          </span>
+
+          <ul class="view-package-list">
+
+            @for (
+              item of getPackageEssentials(selectedPackage);
+              track $index
+            ) {
+
+              <li>
+                <i class="fa-solid fa-circle-check"></i>
+                {{ item }}
+              </li>
+
+            }
+
+          </ul>
+
+        </div>
+
+
+        <!-- FEATURES -->
+        <div
+          class="view-package-section"
+          *ngIf="getPackageFeatures(selectedPackage).length"
+        >
+
+          <span class="section-kicker">
+            FEATURES
+          </span>
+
+          <ul class="view-package-list">
+
+            @for (
+              item of getPackageFeatures(selectedPackage);
+              track $index
+            ) {
+
+              <li>
+                <i class="fa-solid fa-star"></i>
+                {{ item }}
+              </li>
+
+            }
+
+          </ul>
+
+        </div>
+
+
+        <!-- ITINERARY -->
+        <div
+          class="view-package-section"
+          *ngIf="
+            selectedPackage.itinerary &&
+            selectedPackage.itinerary.length
+          "
+        >
+
+          <span class="section-kicker">
+            ITINERARY
+          </span>
+
+          <div class="view-itinerary">
+
+            @for (
+              item of selectedPackage.itinerary;
+              track $index
+            ) {
+
+              <div class="view-itinerary-item">
+
+                <div class="view-itinerary-day">
+                  {{ item?.day || $index + 1 }}
+                </div>
+
+                <div>
+
+                  <strong>
+                    {{ item?.title || 'Step' }}
+                  </strong>
+
+                  <p>
+                    {{ item?.desc || '' }}
+                  </p>
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- GALLERY -->
+        <div
+          class="view-package-section"
+          *ngIf="getPackageGallery(selectedPackage).length"
+        >
+
+          <span class="section-kicker">
+            GALLERY
+          </span>
+
+          <div class="view-package-gallery">
+
+            @for (
+              image of getPackageGallery(selectedPackage);
+              track image
+            ) {
+
+              <img
+                [src]="image"
+                [alt]="selectedPackage.title"
+                loading="lazy"
+              />
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- VIEW ACTIONS -->
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="secondary-btn"
+            (click)="closeViewPackageModal()"
+          >
+            Close
+          </button>
+
+
+          <button
+            type="button"
+            class="primary-btn"
+            (click)="
+              closeViewPackageModal();
+              editPackage(selectedPackage)
+            "
+          >
+            <i class="fa-solid fa-pen"></i>
+            Edit Package
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       CUSTOM DELETE CONFIRMATION MODAL
+  ====================================================== -->
+  <div
+    class="modal-overlay confirmation-overlay"
+    [class.active]="confirmationModalOpen"
+    (click)="closeConfirmationModal()"
+  >
+
+    <div
+      class="confirmation-modal"
+      (click)="$event.stopPropagation()"
+    >
+
+      <div class="confirmation-icon">
+        <i class="fa-solid fa-trash-can"></i>
+      </div>
+
+
+      <div class="confirmation-content">
+
+        <span class="section-kicker">
+          CONFIRM ACTION
+        </span>
+
+        <h2>
+          Are you sure?
+        </h2>
+
+        <p>
+          {{ confirmationMessage }}
+        </p>
+
+        <small>
+          This action cannot be undone.
+        </small>
+
+      </div>
+
+
+      <div class="confirmation-actions">
+
+        <button
+          type="button"
+          class="secondary-btn"
+          [disabled]="confirmingDelete"
+          (click)="closeConfirmationModal()"
+        >
+          Cancel
+        </button>
+
+
+        <button
+          type="button"
+          class="delete-confirm-btn"
+          [disabled]="confirmingDelete"
+          (click)="confirmDelete()"
+        >
+
+          <i
+            class="fa-solid"
+            [class.fa-trash]="!confirmingDelete"
+            [class.fa-spinner]="confirmingDelete"
+            [class.fa-spin]="confirmingDelete"
+          ></i>
+
+          {{
+            confirmingDelete
+              ? 'Deleting...'
+              : 'Yes, Delete'
+          }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- BACK TO TOP -->
+  <button
+    type="button"
+    class="back-to-top"
+    [class.show]="showBackTop"
+    (click)="scrollToTop()"
+    aria-label="Back to top"
+  >
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+</div>

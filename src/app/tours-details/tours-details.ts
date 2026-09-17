@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   HostListener,
   OnInit
@@ -10,6 +11,22 @@ import {
   ActivatedRoute,
   RouterLink
 } from '@angular/router';
+
+import {
+  Package,
+  PackageService
+} from '../services/package.service';
+
+
+interface ItineraryItem {
+
+  day?: number;
+
+  title?: string;
+
+  desc?: string;
+
+}
 
 
 interface TourDetails {
@@ -30,13 +47,31 @@ interface TourDetails {
 
   price: string;
 
+  childPrice: string;
+
+  rating: string;
+
   description: string;
+
+  fullDescription: string;
+
+  details: string;
 
   icon: string;
 
   image: string;
 
   gallery: string[];
+
+  features: string[];
+
+  highlights: string[];
+
+  inclusions: string[];
+
+  essentials: string[];
+
+  itinerary: ItineraryItem[];
 
 }
 
@@ -78,320 +113,549 @@ export class ToursDetails implements OnInit {
 
 
   // =========================================================
-  // DATA
+  // LOADING / ERROR
   // =========================================================
 
-  tours: TourDetails[] = [
+  loadingTour = false;
 
-    {
-      id: 33,
-      slug: 'tanzania-safari',
-      title: 'Tanzania Safari',
-      category: 'holiday_package',
-      categoryLabel: 'TANZANIA SAFARI',
-      location: 'Tanzania',
-      duration: '3 Days / 2 Nights',
-      price: '$400',
-      description:
-        'Experience Tanzania’s incredible wildlife, breathtaking landscapes and unforgettable safari moments.',
-      icon: 'fa-binoculars',
-      image: '/img/safari-1.jpeg',
-      gallery: [
-        '/img/safari-1.jpeg',
-        '/img/safari.jpeg',
-        '/img/safari-2.jpeg'
-      ]
-    },
+  tourError = '';
 
-    {
-      id: 32,
-      slug: '11-days-tanzania-zanzibar',
-      title: '11 Days Tanzania & Zanzibar',
-      category: 'holiday_package',
-      categoryLabel: 'MULTI-DESTINATION',
-      location: 'Tanzania & Zanzibar',
-      duration: '11 Days',
-      price: '$3,200',
-      description:
-        'A complete African escape combining unforgettable wildlife adventures with the tropical beauty of Zanzibar.',
-      icon: 'fa-route',
-      image: '/img/safari-3.jpeg',
-      gallery: [
-        '/img/safari-3.jpeg',
-        '/img/zanz-1.jpeg',
-        '/img/safari-4.jpeg'
-      ]
-    },
 
-    {
-      id: 29,
-      slug: '6-days-zanzibar-holidays',
-      title: '6 Days Zanzibar Holidays',
-      category: 'holiday_package',
-      categoryLabel: 'ZANZIBAR HOLIDAY',
-      location: 'Zanzibar',
-      duration: '6 Days / 5 Nights',
-      price: '$350',
-      description:
-        'Relax, explore and experience the best of Zanzibar with beautiful beaches, culture and island adventures.',
-      icon: 'fa-umbrella-beach',
-      image: '/img/holiday-1.png',
-      gallery: [
-        '/img/holiday.jpeg',
-        '/img/holiday-2.jpeg',
-        '/img/holiday-3.jpeg'
-      ]
-    },
+  // =========================================================
+  // CONSTRUCTOR
+  // =========================================================
 
-    {
-      id: 28,
-      slug: 'prison-island-nakupenda-beach',
-      title: 'Prison Island & Nakupenda Beach',
-      category: 'day_tour',
-      categoryLabel: 'BEACH ESCAPE',
-      location: 'Zanzibar',
-      duration: 'Full Day',
-      price: '$65',
-      description:
-        'Combine a visit to Prison Island with the stunning Nakupenda sandbank for a perfect day in paradise.',
-      icon: 'fa-island-tropical',
-      image: '/img/nakupenda_bech-2.jpeg',
-      gallery: [
-        '/img/nakupenda-beach-3.jpeg',
-        '/img/nakupenda_beach.jpeg',
-        '/img/prison.jpeg'
-        
-      ]
-    },
+  constructor(
 
-    {
-      id: 27,
-      slug: 'spice-tour-cooking-class',
-      title: 'Spice Tour with Cooking Class',
-      category: 'day_tour',
-      categoryLabel: 'CULTURE & FOOD',
-      location: 'Zanzibar',
-      duration: '3 Hours',
-      price: '$40',
-      description:
-        'Discover Zanzibar’s famous spices and learn how local dishes are prepared in an authentic cooking experience.',
-      icon: 'fa-utensils',
-      image: '/img/spice-5.png',
-      gallery: [
-        '/img/spice-5.png',
-        '/img/spice-4.png',
-        '/img/spice-2.jpeg'
-      ]
-    },
+    private readonly route: ActivatedRoute,
 
-    {
-      id: 26,
-      slug: 'prison-island',
-      title: 'Prison Island',
-      category: 'day_tour',
-      categoryLabel: 'ISLAND ADVENTURE',
-      location: 'Zanzibar',
-      duration: '3 Hours',
-      price: '$55',
-      description:
-        'Visit historic Prison Island, discover its giant tortoises and enjoy beautiful views across the Indian Ocean.',
-      icon: 'fa-island-tropical',
-      image: '/img/prison-2.jpeg',
-      gallery: [
-        '/img/prison-5.jpeg',
-        '/img/prison-4.jpeg',
-        '/img/prison-3.jpeg'
-        
-      ]
-    },
+    private readonly packageService: PackageService,
 
-    {
-      id: 25,
-      slug: 'sunset-dhow-cruise',
-      title: 'Sunset Dhow Cruise',
-      category: 'day_tour',
-      categoryLabel: 'OCEAN EXPERIENCE',
-      location: 'Zanzibar',
-      duration: '2 Hours',
-      price: '$35',
-      description:
-        'Sail into a beautiful Zanzibar sunset aboard a traditional dhow while enjoying the calm Indian Ocean.',
-      icon: 'fa-sailboat',
-      image: '/img/sunset-1.jpeg',
-      gallery: [
-        '/img/sunset-3.jpeg',
-        '/img/sunset-2.jpeg',
-        '/img/sunset.jpeg'
-      ]
-    },
+    private readonly cdr: ChangeDetectorRef
 
-    {
-      id: 24,
-      slug: 'village-tour',
-      title: 'Village Tour',
-      category: 'day_tour',
-      categoryLabel: 'LOCAL CULTURE',
-      location: 'Zanzibar',
-      duration: '3 Hours',
-      price: '$30',
-      description:
-        'Meet local communities and discover everyday island life, traditions, crafts and authentic Swahili culture.',
-      icon: 'fa-people-group',
-      image: '/img/village-2.jpeg',
-      gallery: [
-        '/img/village-2.jpeg',
-        '/img/village.jpeg',
-        '/img/village-1.jpeg'
-      ]
-    },
-
-    {
-      id: 23,
-      slug: 'local-fishing-trip',
-      title: 'Local Fishing Trip',
-      category: 'day_tour',
-      categoryLabel: 'LOCAL EXPERIENCE',
-      location: 'Zanzibar',
-      duration: '6 Hours',
-      price: '$50',
-      description:
-        'Experience traditional Zanzibar fishing and spend an unforgettable day on the water with local fishermen.',
-      icon: 'fa-fish',
-      image: '/img/fish.jpeg',
-      gallery: [
-        '/img/fish.jpeg',
-        '/img/fish-1.jpeg',
-        '/img/fish-2.jpeg'
-      ]
-    },
-
-    {
-      id: 22,
-      slug: 'jozani-forest',
-      title: 'Jozani Forest',
-      category: 'day_tour',
-      categoryLabel: 'NATURE & WILDLIFE',
-      location: 'Zanzibar',
-      duration: '3 Hours',
-      price: '$40',
-      description:
-        'Explore Zanzibar’s lush tropical forest and encounter the rare red colobus monkeys in their natural habitat.',
-      icon: 'fa-leaf',
-      image: '/img/jozani.jpeg',
-      gallery: [
-        '/img/jozani.jpeg',
-        '/img/jozani-1.jpeg',
-        '/img/jozani-2.jpeg'
-      ]
-    },
-
-    {
-      id: 20,
-      slug: 'blue-safari',
-      title: 'Blue Safari',
-      category: 'day_tour',
-      categoryLabel: 'OCEAN ADVENTURE',
-      location: 'Zanzibar',
-      duration: 'Full Day',
-      price: '$55',
-      description:
-        'Sail across Zanzibar’s turquoise waters, discover hidden sandbanks and enjoy an unforgettable marine adventure.',
-      icon: 'fa-water',
-      image: '/img/safari-blue-1.png',
-      gallery: [
-        '/img/safari-blue-1.png',
-        '/img/safari-blue-3.jpeg',
-        '/img/safari-blue.jpeg'
-      ]
-    },
-
-    {
-      id: 19,
-      slug: 'dolphin-tour',
-      title: 'Dolphin Tour',
-      category: 'day_tour',
-      categoryLabel: 'MARINE EXPERIENCE',
-      location: 'Zanzibar',
-      duration: '3 Hours',
-      price: '$50',
-      description:
-        'Set out into the Indian Ocean for an exciting dolphin experience surrounded by Zanzibar’s beautiful coastal scenery.',
-      icon: 'fa-fish',
-      image: '/img/dolphin-2.jpeg',
-      gallery: [
-        '/img/dolphin-2.jpeg',
-        '/img/dolphin-1.jpeg',
-        '/img/dolphin.jpeg'
-      ]
-    },
-
-    {
-      id: 18,
-      slug: 'spice-farm-tour',
-      title: 'Spice Farm Tour',
-      category: 'day_tour',
-      categoryLabel: 'SPICE EXPERIENCE',
-      location: 'Zanzibar',
-      duration: '3 Hours',
-      price: '$30',
-      description:
-        'Walk through Zanzibar’s famous spice farms and discover the aromas, flavours and traditions of the Spice Island.',
-      icon: 'fa-seedling',
-      image: '/img/spice-1.jpeg',
-      gallery: [
-        '/img/spice-7.jpeg',
-        '/img/spice-6.jpeg',
-        '/img/spice.jpeg'
-      ]
-    },
-
-    {
-      id: 17,
-      slug: 'stone-town-tour',
-      title: 'Stone Town Tour',
-      category: 'day_tour',
-      categoryLabel: 'HISTORY & CULTURE',
-      location: 'Zanzibar',
-      duration: '3 Hours',
-      price: '$30',
-      description:
-        'Walk through the narrow historic streets of Stone Town and discover its architecture, markets and fascinating heritage.',
-      icon: 'fa-landmark',
-      image: '/img/stone-town.jpeg',
-      gallery: [
-        '/img/stone-town.jpeg',
-        '/img/stone-town-2.jpeg',
-        '/img/stone-town-3.jpeg'
-      ]
-    }
-
-  ];
+  ) {}
 
 
   // =========================================================
   // INIT
   // =========================================================
 
-  constructor(
-    private route: ActivatedRoute
-  ) {}
-
-
   ngOnInit(): void {
+
+    this.handleScroll();
+
+    this.loadTour();
+
+  }
+
+
+  // =========================================================
+  // LOAD TOUR FROM DATABASE
+  // =========================================================
+
+  private async loadTour(): Promise<void> {
+
+    this.loadingTour = true;
+
+    this.tourError = '';
+
+    this.tour = undefined;
+
+
+    /*
+     * Make the loading state available immediately.
+     */
+    this.cdr.detectChanges();
+
 
     const slug =
       this.route.snapshot.paramMap.get('slug');
 
+
     if (!slug) {
+
+      this.tourError =
+        'Tour could not be found.';
+
+      this.loadingTour = false;
+
+      this.cdr.detectChanges();
+
       return;
+
     }
 
-    this.tour =
-      this.tours.find(
-        item => item.slug === slug
+
+    try {
+
+      /*
+       * Get the selected active package
+       * directly from Supabase using its slug.
+       */
+      const packageData =
+        await this.packageService.getPackageBySlug(
+          slug
+        );
+
+
+      if (!packageData) {
+
+        this.tourError =
+          'This tour package could not be found.';
+
+        this.loadingTour = false;
+
+        this.cdr.detectChanges();
+
+        return;
+
+      }
+
+
+      /*
+       * Convert database Package into the
+       * structure used by the Details page.
+       */
+      this.tour =
+        this.mapPackageToTourDetails(
+          packageData
+        );
+
+
+      this.loadingTour = false;
+
+
+      /*
+       * Update the page immediately after
+       * the asynchronous database request.
+       */
+      this.cdr.detectChanges();
+
+
+      /*
+       * Start from the top whenever a tour
+       * details page is opened.
+       */
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        'Failed to load tour details:',
+        error
       );
 
-    this.handleScroll();
+
+      this.tour = undefined;
+
+
+      this.tourError =
+        'Unable to load this tour right now. Please try again later.';
+
+
+      this.loadingTour = false;
+
+
+      this.cdr.detectChanges();
+
+    }
+
+  }
+
+
+  // =========================================================
+  // MAP PACKAGE → TOUR DETAILS
+  // =========================================================
+
+  private mapPackageToTourDetails(
+    item: Package
+  ): TourDetails {
+
+    const category =
+      item.category || 'tour';
+
+
+    const gallery =
+      Array.isArray(item.gallery)
+        ? item.gallery.filter(Boolean)
+        : [];
+
+
+    /*
+     * If Admin did not add gallery images,
+     * use the hero image as a fallback.
+     */
+    const finalGallery =
+      gallery.length > 0
+        ? gallery
+        : item.image_url
+          ? [item.image_url]
+          : [];
+
+
+    return {
+
+      id:
+        item.id ?? 0,
+
+
+      slug:
+        item.slug ||
+        this.createSlug(item.title),
+
+
+      title:
+        item.title,
+
+
+      category:
+        category,
+
+
+      categoryLabel:
+        this.getCategoryLabel(
+          category
+        ),
+
+
+      location:
+        item.location ||
+        'Tanzania',
+
+
+      duration:
+        item.duration ||
+        '',
+
+
+      price:
+        item.price ||
+        '',
+
+
+      childPrice:
+        item.child_price ||
+        '',
+
+
+      rating:
+        item.rating ||
+        '',
+
+
+      /*
+       * Short description is used as
+       * the main concise description.
+       */
+      description:
+        item.short_description ||
+        '',
+
+
+      /*
+       * Full description is available
+       * for the detailed story section.
+       */
+      fullDescription:
+        item.full_description ||
+        item.details ||
+        item.short_description ||
+        '',
+
+
+      details:
+        item.details ||
+        '',
+
+
+      icon:
+        this.getCategoryIcon(
+          category
+        ),
+
+
+      image:
+        item.image_url ||
+        '/img/placeholder.jpg',
+
+
+      gallery:
+        finalGallery,
+
+
+      features:
+        Array.isArray(item.features)
+          ? item.features
+          : [],
+
+
+      highlights:
+        Array.isArray(item.highlights)
+          ? item.highlights
+          : [],
+
+
+      inclusions:
+        Array.isArray(item.inclusions)
+          ? item.inclusions
+          : [],
+
+
+      essentials:
+        Array.isArray(item.essentials)
+          ? item.essentials
+          : [],
+
+
+      itinerary:
+        Array.isArray(item.itinerary)
+          ? item.itinerary
+          : []
+
+    };
+
+  }
+
+
+  // =========================================================
+  // CATEGORY LABEL
+  // =========================================================
+
+  private getCategoryLabel(
+    category: string
+  ): string {
+
+    const labels: Record<string, string> = {
+
+      holiday_package:
+        'HOLIDAY PACKAGE',
+
+      day_tour:
+        'DAY TOUR',
+
+      safari:
+        'TANZANIA SAFARI',
+
+      beach:
+        'BEACH ESCAPE',
+
+      adventure:
+        'ADVENTURE',
+
+      culture:
+        'CULTURE & FOOD'
+
+    };
+
+
+    return (
+
+      labels[category] ||
+
+      String(category)
+        .replace(/_/g, ' ')
+        .toUpperCase()
+
+    );
+
+  }
+
+
+  // =========================================================
+  // CATEGORY ICON
+  // =========================================================
+
+  private getCategoryIcon(
+    category: string
+  ): string {
+
+    const icons: Record<string, string> = {
+
+      holiday_package:
+        'fa-suitcase-rolling',
+
+      day_tour:
+        'fa-route',
+
+      safari:
+        'fa-binoculars',
+
+      beach:
+        'fa-umbrella-beach',
+
+      adventure:
+        'fa-mountain-sun',
+
+      culture:
+        'fa-landmark'
+
+    };
+
+
+    return (
+
+      icons[category] ||
+
+      'fa-map-location-dot'
+
+    );
+
+  }
+
+
+  // =========================================================
+  // CREATE SLUG FALLBACK
+  // =========================================================
+
+  private createSlug(
+    title: string
+  ): string {
+
+    return String(title || '')
+
+      .toLowerCase()
+
+      .trim()
+
+      .replace(
+        /[^a-z0-9]+/g,
+        '-'
+      )
+
+      .replace(
+        /^-+|-+$/g,
+        '');
+
+  }
+
+
+  // =========================================================
+  // RATING HELPERS
+  // =========================================================
+
+  getRatingNumber(): number {
+
+    const rating =
+      Number.parseFloat(
+        this.tour?.rating || ''
+      );
+
+
+    if (
+      Number.isNaN(rating) ||
+      rating < 0
+    ) {
+
+      return 0;
+
+    }
+
+
+    return Math.min(
+      rating,
+      5
+    );
+
+  }
+
+
+  getRatingStars(): number[] {
+
+    const rating =
+      this.getRatingNumber();
+
+
+    const fullStars =
+      Math.floor(rating);
+
+
+    return Array.from(
+      {
+        length: fullStars
+      },
+      (_, index) => index
+    );
+
+  }
+
+
+  getEmptyRatingStars(): number[] {
+
+    const rating =
+      this.getRatingNumber();
+
+
+    const emptyStars =
+      5 - Math.floor(rating);
+
+
+    return Array.from(
+      {
+        length: Math.max(
+          0,
+          emptyStars
+        )
+      },
+      (_, index) => index
+    );
+
+  }
+
+
+  // =========================================================
+  // CHECK OPTIONAL CONTENT
+  // =========================================================
+
+  hasInclusions(): boolean {
+
+    return !!(
+      this.tour?.inclusions &&
+      this.tour.inclusions.length
+    );
+
+  }
+
+
+  hasHighlights(): boolean {
+
+    return !!(
+      this.tour?.highlights &&
+      this.tour.highlights.length
+    );
+
+  }
+
+
+  hasEssentials(): boolean {
+
+    return !!(
+      this.tour?.essentials &&
+      this.tour.essentials.length
+    );
+
+  }
+
+
+  hasFeatures(): boolean {
+
+    return !!(
+      this.tour?.features &&
+      this.tour.features.length
+    );
+
+  }
+
+
+  hasItinerary(): boolean {
+
+    return !!(
+      this.tour?.itinerary &&
+      this.tour.itinerary.length
+    );
 
   }
 
