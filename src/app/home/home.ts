@@ -389,7 +389,7 @@ destinations: Destination[] = [
   },
 
   {
-    image: '/img/mnemba.jpeg',
+    image: '/img/mnemba-1.jpeg',
     region: 'ZANZIBAR',
     title: 'Mnemba Island',
     description:
