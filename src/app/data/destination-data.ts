@@ -31,7 +31,7 @@ export const DESTINATIONS: Destination[] = [
 
   {
     slug: 'mnemba-island',
-    image: '/img/mnemba.jpeg',
+    image: '/img/mnemba-1.jpeg',
     region: 'ZANZIBAR',
     title: 'Mnemba Island',
     description:

@@ -18,9 +18,13 @@ import {
 } from '../services/package.service';
 
 
+/* =========================================================
+   ITINERARY MODEL
+========================================================= */
+
 interface ItineraryItem {
 
-  day?: number;
+  day?: number | string;
 
   title?: string;
 
@@ -28,6 +32,10 @@ interface ItineraryItem {
 
 }
 
+
+/* =========================================================
+   TOUR DETAILS MODEL
+========================================================= */
 
 interface TourDetails {
 
@@ -76,6 +84,10 @@ interface TourDetails {
 }
 
 
+/* =========================================================
+   COMPONENT
+========================================================= */
+
 @Component({
 
   selector: 'app-tours-details',
@@ -95,9 +107,9 @@ interface TourDetails {
 export class ToursDetails implements OnInit {
 
 
-  // =========================================================
-  // PAGE
-  // =========================================================
+  /* =======================================================
+     PAGE STATE
+  ======================================================= */
 
   currentYear =
     new Date().getFullYear();
@@ -105,25 +117,25 @@ export class ToursDetails implements OnInit {
   showBackTop = false;
 
 
-  // =========================================================
-  // TOUR
-  // =========================================================
+  /* =======================================================
+     TOUR DATA
+  ======================================================= */
 
   tour?: TourDetails;
 
 
-  // =========================================================
-  // LOADING / ERROR
-  // =========================================================
+  /* =======================================================
+     LOADING / ERROR
+  ======================================================= */
 
   loadingTour = false;
 
   tourError = '';
 
 
-  // =========================================================
-  // CONSTRUCTOR
-  // =========================================================
+  /* =======================================================
+     CONSTRUCTOR
+  ======================================================= */
 
   constructor(
 
@@ -136,9 +148,9 @@ export class ToursDetails implements OnInit {
   ) {}
 
 
-  // =========================================================
-  // INIT
-  // =========================================================
+  /* =======================================================
+     INITIALIZATION
+  ======================================================= */
 
   ngOnInit(): void {
 
@@ -149,9 +161,9 @@ export class ToursDetails implements OnInit {
   }
 
 
-  // =========================================================
-  // LOAD TOUR FROM DATABASE
-  // =========================================================
+  /* =======================================================
+     LOAD TOUR FROM SUPABASE
+  ======================================================= */
 
   private async loadTour(): Promise<void> {
 
@@ -161,10 +173,6 @@ export class ToursDetails implements OnInit {
 
     this.tour = undefined;
 
-
-    /*
-     * Make the loading state available immediately.
-     */
     this.cdr.detectChanges();
 
 
@@ -189,9 +197,10 @@ export class ToursDetails implements OnInit {
     try {
 
       /*
-       * Get the selected active package
-       * directly from Supabase using its slug.
+       * Fetch the selected active package
+       * using its slug.
        */
+
       const packageData =
         await this.packageService.getPackageBySlug(
           slug
@@ -213,9 +222,10 @@ export class ToursDetails implements OnInit {
 
 
       /*
-       * Convert database Package into the
-       * structure used by the Details page.
+       * Map Supabase package data
+       * into the TourDetails model.
        */
+
       this.tour =
         this.mapPackageToTourDetails(
           packageData
@@ -224,21 +234,20 @@ export class ToursDetails implements OnInit {
 
       this.loadingTour = false;
 
-
-      /*
-       * Update the page immediately after
-       * the asynchronous database request.
-       */
       this.cdr.detectChanges();
 
 
       /*
-       * Start from the top whenever a tour
-       * details page is opened.
+       * Scroll to the top when
+       * the details page is opened.
        */
+
       window.scrollTo({
+
         top: 0,
+
         behavior: 'smooth'
+
       });
 
 
@@ -252,13 +261,10 @@ export class ToursDetails implements OnInit {
 
       this.tour = undefined;
 
-
       this.tourError =
         'Unable to load this tour right now. Please try again later.';
 
-
       this.loadingTour = false;
-
 
       this.cdr.detectChanges();
 
@@ -267,9 +273,9 @@ export class ToursDetails implements OnInit {
   }
 
 
-  // =========================================================
-  // MAP PACKAGE → TOUR DETAILS
-  // =========================================================
+  /* =======================================================
+     MAP PACKAGE TO TOUR DETAILS
+  ======================================================= */
 
   private mapPackageToTourDetails(
     item: Package
@@ -279,22 +285,41 @@ export class ToursDetails implements OnInit {
       item.category || 'tour';
 
 
+    /*
+     * Prepare gallery images.
+     */
+
     const gallery =
       Array.isArray(item.gallery)
-        ? item.gallery.filter(Boolean)
+        ? item.gallery.filter(
+            (image): image is string =>
+              typeof image === 'string' &&
+              image.trim().length > 0
+          )
         : [];
 
 
     /*
-     * If Admin did not add gallery images,
-     * use the hero image as a fallback.
+     * Use hero image as gallery fallback
+     * when no gallery images exist.
      */
+
     const finalGallery =
       gallery.length > 0
         ? gallery
         : item.image_url
           ? [item.image_url]
           : [];
+
+
+    /*
+     * Safely normalize itinerary data.
+     */
+
+    const itinerary =
+      this.normalizeItinerary(
+        item.itinerary
+      );
 
 
     return {
@@ -309,7 +334,7 @@ export class ToursDetails implements OnInit {
 
 
       title:
-        item.title,
+        item.title || 'Tour Experience',
 
 
       category:
@@ -317,49 +342,45 @@ export class ToursDetails implements OnInit {
 
 
       categoryLabel:
-        this.getCategoryLabel(
-          category
-        ),
+        this.getCategoryLabel(category),
 
 
       location:
-        item.location ||
-        'Tanzania',
+        item.location || 'Tanzania',
 
 
       duration:
-        item.duration ||
-        '',
+        item.duration || '',
 
 
       price:
-        item.price ||
-        '',
+        item.price || '',
 
 
       childPrice:
-        item.child_price ||
-        '',
+        item.child_price || '',
 
 
       rating:
-        item.rating ||
-        '',
+        item.rating || '',
 
 
       /*
-       * Short description is used as
-       * the main concise description.
+       * Short description.
        */
+
       description:
-        item.short_description ||
-        '',
+        item.short_description || '',
 
 
       /*
-       * Full description is available
-       * for the detailed story section.
+       * Full description fallback order:
+       *
+       * 1. full_description
+       * 2. details
+       * 3. short_description
        */
+
       fullDescription:
         item.full_description ||
         item.details ||
@@ -367,15 +388,16 @@ export class ToursDetails implements OnInit {
         '',
 
 
+      /*
+       * Additional details.
+       */
+
       details:
-        item.details ||
-        '',
+        item.details || '',
 
 
       icon:
-        this.getCategoryIcon(
-          category
-        ),
+        this.getCategoryIcon(category),
 
 
       image:
@@ -387,43 +409,155 @@ export class ToursDetails implements OnInit {
         finalGallery,
 
 
-      features:
-        Array.isArray(item.features)
-          ? item.features
-          : [],
+      /*
+       * Features from Supabase.
+       */
 
+      features:
+        this.normalizeStringArray(
+          item.features
+        ),
+
+
+      /*
+       * Highlights from Supabase.
+       */
 
       highlights:
-        Array.isArray(item.highlights)
-          ? item.highlights
-          : [],
+        this.normalizeStringArray(
+          item.highlights
+        ),
 
+
+      /*
+       * Inclusions from Supabase.
+       */
 
       inclusions:
-        Array.isArray(item.inclusions)
-          ? item.inclusions
-          : [],
+        this.normalizeStringArray(
+          item.inclusions
+        ),
 
+
+      /*
+       * Essentials retained for compatibility.
+       */
 
       essentials:
-        Array.isArray(item.essentials)
-          ? item.essentials
-          : [],
+        this.normalizeStringArray(
+          item.essentials
+        ),
 
+
+      /*
+       * Itinerary from Supabase.
+       */
 
       itinerary:
-        Array.isArray(item.itinerary)
-          ? item.itinerary
-          : []
+        itinerary
 
     };
 
   }
 
 
-  // =========================================================
-  // CATEGORY LABEL
-  // =========================================================
+  /* =======================================================
+     NORMALIZE STRING ARRAYS
+  ======================================================= */
+
+  private normalizeStringArray(
+    value: unknown
+  ): string[] {
+
+    if (!Array.isArray(value)) {
+
+      return [];
+
+    }
+
+
+    return value.filter(
+
+      (item): item is string =>
+
+        typeof item === 'string' &&
+        item.trim().length > 0
+
+    );
+
+  }
+
+
+  /* =======================================================
+     NORMALIZE ITINERARY
+  ======================================================= */
+
+  private normalizeItinerary(
+    value: unknown
+  ): ItineraryItem[] {
+
+    if (!Array.isArray(value)) {
+
+      return [];
+
+    }
+
+
+    return value
+
+      .filter(
+
+        (item): item is Record<string, unknown> =>
+
+          typeof item === 'object' &&
+          item !== null &&
+          !Array.isArray(item)
+
+      )
+
+      .map(
+
+        (item): ItineraryItem => ({
+
+          day:
+            typeof item['day'] === 'number' ||
+            typeof item['day'] === 'string'
+              ? item['day']
+              : undefined,
+
+
+          title:
+            typeof item['title'] === 'string'
+              ? item['title']
+              : '',
+
+
+          desc:
+            typeof item['desc'] === 'string'
+              ? item['desc']
+              : ''
+
+        })
+
+      )
+
+      .filter(
+
+        item =>
+
+          !!(
+            item.title?.trim() ||
+            item.desc?.trim()
+          )
+
+      );
+
+  }
+
+
+  /* =======================================================
+     CATEGORY LABEL
+  ======================================================= */
 
   private getCategoryLabel(
     category: string
@@ -465,9 +599,9 @@ export class ToursDetails implements OnInit {
   }
 
 
-  // =========================================================
-  // CATEGORY ICON
-  // =========================================================
+  /* =======================================================
+     CATEGORY ICON
+  ======================================================= */
 
   private getCategoryIcon(
     category: string
@@ -507,9 +641,9 @@ export class ToursDetails implements OnInit {
   }
 
 
-  // =========================================================
-  // CREATE SLUG FALLBACK
-  // =========================================================
+  /* =======================================================
+     CREATE SLUG FALLBACK
+  ======================================================= */
 
   private createSlug(
     title: string
@@ -533,9 +667,9 @@ export class ToursDetails implements OnInit {
   }
 
 
-  // =========================================================
-  // RATING HELPERS
-  // =========================================================
+  /* =======================================================
+     RATING HELPERS
+  ======================================================= */
 
   getRatingNumber(): number {
 
@@ -546,8 +680,11 @@ export class ToursDetails implements OnInit {
 
 
     if (
+
       Number.isNaN(rating) ||
+
       rating < 0
+
     ) {
 
       return 0;
@@ -565,19 +702,20 @@ export class ToursDetails implements OnInit {
 
   getRatingStars(): number[] {
 
-    const rating =
-      this.getRatingNumber();
-
-
     const fullStars =
-      Math.floor(rating);
+      Math.floor(
+        this.getRatingNumber()
+      );
 
 
     return Array.from(
+
       {
         length: fullStars
       },
+
       (_, index) => index
+
     );
 
   }
@@ -585,86 +723,82 @@ export class ToursDetails implements OnInit {
 
   getEmptyRatingStars(): number[] {
 
-    const rating =
-      this.getRatingNumber();
-
-
     const emptyStars =
-      5 - Math.floor(rating);
+
+      5 -
+      Math.floor(
+        this.getRatingNumber()
+      );
 
 
     return Array.from(
+
       {
         length: Math.max(
           0,
           emptyStars
         )
       },
+
       (_, index) => index
+
     );
 
   }
 
 
-  // =========================================================
-  // CHECK OPTIONAL CONTENT
-  // =========================================================
+  /* =======================================================
+     OPTIONAL CONTENT CHECKS
+  ======================================================= */
 
   hasInclusions(): boolean {
 
-    return !!(
-      this.tour?.inclusions &&
-      this.tour.inclusions.length
-    );
+    return !!this.tour?.inclusions.length;
 
   }
 
 
   hasHighlights(): boolean {
 
-    return !!(
-      this.tour?.highlights &&
-      this.tour.highlights.length
-    );
+    return !!this.tour?.highlights.length;
 
   }
 
 
   hasEssentials(): boolean {
 
-    return !!(
-      this.tour?.essentials &&
-      this.tour.essentials.length
-    );
+    return !!this.tour?.essentials.length;
 
   }
 
 
   hasFeatures(): boolean {
 
-    return !!(
-      this.tour?.features &&
-      this.tour.features.length
-    );
+    return !!this.tour?.features.length;
 
   }
 
 
   hasItinerary(): boolean {
 
-    return !!(
-      this.tour?.itinerary &&
-      this.tour.itinerary.length
-    );
+    return !!this.tour?.itinerary.length;
 
   }
 
 
-  // =========================================================
-  // SCROLL
-  // =========================================================
+  hasDetails(): boolean {
+
+    return !!this.tour?.details.trim();
+
+  }
+
+
+  /* =======================================================
+     SCROLL HANDLING
+  ======================================================= */
 
   @HostListener('window:scroll')
+
   handleScroll(): void {
 
     this.showBackTop =
@@ -672,6 +806,10 @@ export class ToursDetails implements OnInit {
 
   }
 
+
+  /* =======================================================
+     BACK TO TOP
+  ======================================================= */
 
   scrollToTop(): void {
 

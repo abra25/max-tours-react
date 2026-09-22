@@ -1,7 +1,47 @@
-@if (tour) {
+@if (loadingTour) {
+
+  <main class="tour-details-state">
+
+    <div class="state-card">
+
+      <span class="state-spinner"></span>
+
+      <h2>Preparing your experience</h2>
+
+      <p>
+        Please wait while we load your tour details.
+      </p>
+
+    </div>
+
+  </main>
+
+} @else if (tourError) {
+
+  <main class="tour-details-state">
+
+    <div class="state-card error-state">
+
+      <span class="state-icon">
+        <i class="fa-solid fa-map-location-dot"></i>
+      </span>
+
+      <h2>Tour unavailable</h2>
+
+      <p>{{ tourError }}</p>
+
+      <a routerLink="/tours" class="state-button">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to tours
+      </a>
+
+    </div>
+
+  </main>
+
+} @else if (tour) {
 
   <main class="tour-details-page">
-
 
     <!-- =================================================
          HERO
@@ -9,20 +49,14 @@
 
     <section
       class="tour-details-hero"
-      [style.backgroundImage]="
-        'url(' + tour.image + ')'
-      "
+      [style.backgroundImage]="'url(' + tour.image + ')'"
     >
 
       <div class="tour-details-overlay"></div>
 
-
       <div class="tour-details-hero-content">
 
-        <a
-          routerLink="/tours"
-          class="back-tours"
-        >
+        <a routerLink="/tours" class="back-tours">
 
           <i class="fa-solid fa-arrow-left"></i>
 
@@ -43,62 +77,60 @@
         </div>
 
 
-        <h1>
-          {{ tour.title }}
-        </h1>
+        <h1>{{ tour.title }}</h1>
 
 
-        <!-- SHORT DESCRIPTION FROM DATABASE -->
+        @if (tour.description) {
 
-        <p>
-          {{ tour.description }}
-        </p>
+          <p class="hero-description">
+            {{ tour.description }}
+          </p>
+
+        }
 
 
         <!-- HERO META -->
 
         <div class="tour-hero-meta">
 
-          <!-- DURATION -->
+          @if (tour.duration) {
 
-          <div>
+            <div>
 
-            <i class="fa-regular fa-clock"></i>
+              <i class="fa-regular fa-clock"></i>
 
-            <span>
-              {{ tour.duration }}
-            </span>
+              <span>{{ tour.duration }}</span>
 
-          </div>
+            </div>
 
-
-          <!-- LOCATION -->
-
-          <div>
-
-            <i class="fa-solid fa-location-dot"></i>
-
-            <span>
-              {{ tour.location }}
-            </span>
-
-          </div>
+          }
 
 
-          <!-- PRICE -->
+          @if (tour.location) {
 
-          <div>
+            <div>
 
-            <i class="fa-solid fa-tag"></i>
+              <i class="fa-solid fa-location-dot"></i>
 
-            <span>
-              From {{ tour.price }} / person
-            </span>
+              <span>{{ tour.location }}</span>
 
-          </div>
+            </div>
+
+          }
 
 
-          <!-- RATING -->
+          @if (tour.price) {
+
+            <div>
+
+              <i class="fa-solid fa-tag"></i>
+
+              <span>From {{ tour.price }} / person</span>
+
+            </div>
+
+          }
+
 
           @if (tour.rating) {
 
@@ -106,9 +138,7 @@
 
               <i class="fa-solid fa-star"></i>
 
-              <span>
-                {{ tour.rating }}
-              </span>
+              <span>{{ tour.rating }} / 5</span>
 
             </div>
 
@@ -122,7 +152,7 @@
 
 
     <!-- =================================================
-         OVERVIEW
+         MAIN CONTENT + BOOKING
     ================================================= -->
 
     <section class="tour-overview">
@@ -130,101 +160,375 @@
       <div class="tour-overview-container">
 
 
-        <!-- STORY -->
+        <!-- =================================================
+             LEFT CONTENT
+        ================================================= -->
 
         <div class="tour-story">
 
-          <span class="section-eyebrow">
 
-            <span></span>
+          <!-- OVERVIEW -->
 
-            ABOUT THIS EXPERIENCE
+          <section class="tour-content-section tour-introduction">
 
-          </span>
+            <span class="section-eyebrow">
 
+              <span></span>
 
-          <h2>
+              ABOUT THIS EXPERIENCE
 
-            A journey designed
-            <em>for the moment.</em>
-
-          </h2>
+            </span>
 
 
-          <!-- SHORT DESCRIPTION ONLY -->
+            <h2>
 
-          <p>
-            {{ tour.description }}
-          </p>
+              A journey designed
 
+              <em>for the moment.</em>
 
-          <p>
-            Whether you are looking for adventure,
-            culture, relaxation or an authentic local
-            experience, this carefully selected journey
-            gives you the opportunity to discover
-            Tanzania and Zanzibar from a different perspective.
-          </p>
+            </h2>
 
 
-          <div class="tour-story-points">
+            @if (tour.fullDescription) {
 
-            <div>
+              <div class="tour-description-content">
 
-              <span>
-                <i class="fa-solid fa-check"></i>
-              </span>
-
-              <div>
-                <strong>Local expertise</strong>
-
-                <small>
-                  Experience the destination with people
-                  who know it best.
-                </small>
+                <p>{{ tour.fullDescription }}</p>
 
               </div>
 
-            </div>
+            } @else if (tour.description) {
+
+              <p>{{ tour.description }}</p>
+
+            }
 
 
-            <div>
+            <p class="tour-intro-supporting">
 
-              <span>
-                <i class="fa-solid fa-check"></i>
-              </span>
+              Whether you are looking for adventure,
+              culture, relaxation or an authentic local
+              experience, this carefully selected journey
+              gives you the opportunity to discover
+              Tanzania and Zanzibar from a different perspective.
 
-              <div>
-                <strong>Flexible experience</strong>
+            </p>
 
-                <small>
-                  Designed to make your journey comfortable
-                  and enjoyable.
-                </small>
+
+            <!-- EXPERIENCE BENEFITS -->
+
+            <div class="tour-story-points">
+
+
+              <div class="story-point">
+
+                <span class="story-point-icon">
+
+                  <i class="fa-solid fa-check"></i>
+
+                </span>
+
+                <div>
+
+                  <strong>Local expertise</strong>
+
+                  <small>
+                    Experience the destination with people
+                    who know it best.
+                  </small>
+
+                </div>
 
               </div>
 
-            </div>
 
+              <div class="story-point">
 
-            <div>
+                <span class="story-point-icon">
 
-              <span>
-                <i class="fa-solid fa-check"></i>
-              </span>
+                  <i class="fa-solid fa-check"></i>
 
-              <div>
-                <strong>Memorable moments</strong>
+                </span>
 
-                <small>
-                  Discover places and experiences worth remembering.
-                </small>
+                <div>
+
+                  <strong>Flexible experience</strong>
+
+                  <small>
+                    Designed to make your journey comfortable
+                    and enjoyable.
+                  </small>
+
+                </div>
 
               </div>
 
+
+              <div class="story-point">
+
+                <span class="story-point-icon">
+
+                  <i class="fa-solid fa-check"></i>
+
+                </span>
+
+                <div>
+
+                  <strong>Memorable moments</strong>
+
+                  <small>
+                    Discover places and experiences worth remembering.
+                  </small>
+
+                </div>
+
+              </div>
+
+
             </div>
 
-          </div>
+          </section>
+
+
+          <!-- =================================================
+               ADDITIONAL DETAILS
+          ================================================= -->
+
+          @if (tour.details) {
+
+            <section class="tour-content-section tour-additional-details">
+
+              <div class="tour-content-heading">
+
+                <span class="section-eyebrow">
+
+                  <span></span>
+
+                  EXPLORE THE EXPERIENCE
+
+                </span>
+
+                <h3>Additional Details</h3>
+
+                <p>
+                  Everything you need to know about this experience.
+                </p>
+
+              </div>
+
+
+              <div class="additional-details-content">
+
+                <p>{{ tour.details }}</p>
+
+              </div>
+
+            </section>
+
+          }
+
+
+          <!-- =================================================
+               TOUR FEATURES
+          ================================================= -->
+
+          @if (hasFeatures()) {
+
+            <section class="tour-content-section tour-features">
+
+              <div class="tour-content-heading">
+
+                <span class="section-eyebrow">
+
+                  <span></span>
+
+                  WHAT MAKES IT SPECIAL
+
+                </span>
+
+                <h3>Tour Features</h3>
+
+                <p>
+                  Discover the key features of this experience.
+                </p>
+
+              </div>
+
+
+              <div class="features-grid">
+
+                @for (
+                  feature of tour.features;
+                  track $index
+                ) {
+
+                  <div class="feature-card">
+
+                    <span class="feature-icon">
+
+                      <i class="fa-solid fa-compass"></i>
+
+                    </span>
+
+                    <span class="feature-text">
+                      {{ feature }}
+                    </span>
+
+                  </div>
+
+                }
+
+              </div>
+
+            </section>
+
+          }
+
+
+          <!-- =================================================
+               TOUR HIGHLIGHTS
+          ================================================= -->
+
+          @if (hasHighlights()) {
+
+            <section class="tour-content-section tour-highlights">
+
+              <div class="tour-content-heading">
+
+                <span class="section-eyebrow">
+
+                  <span></span>
+
+                  UNFORGETTABLE MOMENTS
+
+                </span>
+
+                <h3>Tour Highlights</h3>
+
+                <p>
+                  Discover the memorable moments waiting for you.
+                </p>
+
+              </div>
+
+
+              <div class="highlights-list">
+
+                @for (
+                  highlight of tour.highlights;
+                  track $index
+                ) {
+
+                  <div class="highlight-item">
+
+                    <span class="highlight-check">
+
+                      <i class="fa-solid fa-check"></i>
+
+                    </span>
+
+                    <span class="highlight-text">
+                      {{ highlight }}
+                    </span>
+
+                  </div>
+
+                }
+
+              </div>
+
+            </section>
+
+          }
+
+
+          <!-- =================================================
+               TOUR ITINERARY
+          ================================================= -->
+
+          @if (hasItinerary()) {
+
+            <section class="tour-content-section tour-itinerary">
+
+              <div class="tour-content-heading">
+
+                <span class="section-eyebrow">
+
+                  <span></span>
+
+                  YOUR JOURNEY, STEP BY STEP
+
+                </span>
+
+                <h3>Tour Itinerary</h3>
+
+                <p>
+                  Explore the planned activities throughout your journey.
+                </p>
+
+              </div>
+
+
+              <div class="itinerary-timeline">
+
+                @for (
+                  item of tour.itinerary;
+                  track $index
+                ) {
+
+                  <article class="itinerary-item">
+
+
+                    <!-- TIMELINE MARKER -->
+
+                    <div class="itinerary-marker">
+
+                      <span class="itinerary-marker-dot"></span>
+
+                    </div>
+
+
+                    <!-- ITINERARY CONTENT -->
+
+                    <div class="itinerary-card">
+
+                      <div class="itinerary-card-top">
+
+                        <span class="itinerary-day">
+
+                          <i class="fa-regular fa-calendar"></i>
+
+                          {{ item.day ? 'Day ' + item.day : 'Step ' + ($index + 1) }}
+
+                        </span>
+
+                      </div>
+
+
+                      @if (item.title) {
+
+                        <h4>{{ item.title }}</h4>
+
+                      }
+
+
+                      @if (item.desc) {
+
+                        <p>{{ item.desc }}</p>
+
+                      }
+
+                    </div>
+
+                  </article>
+
+                }
+
+              </div>
+
+            </section>
+
+          }
 
 
           <!-- =================================================
@@ -233,7 +537,7 @@
 
           @if (hasInclusions()) {
 
-            <div class="tour-inclusions">
+            <section class="tour-content-section tour-inclusions">
 
               <div class="tour-content-heading">
 
@@ -245,9 +549,11 @@
 
                 </span>
 
-                <h3>
-                  Your experience includes
-                </h3>
+                <h3>Your experience includes</h3>
+
+                <p>
+                  Enjoy these inclusions as part of your tour package.
+                </p>
 
               </div>
 
@@ -256,7 +562,7 @@
 
                 @for (
                   inclusion of tour.inclusions;
-                  track inclusion
+                  track $index
                 ) {
 
                   <div class="inclusion-item">
@@ -277,9 +583,10 @@
 
               </div>
 
-            </div>
+            </section>
 
           }
+
 
         </div>
 
@@ -290,33 +597,30 @@
 
         <aside class="tour-booking-card">
 
+
           <span class="booking-card-label">
             PLAN YOUR EXPERIENCE
           </span>
 
 
-          <h3>
-            {{ tour.title }}
-          </h3>
+          <h3>{{ tour.title }}</h3>
 
 
           <!-- ADULT PRICE -->
 
-          <div class="booking-price">
+          @if (tour.price) {
 
-            <small>
-              FROM
-            </small>
+            <div class="booking-price">
 
-            <strong>
-              {{ tour.price }}
-            </strong>
+              <small>FROM</small>
 
-            <span>
-              / adult
-            </span>
+              <strong>{{ tour.price }}</strong>
 
-          </div>
+              <span>/ adult</span>
+
+            </div>
+
+          }
 
 
           <!-- CHILD PRICE -->
@@ -333,9 +637,7 @@
 
               </span>
 
-              <strong>
-                {{ tour.childPrice }}
-              </strong>
+              <strong>{{ tour.childPrice }}</strong>
 
             </div>
 
@@ -370,9 +672,7 @@
 
               </div>
 
-              <span>
-                {{ tour.rating }} / 5
-              </span>
+              <span>{{ tour.rating }} / 5</span>
 
             </div>
 
@@ -382,42 +682,48 @@
           <div class="booking-card-divider"></div>
 
 
+          <!-- TOUR INFORMATION -->
+
           <div class="booking-info">
 
-            <div>
+            @if (tour.duration) {
 
-              <i class="fa-regular fa-clock"></i>
+              <div>
 
-              <span>
-                {{ tour.duration }}
-              </span>
+                <i class="fa-regular fa-clock"></i>
 
-            </div>
+                <span>{{ tour.duration }}</span>
+
+              </div>
+
+            }
 
 
-            <div>
+            @if (tour.location) {
 
-              <i class="fa-solid fa-location-dot"></i>
+              <div>
 
-              <span>
-                {{ tour.location }}
-              </span>
+                <i class="fa-solid fa-location-dot"></i>
 
-            </div>
+                <span>{{ tour.location }}</span>
+
+              </div>
+
+            }
 
 
             <div>
 
               <i class="fa-solid fa-circle-check"></i>
 
-              <span>
-                Available for booking
-              </span>
+              <span>Available for booking</span>
 
             </div>
 
           </div>
 
+
+          <!-- BOOKING BUTTON -->
 
           <a
             routerLink="/booking"
@@ -439,7 +745,9 @@
 
           </span>
 
+
         </aside>
+
 
       </div>
 
@@ -456,6 +764,7 @@
 
         <div class="tour-rates-container">
 
+
           <div class="tour-rates-header">
 
             <span class="section-eyebrow">
@@ -466,9 +775,15 @@
 
             </span>
 
+
             <h2>
-              Simple and clear <em>pricing.</em>
+
+              Simple and clear
+
+              <em>pricing.</em>
+
             </h2>
+
 
             <p>
               View the current rates for this experience before
@@ -481,7 +796,7 @@
           <div class="tour-rates-grid">
 
 
-            <!-- ADULT -->
+            <!-- ADULT RATE -->
 
             @if (tour.price) {
 
@@ -495,17 +810,11 @@
 
                 <div class="rate-content">
 
-                  <span>
-                    Adult
-                  </span>
+                  <span>Adult</span>
 
-                  <strong>
-                    {{ tour.price }}
-                  </strong>
+                  <strong>{{ tour.price }}</strong>
 
-                  <small>
-                    Per person
-                  </small>
+                  <small>Per person</small>
 
                 </div>
 
@@ -514,7 +823,7 @@
             }
 
 
-            <!-- CHILD -->
+            <!-- CHILD RATE -->
 
             @if (tour.childPrice) {
 
@@ -528,17 +837,11 @@
 
                 <div class="rate-content">
 
-                  <span>
-                    Child
-                  </span>
+                  <span>Child</span>
 
-                  <strong>
-                    {{ tour.childPrice }}
-                  </strong>
+                  <strong>{{ tour.childPrice }}</strong>
 
-                  <small>
-                    Child rate
-                  </small>
+                  <small>Child rate</small>
 
                 </div>
 
@@ -547,7 +850,7 @@
             }
 
 
-            <!-- RATING -->
+            <!-- GUEST RATING -->
 
             @if (tour.rating) {
 
@@ -561,17 +864,96 @@
 
                 <div class="rate-content">
 
-                  <span>
-                    Guest Rating
-                  </span>
+                  <span>Guest Rating</span>
 
-                  <strong>
-                    {{ tour.rating }}
-                  </strong>
+                  <strong>{{ tour.rating }}</strong>
 
-                  <small>
-                    Out of 5
-                  </small>
+                  <small>Out of 5</small>
+
+                </div>
+
+              </div>
+
+            }
+
+
+          </div>
+
+        </div>
+
+      </section>
+
+    }
+
+
+    <!-- =================================================
+         GALLERY
+    ================================================= -->
+
+    @if (tour.gallery.length) {
+
+      <section class="tour-details-gallery">
+
+        <div class="tour-gallery-container">
+
+
+          <div class="tour-gallery-header">
+
+            <div>
+
+              <span class="section-eyebrow">
+
+                <span></span>
+
+                VISUAL JOURNEY
+
+              </span>
+
+
+              <h2>
+
+                See the experience
+
+                <em>before you go.</em>
+
+              </h2>
+
+            </div>
+
+
+            <p>
+              A glimpse of the landscapes, people and
+              moments waiting for you on this experience.
+            </p>
+
+          </div>
+
+
+          <!-- GALLERY IMAGES -->
+
+          <div class="tour-gallery-grid">
+
+            @for (
+              image of tour.gallery;
+              track $index
+            ) {
+
+              <div class="tour-gallery-item">
+
+                <img
+                  [src]="image"
+                  [alt]="tour.title + ' - Gallery image ' + ($index + 1)"
+                  loading="lazy"
+                />
+
+
+                <div class="gallery-number">
+
+                  @if ($index < 9) {
+                    0{{ $index + 1 }}
+                  } @else {
+                    {{ $index + 1 }}
+                  }
 
                 </div>
 
@@ -589,90 +971,13 @@
 
 
     <!-- =================================================
-         GALLERY
-    ================================================= -->
-
-    <section class="tour-details-gallery">
-
-      <div class="tour-gallery-container">
-
-
-        <div class="tour-gallery-header">
-
-          <div>
-
-            <span class="section-eyebrow">
-
-              <span></span>
-
-              VISUAL JOURNEY
-
-            </span>
-
-
-            <h2>
-
-              See the experience
-              <em>before you go.</em>
-
-            </h2>
-
-          </div>
-
-
-          <p>
-            A glimpse of the landscapes, people and
-            moments waiting for you on this experience.
-          </p>
-
-        </div>
-
-
-        <!-- GALLERY FROM DATABASE -->
-
-        <div class="tour-gallery-grid">
-
-          @for (
-            image of tour.gallery;
-            track image
-          ) {
-
-            <div class="tour-gallery-item">
-
-              <img
-                [src]="image"
-                [alt]="tour.title"
-                loading="lazy"
-              />
-
-              <div class="gallery-number">
-
-                @if ($index < 9) {
-                  0{{ $index + 1 }}
-                } @else {
-                  {{ $index + 1 }}
-                }
-
-              </div>
-
-            </div>
-
-          }
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
          FINAL CTA
     ================================================= -->
 
     <section class="tour-details-cta">
 
       <div class="tour-cta-inner">
+
 
         <span>
           READY FOR {{ tour.title | uppercase }}?
@@ -682,20 +987,20 @@
         <h2>
 
           Let's make this
+
           <em>journey yours.</em>
 
         </h2>
 
 
         <p>
-
           Contact our local team or start your booking
           today and let us help you plan an unforgettable experience.
-
         </p>
 
 
         <div class="tour-cta-actions">
+
 
           <a
             routerLink="/booking"
@@ -717,6 +1022,7 @@
             Explore Other Tours
 
           </a>
+
 
         </div>
 
@@ -740,6 +1046,7 @@
       <i class="fa-solid fa-arrow-up"></i>
 
     </button>
+
 
   </main>
 
