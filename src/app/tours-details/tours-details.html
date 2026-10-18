@@ -204,6 +204,7 @@
             }
 
 
+            @if (!tour.fullDescription && !tour.description) {
             <p class="tour-intro-supporting">
 
               Whether you are looking for adventure,
@@ -213,6 +214,7 @@
               Tanzania and Zanzibar from a different perspective.
 
             </p>
+            }
 
 
             <!-- EXPERIENCE BENEFITS -->
@@ -441,6 +443,25 @@
 
           }
 
+
+          <!-- ESSENTIALS / WHAT TO BRING -->
+          @if (hasEssentials()) {
+            <section class="tour-content-section tour-essentials">
+              <div class="tour-content-heading">
+                <span class="section-eyebrow"><span></span>BE PREPARED</span>
+                <h3>What to Bring</h3>
+                <p>Helpful essentials for enjoying your tour.</p>
+              </div>
+              <div class="inclusions-grid">
+                @for (essential of tour.essentials; track $index) {
+                  <div class="inclusion-item">
+                    <span class="inclusion-icon"><i class="fa-solid fa-check"></i></span>
+                    <span class="inclusion-text">{{ essential }}</span>
+                  </div>
+                }
+              </div>
+            </section>
+          }
 
           <!-- =================================================
                TOUR ITINERARY
@@ -929,38 +950,25 @@
           </div>
 
 
-          <!-- GALLERY IMAGES -->
-
-          <div class="tour-gallery-grid">
-
-            @for (
-              image of tour.gallery;
-              track $index
-            ) {
-
-              <div class="tour-gallery-item">
-
-                <img
-                  [src]="image"
-                  [alt]="tour.title + ' - Gallery image ' + ($index + 1)"
-                  loading="lazy"
-                />
-
-
-                <div class="gallery-number">
-
-                  @if ($index < 9) {
-                    0{{ $index + 1 }}
-                  } @else {
-                    {{ $index + 1 }}
-                  }
-
-                </div>
-
+          <!-- Accessible automatic gallery slideshow -->
+          <div class="tour-slideshow" (mouseenter)="pauseGallerySlideshow()" (mouseleave)="resumeGallerySlideshow()" (focusin)="pauseGallerySlideshow()" (focusout)="onGalleryFocusOut($event)" role="region" aria-roledescription="carousel" aria-label="Tour image gallery">
+            <div class="tour-slide-frame">
+              @for (image of tour.gallery; track $index) {
+                <img class="tour-slide" [class.is-active]="activeGalleryIndex === $index" [src]="image" [alt]="tour.title + ' - photo ' + ($index + 1)" [attr.aria-hidden]="activeGalleryIndex !== $index" [attr.loading]="$index === 0 ? 'eager' : 'lazy'" />
+              }
+              @if (tour.gallery.length > 1) {
+                <button class="slide-arrow slide-prev" type="button" (click)="previousGalleryImage()" aria-label="Previous photo">&#10094;</button>
+                <button class="slide-arrow slide-next" type="button" (click)="nextGalleryImage()" aria-label="Next photo">&#10095;</button>
+              }
+              <span class="slide-count" aria-live="off">{{ activeGalleryIndex + 1 }} / {{ tour.gallery.length }}</span>
+            </div>
+            @if (tour.gallery.length > 1) {
+              <div class="slide-dots" aria-label="Select gallery photo">
+                @for (image of tour.gallery; track $index) {
+                  <button type="button" class="slide-dot" [class.is-active]="activeGalleryIndex === $index" (click)="goToGalleryImage($index)" [attr.aria-label]="'Show photo ' + ($index + 1)" [attr.aria-current]="activeGalleryIndex === $index ? 'true' : null"></button>
+                }
               </div>
-
             }
-
           </div>
 
         </div>

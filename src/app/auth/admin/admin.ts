@@ -102,6 +102,13 @@ export class Admin implements OnInit {
 
   savingPackage = false;
 
+  // Image editing is staged until Update Package is pressed.
+  readonly maxTourImages = 10; // One hero + up to nine gallery images
+  galleryReplacements = new Map<string, File>();
+  galleryPreviews = new Map<string, string>();
+  selectedHeroPreview = '';
+
+
   packageEditorMessage = '';
 
   packageEditorMessageType:
@@ -554,6 +561,7 @@ export class Admin implements OnInit {
     this.packageEditorMessageType = '';
 
     this.clearFileInputs();
+    this.clearImagePreviews();
 
     this.refreshView();
 
@@ -563,6 +571,77 @@ export class Admin implements OnInit {
   // =========================================================
   // CLEAR FILE INPUTS
   // =========================================================
+
+  get galleryImages(): string[] {
+    return this.parseLines(this.packageForm.gallery);
+  }
+
+  getGalleryPreview(url: string): string {
+    return this.galleryPreviews.get(url) || url;
+  }
+
+  onHeroImageSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+    try {
+      this.validateImageFile(file);
+      if (this.selectedHeroPreview) URL.revokeObjectURL(this.selectedHeroPreview);
+      this.selectedHeroPreview = URL.createObjectURL(file);
+      this.packageEditorMessage = 'New hero selected. Save the package to apply changes.';
+      this.packageEditorMessageType = '';
+    } catch (error) {
+      this.packageEditorMessage = (error as Error).message;
+      this.packageEditorMessageType = 'error';
+      (event.target as HTMLInputElement).value = '';
+    }
+    this.refreshView();
+  }
+
+  onGalleryReplacement(event: Event, url: string): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    try {
+      this.validateImageFile(file);
+      const previous = this.galleryPreviews.get(url);
+      if (previous) URL.revokeObjectURL(previous);
+      this.galleryReplacements.set(url, file);
+      this.galleryPreviews.set(url, URL.createObjectURL(file));
+      this.packageEditorMessage = 'Replacement selected. Save the package to apply changes.';
+      this.packageEditorMessageType = '';
+    } catch (error) {
+      this.packageEditorMessage = (error as Error).message;
+      this.packageEditorMessageType = 'error';
+    }
+    input.value = '';
+    this.refreshView();
+  }
+
+  removeGalleryImage(url: string): void {
+    this.packageForm.gallery = this.galleryImages.filter(image => image !== url).join('\n');
+    this.galleryReplacements.delete(url);
+    const preview = this.galleryPreviews.get(url);
+    if (preview) URL.revokeObjectURL(preview);
+    this.galleryPreviews.delete(url);
+    this.refreshView();
+  }
+
+  moveGalleryImage(index: number, direction: number): void {
+    const images = this.galleryImages;
+    const target = index + direction;
+    if (target < 0 || target >= images.length) return;
+    [images[index], images[target]] = [images[target], images[index]];
+    this.packageForm.gallery = images.join('\n');
+    this.refreshView();
+  }
+
+  private clearImagePreviews(): void {
+    if (this.selectedHeroPreview) URL.revokeObjectURL(this.selectedHeroPreview);
+    this.selectedHeroPreview = '';
+    for (const preview of this.galleryPreviews.values()) URL.revokeObjectURL(preview);
+    this.galleryPreviews.clear();
+    this.galleryReplacements.clear();
+  }
 
   private clearFileInputs(): void {
 
@@ -721,6 +800,8 @@ export class Admin implements OnInit {
   // =========================================================
 
   editPackage(pkg: Package): void {
+
+    this.clearImagePreviews();
 
     this.packageForm = {
 
@@ -1107,6 +1188,12 @@ export class Admin implements OnInit {
   // PACKAGE SAVE
   // =========================================================
 
+  private async uploadHeroImageAsGallery(file: File): Promise<string> {
+    this.packageEditorMessage = 'Uploading replacement gallery image...';
+    this.refreshView();
+    return this.packageService.uploadPackageImage(file, 'gallery');
+  }
+
   async savePackage(): Promise<void> {
 
     if (this.savingPackage) {
@@ -1166,6 +1253,15 @@ export class Admin implements OnInit {
           this.packageForm.gallery
         );
 
+        const newFiles = this.getSelectedGalleryFiles();
+        if (galleryUrls.length + newFiles.length + 1 > this.maxTourImages) {
+          throw new Error(`Maximum ${this.maxTourImages} images per tour (1 hero + 9 gallery). Remove extra images before saving.`);
+        }
+        // Validate all files before starting uploads.
+        for (const file of newFiles) this.validateImageFile(file);
+        for (const file of this.galleryReplacements.values()) this.validateImageFile(file);
+
+
 
       // -------------------------------------------------------
       // HERO IMAGE
@@ -1210,6 +1306,13 @@ export class Admin implements OnInit {
 
       }
 
+
+        // Apply individual replacements while keeping gallery ordering.
+        for (let index = 0; index < galleryUrls.length; index++) {
+          const original = galleryUrls[index];
+          const file = this.galleryReplacements.get(original);
+          if (file) galleryUrls[index] = await this.uploadHeroImageAsGallery(file);
+        }
 
       // -------------------------------------------------------
       // FINAL PAYLOAD

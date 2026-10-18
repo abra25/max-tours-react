@@ -2,10 +2,12 @@ import {
   ChangeDetectorRef,
   Component,
   HostListener,
-  OnInit
+  OnInit,
+  OnDestroy
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import {
   ActivatedRoute,
@@ -104,7 +106,7 @@ interface TourDetails {
   templateUrl: './tours-details.html'
 
 })
-export class ToursDetails implements OnInit {
+export class ToursDetails implements OnInit, OnDestroy {
 
 
   /* =======================================================
@@ -122,6 +124,81 @@ export class ToursDetails implements OnInit {
   ======================================================= */
 
   tour?: TourDetails;
+  activeGalleryIndex = 0;
+  private galleryTimer?: ReturnType<typeof setInterval>;
+  private readonly galleryIntervalMs = 2500;
+  private routeSubscription?: Subscription;
+  private requestId = 0;
+  private galleryPaused = false;
+  private destroyed = false;
+
+  ngOnDestroy(): void {
+    this.destroyed = true;
+    this.requestId++;
+    this.routeSubscription?.unsubscribe();
+    this.stopGallerySlideshow();
+  }
+
+  private startGallerySlideshow(): void {
+    this.stopGallerySlideshow();
+    if (this.galleryPaused || this.destroyed ||
+        (typeof document !== 'undefined' && document.hidden) ||
+        (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    if ((this.tour?.gallery.length ?? 0) > 1) {
+      this.galleryTimer = setInterval(() => this.nextGalleryImage(false), this.galleryIntervalMs);
+    }
+  }
+
+  stopGallerySlideshow(): void {
+    if (this.galleryTimer !== undefined) clearInterval(this.galleryTimer);
+    this.galleryTimer = undefined;
+  }
+
+  pauseGallerySlideshow(): void {
+    this.galleryPaused = true;
+    this.stopGallerySlideshow();
+  }
+
+  resumeGallerySlideshow(): void {
+    this.galleryPaused = false;
+    this.startGallerySlideshow();
+  }
+
+  onGalleryFocusOut(event: FocusEvent): void {
+    const element = event.currentTarget as HTMLElement | null;
+    const next = event.relatedTarget as Node | null;
+    if (!element || !next || !element.contains(next)) this.resumeGallerySlideshow();
+  }
+
+  @HostListener('document:visibilitychange')
+  onDocumentVisibilityChange(): void {
+    if (document.hidden) this.stopGallerySlideshow();
+    else this.startGallerySlideshow();
+  }
+
+  nextGalleryImage(restart = true): void {
+    const length = this.tour?.gallery.length ?? 0;
+    if (length < 2) return;
+    this.activeGalleryIndex = (this.activeGalleryIndex + 1) % length;
+    if (restart) this.startGallerySlideshow();
+    this.cdr.detectChanges();
+  }
+
+  previousGalleryImage(): void {
+    const length = this.tour?.gallery.length ?? 0;
+    if (length < 2) return;
+    this.activeGalleryIndex = (this.activeGalleryIndex - 1 + length) % length;
+    this.startGallerySlideshow();
+    this.cdr.detectChanges();
+  }
+
+  goToGalleryImage(index: number): void {
+    const length = this.tour?.gallery.length ?? 0;
+    if (index < 0 || index >= length) return;
+    this.activeGalleryIndex = index;
+    this.startGallerySlideshow();
+    this.cdr.detectChanges();
+  }
 
 
   /* =======================================================
@@ -156,7 +233,9 @@ export class ToursDetails implements OnInit {
 
     this.handleScroll();
 
-    this.loadTour();
+    this.routeSubscription = this.route.paramMap.subscribe(params => {
+      void this.loadTour(params.get('slug'));
+    });
 
   }
 
@@ -165,19 +244,18 @@ export class ToursDetails implements OnInit {
      LOAD TOUR FROM SUPABASE
   ======================================================= */
 
-  private async loadTour(): Promise<void> {
+  private async loadTour(slug: string | null): Promise<void> {
+    const currentRequest = ++this.requestId;
 
     this.loadingTour = true;
 
     this.tourError = '';
 
     this.tour = undefined;
+    this.stopGallerySlideshow();
 
     this.cdr.detectChanges();
 
-
-    const slug =
-      this.route.snapshot.paramMap.get('slug');
 
 
     if (!slug) {
@@ -207,6 +285,8 @@ export class ToursDetails implements OnInit {
         );
 
 
+      if (currentRequest !== this.requestId || this.destroyed) return;
+
       if (!packageData) {
 
         this.tourError =
@@ -233,6 +313,9 @@ export class ToursDetails implements OnInit {
 
 
       this.loadingTour = false;
+      this.activeGalleryIndex = 0;
+      this.galleryPaused = false;
+      this.startGallerySlideshow();
 
       this.cdr.detectChanges();
 
@@ -252,6 +335,7 @@ export class ToursDetails implements OnInit {
 
 
     } catch (error) {
+      if (currentRequest !== this.requestId || this.destroyed) return;
 
       console.error(
         'Failed to load tour details:',
@@ -289,27 +373,16 @@ export class ToursDetails implements OnInit {
      * Prepare gallery images.
      */
 
-    const gallery =
-      Array.isArray(item.gallery)
-        ? item.gallery.filter(
-            (image): image is string =>
-              typeof image === 'string' &&
-              image.trim().length > 0
-          )
-        : [];
-
-
-    /*
-     * Use hero image as gallery fallback
-     * when no gallery images exist.
-     */
-
-    const finalGallery =
-      gallery.length > 0
-        ? gallery
-        : item.image_url
-          ? [item.image_url]
-          : [];
+    // One hero plus up to nine gallery photos, matching the Admin limit.
+    // Older packages may contain extra gallery URLs: we display the first nine
+    // without modifying or deleting anything in Supabase.
+    const hero = typeof item.image_url === 'string' ? item.image_url.trim() : '';
+    const gallery = Array.isArray(item.gallery)
+      ? item.gallery.filter((image): image is string =>
+          typeof image === 'string' && image.trim().length > 0)
+          .map(image => image.trim())
+      : [];
+    const finalGallery = [...new Set([hero, ...gallery].filter(Boolean))].slice(0, 10);
 
 
     /*
@@ -383,7 +456,6 @@ export class ToursDetails implements OnInit {
 
       fullDescription:
         item.full_description ||
-        item.details ||
         item.short_description ||
         '',
 

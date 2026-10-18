@@ -1260,6 +1260,7 @@
                 accept="image/*"
                 class="file-input"
                 #heroImageInput
+                (change)="onHeroImageSelected($event)"
               />
 
               <button
@@ -1268,7 +1269,7 @@
                 (click)="heroImageInput.click()"
               >
                 <i class="fa-solid fa-cloud-arrow-up"></i>
-                Choose Hero Image
+                {{ editingPackage ? 'Replace Hero Image' : 'Choose Hero Image' }}
               </button>
 
               <small>
@@ -1283,11 +1284,11 @@
           <!-- CURRENT HERO -->
           <div
             class="current-image"
-            *ngIf="packageForm.image_url"
+            *ngIf="packageForm.image_url || selectedHeroPreview"
           >
 
             <img
-              [src]="packageForm.image_url"
+              [src]="selectedHeroPreview || packageForm.image_url"
               [alt]="packageForm.title || 'Package image'"
             />
 
@@ -1339,7 +1340,7 @@
               </button>
 
               <small>
-                You can select multiple images at once.
+                You can select multiple images at once. Existing images remain until you save changes.
               </small>
 
             </div>
@@ -1347,27 +1348,29 @@
           </div>
 
 
-          <!-- EXISTING GALLERY -->
-          <div
-            class="form-group"
-            *ngIf="editingPackage && packageForm.gallery"
-          >
-
-            <label>
-              Existing Gallery
-            </label>
-
-            <textarea
-              [(ngModel)]="packageForm.gallery"
-              name="gallery"
-              rows="4"
-              readonly
-            ></textarea>
-
+          <!-- Editable gallery: controls stage changes until package save -->
+          <div class="gallery-manager">
+            <div class="gallery-manager-heading">
+              <strong>Gallery Manager ({{ galleryImages.length }} / {{ maxTourImages - 1 }})</strong>
+              <small>Maximum 10 images total: 1 hero + 9 gallery. Replace, remove or reorder images before saving.</small>
+            </div>
+            <div class="gallery-edit-grid" *ngIf="galleryImages.length">
+              <div class="gallery-edit-item" *ngFor="let image of galleryImages; let i = index">
+                <img [src]="getGalleryPreview(image)" [alt]="'Gallery image ' + (i + 1)" loading="lazy" />
+                <div class="gallery-edit-buttons">
+                  <label class="gallery-edit-action">
+                    <input type="file" accept="image/jpeg,image/png,image/webp" (change)="onGalleryReplacement($event, image)" />
+                    Replace
+                  </label>
+                  <button type="button" class="gallery-edit-action" (click)="moveGalleryImage(i, -1)" [disabled]="i === 0" aria-label="Move image left">←</button>
+                  <button type="button" class="gallery-edit-action" (click)="moveGalleryImage(i, 1)" [disabled]="i === galleryImages.length - 1" aria-label="Move image right">→</button>
+                  <button type="button" class="gallery-edit-action gallery-edit-remove" (click)="removeGalleryImage(image)">Remove</button>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
-
 
 
         <!-- DESCRIPTIONS -->

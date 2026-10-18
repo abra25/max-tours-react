@@ -2692,3 +2692,15 @@ tbody tr:hover td {
   }
 
 }
+/* Gallery editor: scoped extension, preserving existing admin layout. */
+.gallery-manager { margin-top: 20px; }
+.gallery-manager-heading { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+.gallery-manager-heading small { color:#667773; }
+.gallery-edit-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; }
+.gallery-edit-item { padding:9px; border:1px solid #dce5e1; border-radius:12px; background:#fff; }
+.gallery-edit-item > img { width:100%; height:130px; object-fit:cover; border-radius:8px; display:block; }
+.gallery-edit-buttons { display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin-top:9px; }
+.gallery-edit-action { font:inherit; font-size:12px; cursor:pointer; padding:6px 8px; background:#eef4f1; border:1px solid #cad9d1; border-radius:6px; color:#173e31; }
+.gallery-edit-action input { display:none; }
+.gallery-edit-action:disabled { opacity:.35; cursor:not-allowed; }
+.gallery-edit-remove { color:#9f2533; background:#fff3f3; }

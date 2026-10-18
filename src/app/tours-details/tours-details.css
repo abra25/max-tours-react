@@ -1835,3 +1835,27 @@
     transition-duration: 0.01ms !important;
   }
 }
+/* Tour gallery slideshow: overrides only the former gallery grid area. */
+.tour-slideshow { max-width:100%; margin-top:25px; }
+.tour-slide-frame { position:relative; overflow:hidden; border-radius:22px; height:clamp(290px,52vw,570px); background:#092f43; }
+.tour-slide { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .75s ease; pointer-events:none; }
+.tour-slide.is-active { opacity:1; }
+.slide-arrow { position:absolute; z-index:3; top:50%; transform:translateY(-50%); width:44px; height:44px; border:1px solid #ffffff77; border-radius:50%; background:#082b41aa; color:#fff; font-size:22px; cursor:pointer; }
+.slide-prev { left:18px; }.slide-next { right:18px; }
+.slide-count { position:absolute; z-index:3; right:18px; bottom:16px; background:#092b44bb; color:#fff; padding:7px 12px; border-radius:22px; font-size:13px; }
+.slide-dots { display:flex; justify-content:center; flex-wrap:wrap; gap:9px; margin-top:18px; }
+.slide-dot { border:0; border-radius:50%; width:10px; height:10px; padding:0; background:#c1d2d7; cursor:pointer; }
+.slide-dot.is-active { width:26px; border-radius:10px; background:#0e746c; }
+@media (prefers-reduced-motion: reduce) { .tour-slide { transition:none; } }
+@media (max-width:600px) { .slide-arrow { width:36px; height:36px; }.slide-prev { left:8px; }.slide-next { right:8px; } }
+
+/* Tour gallery refinements: retain the established navy/orange palette. */
+.tour-slide-frame { isolation:isolate; box-shadow: 0 18px 45px rgba(8,43,76,.13); }
+.tour-slide { z-index:0; }
+.tour-slide.is-active { z-index:1; }
+.slide-arrow, .slide-count { z-index:2; }
+.slide-arrow { transition: background .2s ease, border-color .2s ease; }
+.slide-arrow:hover { background:var(--orange); border-color:var(--orange); }
+.slide-dot.is-active { background:var(--orange); }
+.slide-dot:focus-visible, .slide-arrow:focus-visible { outline:3px solid var(--orange); outline-offset:4px; }
+@media (max-width:600px) { .tour-slide-frame { height:clamp(250px,65vw,380px); border-radius:16px; } }
