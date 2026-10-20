@@ -230,17 +230,17 @@
 
           <form
             class="login-form"
-            (ngSubmit)="login()"
+            (submit)="$event.preventDefault()"
             #loginForm="ngForm"
           >
 
 
-            <!-- USERNAME -->
+            <!-- ADMIN EMAIL -->
 
             <div class="form-group">
 
-              <label for="username">
-                Username
+              <label for="email">
+                Admin Email
               </label>
 
               <div class="input-wrapper">
@@ -250,12 +250,12 @@
                 </div>
 
                 <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  [(ngModel)]="username"
-                  placeholder="your@usename"
-                  autocomplete="username"
+                  id="email"
+                  name="email"
+                  type="email"
+                  [(ngModel)]="email"
+                  placeholder="admin@example.com"
+                  autocomplete="email"
                   required
                   [disabled]="isLoggingIn"
                 />
@@ -359,8 +359,9 @@
             <!-- LOGIN BUTTON -->
 
             <button
-              type="submit"
+              type="button"
               class="login-button"
+              (click)="login()"
               [disabled]="isLoggingIn || loginForm.invalid"
             >
 

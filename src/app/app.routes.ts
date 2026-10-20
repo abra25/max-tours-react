@@ -1,4 +1,7 @@
+import { adminAuthGuard } from './auth/auth.guard';
 import { Routes } from '@angular/router';
+import { Login } from './auth/login/login';
+import { Admin } from './auth/admin/admin';
 
 export const routes: Routes = [
   {
@@ -77,17 +80,12 @@ export const routes: Routes = [
   // ADMIN
   {
     path: 'admin-login',
-    loadComponent: () =>
-      import('./auth/login/login').then(
-        m => m.Login
-      )  
+    component: Login
   },
   {
-    path:'admin',
-    loadComponent: () =>
-      import('./auth/admin/admin').then(
-        m => m.Admin
-      )
+    path: 'admin',
+    canActivate: [adminAuthGuard],
+    component: Admin
   },
 
   {

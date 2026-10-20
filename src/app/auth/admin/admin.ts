@@ -17,6 +17,7 @@ import {
 } from '../../services/package.service';
 
 import { supabaseClient } from '../../lib/supabase';
+import { AdminAuthService } from '../../services/admin-auth.service';
 
 
 @Component({
@@ -219,6 +220,7 @@ export class Admin implements OnInit {
   constructor(
     private readonly packageService: PackageService,
     private readonly router: Router,
+    private readonly adminAuth: AdminAuthService,
     private readonly cdr: ChangeDetectorRef
   ) {}
 
@@ -228,31 +230,27 @@ export class Admin implements OnInit {
   // =========================================================
 
   async ngOnInit(): Promise<void> {
+    // The route guard checks access before navigation. Verify the same
+    // Supabase session here (the Auth service reuses its short-lived result).
+    // Do not read max_admin_logged_in: the legacy flag is not an auth session.
+    try {
+      const allowed = await this.adminAuth.isAdmin();
 
-    const loggedIn =
-      localStorage.getItem(
-        'max_admin_logged_in'
-      );
+      if (!allowed) {
+        await this.router.navigateByUrl('/admin-login', { replaceUrl: true });
+        return;
+      }
 
-    if (loggedIn !== 'true') {
+      this.adminUser =
+        (await this.adminAuth.currentAdminEmail()) || '@maxtours';
 
-      await this.router.navigate([
-        '/admin-login'
-      ]);
-
-      return;
+      await this.loadDashboard();
+      this.refreshView();
+    } catch (error) {
+      console.error('Unable to initialize admin session:', error);
+      await this.router.navigateByUrl('/admin-login', { replaceUrl: true });
     }
-
-    this.adminUser =
-      localStorage.getItem(
-        'max_admin_user'
-      ) || '@maxtours';
-
-    await this.loadDashboard();
-
-    this.refreshView();
   }
-
 
   // =========================================================
   // CHANGE DETECTION
@@ -388,21 +386,32 @@ export class Admin implements OnInit {
   // LOGOUT
   // =========================================================
 
-  async logout(): Promise<void> {
 
-    localStorage.removeItem(
-      'max_admin_logged_in'
-    );
+async logout(): Promise<void> {
+  try {
+    // End the actual Supabase session
+    await this.adminAuth.signOut();
 
-    localStorage.removeItem(
-      'max_admin_user'
-    );
+    // Clear old login data
+    localStorage.removeItem('max_admin_logged_in');
+    localStorage.removeItem('max_admin_user');
 
-    await this.router.navigate([
-      '/admin-login'
-    ]);
+    // Remove sensitive data from the Admin component
+    this.allBookings = [];
+    this.allPackages = [];
+    this.recentBookings = [];
+    this.selectedPackage = null;
 
+    // Replace current history entry
+    await this.router.navigateByUrl('/admin-login', {
+      replaceUrl: true
+    });
+
+  } catch (error) {
+    console.error('Admin logout failed:', error);
+    window.alert('Could not log out. Please try again.');
   }
+}
 
 
   // =========================================================
@@ -689,6 +698,7 @@ export class Admin implements OnInit {
     document.body.style.overflow = '';
 
     this.clearFileInputs();
+    this.clearImagePreviews();
 
     this.refreshView();
 
