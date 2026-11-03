@@ -3512,7 +3512,7 @@
 
 
   .about-image-wrap {
-    height: 570px;
+    height: 400px;
   }
 
 
@@ -3583,7 +3583,7 @@
 
 
   .about-image-wrap {
-    height: 560px;
+    height: 360px;
   }
 
 
@@ -3650,7 +3650,7 @@
   .about-image-wrap {
     height:
       min(
-        500px,
+        350px,
         125vw
       );
 
@@ -3893,7 +3893,7 @@
 
 
   .about-image-wrap {
-    height: 430px;
+    height: 330px;
   }
 
 
